@@ -1,0 +1,78 @@
+/*-- scss:defaults --*/
+
+$font-family-sans-serif: system-ui, -apple-system, Arial !default;
+$font-size-root: 14.5px !default;
+$h1-font-size: 1.4rem !default;
+$h2-font-size: 1.2rem !default;
+$h3-font-size: 1.0rem !default;
+
+// Base document colors
+$primary: #637238 !default;
+$body-bg: #FFFFFF !default;
+$body-color: #000000 !default;
+$body-text-align: justify !default;
+
+$link-color: #A67D3D !default;
+$btn-code-copy-color-active: #A67D3D !default;
+
+$line-height-base: 1.7 !default;
+$line-height-sm:  1.25 !default;
+$line-height-lg:     2 !default;
+
+
+/*-- scss:rules --*/
+
+.sidebar-title {
+  color: #A67D3D;
+}
+
+div.sidebar-item-container .active {
+  font-weight: bold;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active{
+  font-weight: bold;
+}
+
+img.quarto-cover-image {
+  box-shadow: 0.1rem 0.1rem rgba(0,0,0,.15);
+}
+
+/* Headings ------------------------------------------------------ */
+
+#title-block-header.quarto-title-block.default .quarto-title h1.title {
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+h3 { margin-top: 1.5em; font-size: 1.2rem; font-weight: 500; }
+h4 { margin-top: 1.5em; font-size: 1.1rem; }
+h5 { margin-top: 1.5em; font-size: 1rem; }
+
+.quarto-section-identifier {
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Code ------------------------------------------------ */
+
+// Code blocks
+
+code {
+  color: #000000;
+}
+
+code a:any-link {
+  text-decoration: underline;
+  text-decoration-color: #CCCCCC;
+}
+
+pre {
+  background-image: linear-gradient(160deg,#f8f8f8 0,#f1f1f1 100%);
+}

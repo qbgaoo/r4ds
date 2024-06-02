@@ -1,0 +1,342 @@
+# 引言 {#sec-intro .unnumbered}
+
+```{r}
+#| echo: false
+
+source("_common.R")
+```
+
+数据科学是一门激动人心的学科，它允许你将原始数据转化为理解、洞察力和知识。《
+R数据科学》的目标是帮助你学习R中最重要的工具，这些工具将使你能够高效且可复现地进行数据科学工作，并在这个过程中享受乐趣😊。读
+完这本书后，你将拥有运用R最佳部分来应对各种数据科学挑战的工具。
+
+## 你将学到什么
+
+数据科学范围广阔，不可能通过读一本书就完全掌握。本
+书的目的旨在为你学习R这个重要工具提供坚实和足够的基础知识，以便在必要时可以找到进一步学习的资源。典
+型的数据科学项目包含的步骤大致如 @fig-ds-diagram 所示。
+
+```{r}
+#| label: fig-ds-diagram
+#| echo: false
+#| fig-cap: |
+#|   在数据科学过程模型中，首先进行数据导入和整理。接下来，通过迭代循环的转换、
+#|   可视化和建模来理解数据。最后，通过与他人交流结果来完成整个过程。
+#| fig-alt: |
+#|   一个展示数据科学周期的图形：导入 -> 整齐 -> 理解（包括转换 -> 可视化 -> 
+#|   建模的循环）-> 交流。交流贯穿于各个过程。
+#| out.width: NULL
+
+knitr::include_graphics("diagrams/data-science/base.png", dpi = 270)
+```
+
+首先，必须将数据导入 (**import** ) R中。
+这通常意味着你需要从文件、数据库或Web应用程序接口 (API) 中获取数据，并将其加载到R的一个数据框中。如
+果无法将数据导入R，就无法在其上开展数据科学工作！
+
+一旦导入了数据，还需对其进行整齐 (**tidy**)。整
+齐数据意味着以统一的形式存储数据，使数据集的语义与其存储方式相匹配。简
+而言之，当数据整齐时，每一列都是一个变量，每一行都是一个观测值。整
+齐的数据很重要，因为结构一致使你可以将精力集中在回答有关数据的问题上，而不是努力将数据转换成适合不同功能的正确形式。
+
+当数据整齐完成后，通常下一步是数据转换 (**transform**)。转
+换包括缩小感兴趣的观察值的范围(如一个城市的所有人或去年的所有数据)、根据现有变量创建新变量(如根据距离和时间计算速度)，以及计算一组数据的统计量(如计数或平均值)。整
+齐和转换统称为数据清洗 (wrangling) 因为将数据以自然的形式处理通常感觉像是一场战斗!
+
+当有了由所需变量组成的整齐数据后，就可利用两个主要的知识生成引擎:可视化和建模。它
+们的优缺点互补，因此任何数据分析都可反复利用它们。
+
+可视化 (**Visualization**) 是一项基本的人类活动。一
+个好的可视化会显示你没有预料到的东西，或者提出关于数据的新问题。一
+个好的可视化还可能暗示你问错了问题，或者你需要收集不同的数据。可
+视化可能会让你感到惊讶，但它们的扩展性并不强，因为它们需要人来解释。
+
+建模 (**Models**) 是对可视化的补充。一
+旦你的问题足够精准，你就可以用一个模型来回答。模
+型基本上是数学或计算工具，因此它们通常具有良好的可扩展性。即
+使模型扩展性不佳，买更多的电脑通常比买更多的大脑要便宜！但
+每个模型都需要做假设，而且就其本质而言，模型不能质疑自己的假设。这
+意味着一个模型不能从根本上给你带来惊喜。
+
+数据科学的最后一步是交流 (**communication**)，这是每个数据分析项目中绝对重要的步骤。除
+非你能够与他人交流你的结果，否则无论模型和可视化如何帮助你很好地理解数据都无足轻重。
+
+围绕所有这些工具的是编程 (**programming**)。编
+程是一种综合工具，在数据科学项目的几乎每个部分都要用到。要
+成为一名成功的数据科学家，你不需要成为一名专业的程序员，但是学习更多的编程知识是值得的，因为成为一名好的程序员可以让你解决常规问题自动化，并使解决新问题变得更轻松。
+
+你将在每个数据科学项目中用到这些工具，但对大多数项目来说这些工具还不够。这
+里有一个大致的80/20规则：你可以使用你在本书中学到的工具来解决项目中大约80%的问题，但剩下的20%需要其他工具来处理。在
+本书中我们将为你提供了解更多信息的资源。
+
+## 本书的组织结构
+
+前面关于数据科学工具的描述大致上是按照数据分析中使用的顺序组织的 (当然，你会多次重复这个过程)。然
+而，根据我们的经验，首先学习数据导入和整理是次优的，因为80%的时间是常规的且无聊的，而另外20%的时间是不寻常且令人沮丧的。这
+不是学习新学科的好起点！相
+反，我们将从已经导入和整理的数据的可视化和转换开始。这
+样，当你处理和整理自己的数据时，你的动力就会保持高涨，因为你知道痛苦是值得的。
+
+在每一章中，我们尽量遵循一个一致的模式：从一些鼓舞人心的例子开始，让你可以看到更大的图景，然后再深入到细节中。书
+中的每一部分都配有练习来帮助你练习所学的知识。虽
+然跳过练习很有诱惑力，但没有比在实际问题上练习更好的学习方法了。
+
+## 学不到的内容
+
+有几个重要的主题这本书没有涉及。我
+们认为坚持不懈地专注于最基本的东西是很重要的，这样你就能尽快开始行动。这
+也表明这本书不可能涵盖每一个重要主题。
+
+### 建模
+
+对于数据科学来说建模是非常重要的，但这是一个很大的主题。而
+不幸的是，我们没有足够的空间在这里给予它应有的篇幅。要
+了解更多关于建模的知识，我们强烈推荐由我们的同事Max Kuhn和Julia Silge的编写的[Tidy Modeling with R](https://www.tmwr.org) 。本
+书将向你介绍tidymodels包家族，正如你从名称中猜到的那样，它与我们在本书中使用的tidyverse包共享许多约定。
+
+### 大数据
+
+本书主要关注小型内存数据集。这
+是一个正确的起点，因为只有在你具备处理小数据的经验后，才能处理大数据。本
+书大部分内容所提供的工具都可以用来轻松处理数百兆字节的数据，稍加注意它们甚至可以处理几GB的数据。我
+们还将向你展示如何从数据库和*Parquet*文件中获取数据，这两种文件通常用于存储大数据。你
+不一定能够处理整个数据集，但这不是问题，因为你只需要一个子集或者子样本来回答你感兴趣的问题。
+
+如果你经常需要处理更大的数据 (比如说10-100GB)，我们建议你进一步了解 [data.table](https://github.com/Rdatatable/data.table)。我
+们在这里不做讲解，因为它使用的接口与tidyverse不同，需要学习一些不同的约定。然
+而它的速度非常快，如果你正在处理大数据，那么它的优异性能表现值得你投入一些时间来学习它。
+
+### Python、Julia和其他编程语言
+
+在这本书中，你不会学到任何关于Python、Julia或其他对数据科学有用的编程语言的知识。这
+并不是因为我们认为这些工具不好，它们很优秀！在
+实践中，大多数数据科学团队使用混合语言，通常至少是R和Python。但
+我们坚信，最好一次只掌握一种工具，R就是一个很好的起点。
+
+## 预备知识
+
+为了让你从这本书中获得最大的收益，我们对你已经知道的内容做了一些假设。你
+应该对数字有一定的了解，如果你已经有一些基本的编程经验，那将会很有帮助。如
+果你以前从未编过程，你会发现Garrett编写的[Hands on Programming with R](https://rstudio-education.github.io/hopr/) 是这本书的一个有益补充。
+
+运行这本书中的代码，你需要四样东西：R、RStudio，一个名为tidyverse的R包集合以及其他几个包。包
+是可重现R代码的基本单元。它
+们包括可重用的函数、描述如何使用它们的文档以及样本数据。
+
+### R
+
+要下载R，请访问CRAN (the **c**omprehensive **R** **a**rchive **n**etwork) <https://cloud.r-project.org>。R
+新的主要版本每年发布一次，也会发布2-3个次要版本，建议定期更新。升
+级可能会有点麻烦，特别是主要版本，需要你重新安装所有的包，但是拖延只会让情况变得更糟。我
+们建议本书使用R4.2.0或更高版本。
+
+### RStudio
+
+RStudio 是一个用于编程的集成开发环境，你可以从 <https://posit.co/download/rstudio-desktop/>下载。\
+RStudio每年更新几次，当新版本发布时，它会自动通知你，所以不需要定期查看，但最好定期升级，以利用最新和最强大的功能。对
+于这本书，请确保你至少有RStudio 2022.02.0版本。
+
+当你启动RStudio后，如 @fig-rstudio-console ，在界面中你会看到两个关键区域：控制台面板和输出面板。现
+在你需要知道的是，你在控制台面板中输入R代码，然后按回车键来运行它。随
+着我们的逐步深入，你会学到更多[^intro-1]。
+
+[^intro-1]: If you'd like a comprehensive overview of all of RStudio's features, see the RStudio User Guide at <https://docs.posit.co/ide/user>.
+
+```{r}
+#| label: fig-rstudio-console
+#| echo: false
+#| out-width: ~
+#| fig-cap: |
+#|   RStudio IDE 有两个关键区域：在左侧的控制台面板中输入R代码，
+#|   在右侧的输出面板中查看图形。
+#| fig-alt: |
+#|   突出显示控制台和输出窗格的RStudio IDE。
+knitr::include_graphics("diagrams/rstudio/console.png", dpi = 270)
+```
+
+### Tidyverse
+
+你还需要安装一些R包。R
+包是函数、数据和文档的集合，它扩展了基础R的功能。使
+用包是成功使用R的关键。你
+在本书中学习的大多数包都是所谓tidyverse的一部分。t
+idyverse中的所有包都共享数据和R编程的共同理念，并被精心安排在一起协同工作。
+
+你可以使用一行代码安装完整的tidyverse包：
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+在你的计算机上，在控制台中键入这行代码，然后按enter键运行它，R将从CRAN下载软件包并安装到你的计算机上。
+
+在使用`library()`加载包之前，你无法使用包中的函数、对象或帮助文件。一
+旦安装了一个包，你可以使用`library()` 来加载它：
+
+```{r}
+library(tidyverse)
+```
+
+这告诉你，tidyverse加载了9个包: dplyr、forcats、ggplot2、lubrid、purrr、reader、stringr、tibble和tidyr。它
+们被认为是tidyverse的核心，因为几乎在所有数据分析中都会用到它们。
+
+tidyverse中的包变化相当频繁。可
+以通过运行`tidyverse_update()`查看是否有可用的更新。
+
+### 其他包
+
+还有许多其他优秀的软件包，它们不是tidyverse的一部分，因为它们解决了不同领域的问题，或者是用不同的基本原则设计的。这
+不会让它们变得更好或更糟，这只会让它们与众不同。换
+句话说，对 tidyverse的补充不是messyverse，而是由相互关联的包组成的许多其他universes。随
+着你使用R处理更多的数据科学项目，你将学习新的包和新的数据思考方式。
+
+在本书中，我们将使用许多来自tidyverse之外的包。例
+如以下的包为我们在学习R的过程中提供了有趣的数据集：
+
+```{r}
+#| eval: false
+
+install.packages(
+  c("arrow", "babynames", "curl", "duckdb", "gapminder", 
+    "ggrepel", "ggridges", "ggthemes", "hexbin", "janitor", "Lahman", 
+    "leaflet", "maps", "nycflights13", "openxlsx", "palmerpenguins", 
+    "repurrrsive", "tidymodels", "writexl")
+  )
+```
+
+我们还将使用一些其他包作为单独的示例。你
+现在不需要安装它们，只要记住每当你看到这样的错误时：
+
+```{r}
+#| eval: false
+
+library(ggrepel)
+#> Error in library(ggrepel) : there is no package called ‘ggrepel’
+```
+
+你需要运行 `install.packages("ggrepel")` 来安装这个包。
+
+## 运行R代码
+
+前一节向你展示了几个运行R代码的示例，书中的代码看起来是这样的：
+
+```{r}
+#| eval: true
+1 + 2
+```
+
+如果你在本地控制台中运行相同的代码，它看起来像这样:
+
+```         
+> 1 + 2
+[1] 3
+```
+
+有两个主要区别：在控制台中，你在`>`之后键入，`>`称为提示符。我
+们在书中没有显示提示符。在
+本书中，输出用`#>`注释掉。在
+控制台中，它直接出现在代码之后。这
+两个区别意味着，如果你使用的是电子书，你可以轻松地从书中复制代码并将其粘贴到控制台。
+
+在本书中，我们使用一致的约定来引用代码：
+
+-   函数用代码字体显示，后面跟着圆括号，如 `sum()` 或 `mean()`；
+
+-   其他R对象 (例如数据或函数参数) 用代码字体，没有圆括号, 如 `flights` 或 `x`.
+
+-   有时，为了明确对象来自哪个包，to make it clear which package an object comes from, 我们使用包名后面加两个冒号，如 `dplyr::mutate()` 或 `nycflights13::flights`。这
+    也是有效的R代码。
+
+## 致谢
+
+这本书不仅仅是Hadley、我和Garrett的作品，也是我们与R社区许多人(面对面和在线)多次交谈的结果。非
+常感谢与你们所有人的交流，非常感谢!
+
+```{r}
+#| eval: false
+#| echo: false
+
+library(tidyverse)
+contribs_all_json <- gh::gh("/repos/:owner/:repo/contributors",
+  owner = "hadley",
+  repo = "r4ds",
+  .limit = Inf
+)
+contribs_all <- tibble(
+  login = contribs_all_json |> map_chr("login"),
+  n = contribs_all_json |> map_int("contributions")
+)
+
+contribs_old <- read_csv("contributors.csv", col_types = list())
+contribs_new <- contribs_all |> anti_join(contribs_old, by = "login")
+
+# Get info for new contributors
+needed_json <- map(
+  contribs_new$login, 
+  ~ gh::gh("/users/:username", username = .x),
+  .progress = TRUE
+)
+info_new <- tibble(
+  login = contribs_new$login,
+  name = map_chr(needed_json, "name", .default = NA),
+  blog = map_chr(needed_json, "blog", .default = NA)
+)
+info_old <- contribs_old |> select(login, name, blog)
+info_all <- bind_rows(info_old, info_new)
+
+contribs_all <- contribs_all |> 
+  left_join(info_all, by = "login") |> 
+  mutate(login_lowercase = str_to_lower(login)) |>
+  arrange(login_lowercase) |>
+  select(-login_lowercase)
+write_csv(contribs_all, "contributors.csv")
+```
+
+```{r}
+#| results: asis
+#| echo: false
+#| message: false
+
+library(dplyr)
+contributors <- readr::read_csv("contributors.csv")
+contributors <- contributors |> 
+  filter(!login %in% c("hadley", "garrettgman", "mine-cetinkaya-rundel")) |> 
+  mutate(
+    login = paste0("\\@", login),
+    desc = ifelse(is.na(name), login, paste0(name, " (", login, ")"))
+  )
+
+cat("这本书是公开编写的，许多人通过拉取请求（pull requests）做出了贡献。特别感谢通过GitHub拉取请求的",nrow(contributors), " 位贡献者 (按用户名字母顺序): ", sep = "")
+cat(paste0(contributors$desc, collapse = ", "))
+cat(".\n")
+```
+
+## 版权
+
+本书的在线版本访问 <https://r4ds.hadley.nz>，在纸质书印刷期间本书将继续发展。本
+书的源代码可在 <https://github.com/hadley/r4ds>获取。
+本书由 [Quarto](https://quarto.org)提供支持，这使得编写结合了文本和可执行代码的书变得很容易。
+
+```{r}
+#| eval: false
+#| echo: false
+#| results: asis
+
+pkgs <- sessioninfo::package_info(
+  tidyverse:::tidyverse_packages(),
+  dependencies = FALSE
+)
+df <- tibble(
+  package = pkgs$package,
+  version = pkgs$ondiskversion,
+  source = gsub("@", "\\\\@", pkgs$source)
+)
+knitr::kable(df, format = "markdown")
+```
+
+```{r}
+#| include: false
+
+cli:::ruler()
+```

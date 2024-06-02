@@ -1,0 +1,305 @@
+# 缺失值 {#sec-missing-values}
+
+```{r}
+#| echo: false
+
+source("_common.R")
+```
+
+## 引言
+
+在本书的早期部分，你已经学习了缺失值的基础知识。你
+首先在 @sec-data-visualization 遇到了它们，这些缺失值在作图时会导致警告，也在 @sec-summarize 干扰了计算汇总统计量。在
+@sec-na-comparison ，你了解了它们的“传染性”以及如何检查它们的存在。现
+在我们将更深入地讨论它们，以便你可以了解更多细节。
+
+首先，我们将讨论一些用于处理记录为`NA`s的缺失值的通用工具。然
+后，探讨隐式缺失值的概念，即那些在数据中完全缺失的值，并展示一些可以用来使它们变成显式的工具。最
+后，讨论由不在数据中出现的因子水平引起的空组的相关问题。
+
+### 必要条件
+
+处理缺失数据的函数主要来自 `dplyr` 和 `tidyr`，这两个库是 `tidyverse` 的核心成员。
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+```
+
+## 显式缺失值
+
+首先，让我们来探索一些用于创建或消除显式缺失值（即你看到 `NA` 的单元格）的实用工具。
+
+### 末次观测值结转（LOCF）
+
+缺失值的一个常见用途是作为一种数据输入的便利方式。当
+数据是手动输入时，缺失值有时表示前一行的值被重复（或结转）：
+
+```{r}
+treatment <- tribble(
+  ~person,           ~treatment, ~response,
+  "Derrick Whitmore", 1,         7,
+  NA,                 2,         10,
+  NA,                 3,         NA,
+  "Katherine Burke",  1,         4
+)
+```
+
+你可以使用`tidyr::fill()`来填充这些缺失值。它
+的工作方式与`select()`类似，接受一组列作为参数：
+
+```{r}
+treatment |>
+  fill(everything())
+```
+
+这种处理方法有时被称为“末次观测值结转 (last observation carried forward) ”，简称 locf。你
+可以使用 `.direction` 参数来填充以更特殊方式生成的缺失值。
+
+### 固定值
+
+有时，缺失值代表某个固定且已知的值，最常见的是0。你
+可以使用`dplyr::coalesce()`函数来替换它们：
+
+```{r}
+x <- c(1, 4, 5, 7, NA)
+coalesce(x, 0)
+```
+
+有时你会遇到相反的问题，即某个具体的值实际上代表了一个缺失值。这
+通常出现在由较旧软件生成的数据中，这些软件没有正确表示缺失值的方式，因此它们必须使用一些特殊的值，如99或-999来代替。
+
+如果可能的话，在读取数据时处理这种情况，例如，使用`readr::read_csv()`函数的`na`参数，例如`read_csv(path, na = "99")`。如
+果你稍后才发现这个问题，或者你的数据源在读取时没有提供处理它的方式，你可以使用`dplyr::na_if()`函数来处理。
+
+```{r}
+x <- c(1, 4, 5, 7, -99)
+na_if(x, -99)
+```
+
+### NaN
+
+在我们继续之前，有一种特殊的缺失值类型是你会不时遇到的：`NaN` (读作“nan”，表示“**n**ot **a** **n**umber”) 。了
+解它并不那么重要，因为它通常的行为与`NA`相同：
+
+```{r}
+x <- c(NA, NaN)
+x * 10
+x == 1
+is.na(x)
+```
+
+在极少数情况下，如果你需要区分`NA`和`NaN`，你可以使用`is.nan(x)`函数。
+
+当你执行具有不确定结果的数学运算时，通常会遇到`NaN`：
+
+```{r}
+0 / 0 
+0 * Inf
+Inf - Inf
+sqrt(-1)
+```
+
+## 隐式缺失值 {#sec-missing-implicit}
+
+到目前为止，我们谈论的缺失值都是显式缺失的，即你可以在数据中看到`NA`。但
+是，如果整行数据完全缺失，那么缺失值也可以是隐式的。让
+我们用一个简单的数据集来说明这种区别，该数据集记录了某些股票每个季度的价格：
+
+```{r}
+stocks <- tibble(
+  year  = c(2020, 2020, 2020, 2020, 2021, 2021, 2021),
+  qtr   = c(   1,    2,    3,    4,    2,    3,    4),
+  price = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+```
+
+这个数据集有两个缺失的观测值：
+
+-   2020年第四季度的`price`是显式缺失的，因为它的值是`NA`；
+
+-   2021年第一季度的`price`是隐式缺失的，因为它在数据集中根本没有出现。
+
+理解这种区别的一种方式是借助这个类似禅宗的公案：
+
+> 显式的缺失值是缺失的存在。
+>
+> 隐式的缺失值是存在的缺失。
+
+有时你想将隐式缺失变为显式缺失，以便有具体的东西可以处理。在
+其他情况下，由于数据的结构，显式缺失是强加于你的，你希望消除它们。以
+下部分将讨论一些在隐式和显式缺失之间转换的工具。
+
+### 重塑 (Pivoting)
+
+你已经见过一个工具可以将隐式缺失变为显式缺失，反之亦然：即重塑。将
+数据变宽可以使隐式缺失值变为显式缺失值，因为行和新列的每个组合都必须具有某个值。例
+如，如果我们透视`stocks`数据，将`quarter`放入列中，那么两个缺失值都会变为显式缺失值：
+
+```{r}
+stocks |>
+  pivot_wider(
+    names_from = qtr, 
+    values_from = price
+  )
+```
+
+默认情况下，将数据变长会保留显式缺失值，但是如果它们是由于数据不整齐而存在的结构性缺失值，你可以通过设置`values_drop_na = TRUE`来删除它们（使它们变为隐式）。更
+多细节请参见 @sec-tidy-data 中的示例。
+
+### 完整(Complete)
+
+`tidyr::complete()`允许你通过提供一组变量来生成显式缺失值，这些变量定义了应该存在的行的组合。例
+如，我们知道在`stocks`数据中应该存在`year`和`qtr`的所有组合：
+
+```{r}
+stocks |>
+  complete(year, qtr)
+```
+
+通常，你会使用现有变量的名称来调用`complete()`函数，以填充缺失的组合。然
+而，有时单个变量本身也是不完整的，因此你可以提供自己的数据。例
+如，你可能知道`stocks` 数据集应该从2019年到2021年，所以你可以为`year`明确提供这些值：
+
+```{r}
+stocks |>
+  complete(year = 2019:2021, qtr)
+```
+
+如果变量的范围是正确的，但不是所有值都存在，你可以使用`full_seq(x, 1)`来生成从`min(x)`到`max(x)`之间间隔为1的所有值。
+
+在某些情况下，完整的观测集不能仅通过变量的简单组合来生成。在
+这种情况下，你可以手动执行`complete()`为你所做的操作：创建一个包含所有应该存在的行的数据框（使用你需要的任何方法组合），然后使用`dplyr::full_join()`将其与你的原始数据集结合起来。
+
+### 连接 (Joins)
+
+这让我们引出了另一种揭示隐式缺失观测值的重要方法：连接。你
+将在 @sec-joins 学习更多关于连接的内容，但我们想在这里快速向你提及它们，因为通常只有当你将一个数据集与另一个数据集进行比较时，你才能知道某个数据集中缺失了哪些值。
+
+`dplyr::anti_join(x, y)`在这里是一个特别有用的工具，因为它只选择那些在`x`中但在`y`中没有匹配的行。例
+如，我们可以使用两次`anti_join()`来揭示`flights`中提到的四个机场和722架飞机的信息缺失了：
+
+```{r}
+library(nycflights13)
+
+flights |> 
+  distinct(faa = dest) |> 
+  anti_join(airports)
+
+flights |> 
+  distinct(tailnum) |> 
+  anti_join(planes)
+```
+
+### 练习
+
+1.  你能找到承运人和`planes`上缺失的行之间的关系吗？
+
+## 因子和空组
+
+缺失数据的最后一种类型是空组 (empty group)，即不包含任何观测值的组，这在处理因子时可能会出现。例
+如，假设我们有一个数据集，其中包含了一些关于人的健康信息：
+
+```{r}
+health <- tibble(
+  name   = c("Ikaia", "Oletta", "Leriah", "Dashay", "Tresaun"),
+  smoker = factor(c("no", "no", "no", "no", "no"), levels = c("yes", "no")),
+  age    = c(34, 88, 75, 47, 56),
+)
+```
+
+我们想使用`dplyr::count()`来计算吸烟者的数量：
+
+```{r}
+health |> count(smoker)
+```
+
+这个数据集只包含了非吸烟者，但我们知道吸烟者是存在的，吸烟者这一组是空的。我
+们可以通过设置`.drop = FALSE`来请求`count()`保留所有组，即使这些组在数据中不存在：
+
+```{r}
+health |> count(smoker, .drop = FALSE)
+```
+
+同样的原理也适用于`ggplot2`的离散轴，它们也会丢弃没有任何值的水平。你
+可以通过将`drop = FALSE`参数传递给适当的离散轴来强制它们显示：
+
+```{r}
+#| layout-ncol: 2
+#| fig-width: 3
+#| fig-alt: 
+#|   - A bar chart with a single value on the x-axis, "no".
+#|   - The same bar chart as the last plot, but now with two values on
+#|     the x-axis, "yes" and "no". There is no bar for the "yes" category.
+ggplot(health, aes(x = smoker)) +
+  geom_bar() +
+  scale_x_discrete()
+
+ggplot(health, aes(x = smoker)) +
+  geom_bar() +
+  scale_x_discrete(drop = FALSE)
+```
+
+同样的问题也会在使用`dplyr::group_by()`时经常出现。同
+样地，你可以使用`.drop = FALSE`来保留所有的因子水平：
+
+```{r}
+#| warning: false
+health |> 
+  group_by(smoker, .drop = FALSE) |> 
+  summarize(
+    n = n(),
+    mean_age = mean(age),
+    min_age = min(age),
+    max_age = max(age),
+    sd_age = sd(age)
+  )
+```
+
+我们在这里得到了一些有趣的结果，因为当对空组进行汇总时，汇总函数会应用于长度为0的向量。这
+里有一个重要的区别，即长度为0的空向量和每个长度为1的缺失值。
+
+We get some interesting results here because when summarizing an empty group, the summary functions are applied to zero-length vectors.
+There's an important distinction between empty vectors, which have length 0, and missing values, each of which has length 1.
+
+```{r}
+# A vector containing two missing values
+x1 <- c(NA, NA)
+length(x1)
+
+# A vector containing nothing
+x2 <- numeric()
+length(x2)
+```
+
+所有的汇总函数都可以处理长度为0的向量，但它们可能会返回一些乍看之下令人惊讶的结果。在
+这里，我们看到`mean(age)`返回了`NaN`，因为`mean(age) = sum(age)/length(age)`，在这里就变成了`0/0`。`m`
+`ax()`和`min()`对于空向量返回-Inf和Inf，所以如果你将这些结果与非空的新数据向量结合并重新计算，你会得到新数据的最小值或最大值。
+
+有时，一个更简单的方法是先进行汇总，然后使用`complete()`将隐式缺失显式化。
+
+```{r}
+health |> 
+  group_by(smoker) |> 
+  summarize(
+    n = n(),
+    mean_age = mean(age),
+    min_age = min(age),
+    max_age = max(age),
+    sd_age = sd(age)
+  ) |> 
+  complete(smoker)
+```
+
+这种方法的主要缺点是，即使你知道计数应该是零，你也会得到一个`NA`作为计数结果。
+
+## 小结
+
+缺失值很奇怪！有
+时它们被记录为明确的`NA`，但其他时候你只能通过它们的缺失来注意到它们。本
+章为你提供了一些处理显式缺失值的工具，以及发现隐式缺失值的工具，并讨论了隐式缺失值如何变为显式缺失值的一些方法，反之亦然。
+
+在下一章中，我们将处理本书这部分的最后一章：连接。这
+与之前的章节有所不同，因为我们将讨论一些对整个数据框进行操作的工具，而不是数据框内部的内容。
