@@ -5,7 +5,6 @@ project:
 book:
   title: "R数据科学 (第二版)"
   reader-mode: true
-
   page-footer:
     left: |
       R数据科学 (第二版) 由 Hadley Wickham等人编写
@@ -13,7 +12,7 @@ book:
       此书利用 <a href="https://quarto.org/">Quarto</a>制作
   cover-image: cover.jpg
   favicon: cover.jpg
-  site-url: https://r4ds.hadley.nz/
+  site-url: https://qbgaoo.github.io/r4ds/
   repo-url: https://github.com/qbgaoo/r4ds-chinese/
   repo-branch: main
   repo-actions: [edit]
@@ -76,6 +75,9 @@ format:
     theme:
       light: [cosmo, r4ds.scss]
       dark: [darkly, cosmo.scss]
+
+    execute:
+      freeze: auto
 
     code-link: true
     code-copy: true

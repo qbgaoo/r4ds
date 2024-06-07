@@ -1,0 +1,15 @@
+{
+  "hash": "80a2406763cd54b85a9de5567de2e81f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# 转换 {#sec-transform-intro .unnumbered}\n\n\n\n\n\n本书的第二部分深入探讨了数据可视化。在\n这一部分，你将学习在数据框中最常遇到的变量类型，并学习可用于处理这些变量的工具。\n\n\n::: {.cell}\n::: {.cell-output-display}\n![The options for data transformation depends heavily on the type of\ndata involved, the subject of this part of the book.\n](diagrams/data-science/transform.png){#fig-ds-transform fig-alt='Our data science model, with transform highlighted in blue.\n' width=535}\n:::\n:::\n\n\n你可以根据需要阅读这些章节。它\n们的设计在很大程度上是独立的，因此可以按顺序阅读，也可以不按顺序阅读。\n\n-   @sec-logicals 将向你介绍逻辑向量。逻辑向量是最简单的向量类型，但功能非常强大。你将学习如何通过数值比较创建它们，如何使用布尔代数将它们组合在一起，如何在汇总中使用它们，以及如何使用它们进行条件转换；\n-   @sec-numbers 将深入探讨数字向量的工具，这是数据科学的动力源泉。你将更深入地了解计数和一系列重要的转换和汇总函数；\n-   @sec-strings 将为你提供处理字符串的工具。你可以切割它们，将它们分割成小块，然后再将它们重新组合在一起。这一章主要关注stringr包，但你也将学习一些更多用于从字符串中提取数据的tidyr函数；\n-   @sec-regular-expressions 将向你介绍正则表达式，这是一种强大的字符串操作工具。本章将带你从想象一只猫走过你的键盘，到阅读和编写复杂的字符串模式；\n-   @sec-factors 将介绍因子，一种R用于存储分类数据的数据类型。当变量具有一组固定的可能值时，或者当你想要使用非字母顺序的字符串排序时，你可以使用因子；\n-   @sec-dates-and-times 将为你提供处理日期和日期时间的关键工具。不幸的是，你越了解日期时间，它们似乎就变得越复杂，但在lubridate包的帮助下，你将学习如何克服最常见的挑战；\n-   @sec-missing-values 将深入探讨缺失值。我们之前已经单独讨论过它们几次了，但现在是时候全面讨论它们了，帮助你理解隐式和显式缺失值之间的区别，以及如何和为什么可在它们之间进行转换；\n-   @sec-joins 通过为你提供将两个（或多个）数据框合并在一起的工具来结束本书的这一部分。学习合并（join）将迫使你了解键（keys）的概念，并思考如何标识数据集的每一行。\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

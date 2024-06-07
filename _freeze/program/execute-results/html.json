@@ -1,0 +1,15 @@
+{
+  "hash": "af80250b16af729097bc4d8d70de95ab",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# 编程 {#sec-program-intro .unnumbered}\n\n\n\n\n\n在这本书的这一部分，你将提高你的编程技能。编\n程是一项跨领域技能，对于所有数据科学工作都是必需的：你必须使用计算机来进行数据科学工作；你不能仅凭大脑、铅笔和纸来完成它。\n\n\n::: {.cell}\n::: {.cell-output-display}\n![Programming is the water in which all the other components swim.\n](diagrams/data-science/program.png){#fig-ds-program fig-alt='Our model of the data science process with program (import, tidy,\ntransform, visualize, model, and communicate, i.e. everything)\nhighlighted in blue.' width=535}\n:::\n:::\n\n\n编程产生代码，而代码是一种沟通工具。显\n然，代码告诉计算机你想要它做什么。但\n它也向其他人类传达了意义。将\n代码视为沟通的工具很重要，因为你所做的每一个项目本质上都是协作的。即\n使你没有和其他人一起工作，你也一定会和未来的自己一起工作！编\n写清晰的代码很重要，这样其他人（比如未来的你）就能理解你为什么以这种方式进行分析。这\n意味着提高编程技能也涉及到提高沟通技巧。随\n着时间的推移，你希望你的代码不仅更容易编写，而且更容易让他人阅读。\n\n在接下来的三章中，你将学习提高编程技能的方法：\n\n1.  复制粘贴是一个强大的工具，但你应该避免使用超过两次。在\n    代码中重复自己是很危险的，因为它很容易导致错误和不一致。相\n    反，在 @sec-functions 中你将学习如何编写**函数**，这些函数可以让你提取出重复的tidyverse代码，以便轻松地重复使用。\n\n2.  函数可以提取出重复的代码，但你经常需要对不同的输入重复相同的操作。你\n    需要迭代工具来让你一次又一次地做类似的事情。这\n    些工具包括for循环和函数式编程，你将在\\@sec-iteration 学习它们。\n\n3.  当你阅读更多由他人编写的代码时，你会看到更多不使用tidyverse的代码。在\n    @sec-base-r 中你将学习一些在实际情况中你会看到的最重要的基础R函数。\n\n这些章节的目的是教你数据科学所需的最基本的编程知识。一\n旦你掌握了这里的内容，我们强烈建议你继续投资于你的编程技能。我\n们写了两本书，你可能会觉得很有帮助。G\narrett Grolemund的《[Hands on Programming with R](https://rstudio-education.github.io/hopr/)》是一本介绍R作为编程语言的入门书籍，如果你是第一次学习编程语言，这是一个很好的起点。H\nadley Wickham的《[Advanced R](https://adv-r.hadley.nz/)》深入探讨了R编程语言的细节；如果你已经有编程经验，并且已经掌握了这些章节中的思想，那么它是一个很好的起点和进一步提升编程能力的绝佳选择。\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

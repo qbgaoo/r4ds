@@ -1,0 +1,15 @@
+{
+  "hash": "4542f456e564c336f5188c85d1fe5acb",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# 可视化 {#sec-visualize .unnumbered}\n\n\n::: {.cell}\n\n:::\n\n\n在阅读了本书的第一部分之后，你（至少从表面上）理解了做数据科学最重要的工具，现在是时候深入细节了。在\n本书这一部分，你将进一步深入学习数据可视化。\n\n\n::: {.cell}\n::: {.cell-output-display}\n![Data visualization is often the first step in data exploration.\n](diagrams/data-science/visualize.png){#fig-ds-visualize fig-alt='Our data science model, with visualize highlighted in blue.\n' width=535}\n:::\n:::\n\n\n每一章都会介绍创建数据可视化的一个或多个方面。\n\n-   在 @sec-layers 部分，学习图形的分层语法；\n-   在 @sec-exploratory-data-analysis 部分，把可视化与你的好奇心和怀疑精神结合起来，针对数据提出并回答有趣的问题；\n-   最后, 在 @sec-communication 部分，学习如何将探索性图形提升为解释性图形，这些图形有助于新手尽快理解你的分析结果。\n\n这三章带你进入可视化的世界，但还有更多要学习的内容。学\n习更多知识的绝佳选择是ggplot2：[*ggplot2: Elegant graphics for data analysis*](https://ggplot2-book.org/).。这\n本书深入探讨了底层理论，并提供了许多如何将各个部分组合起来解决实际问题的示例。另\n一个很好的资源是ggplot2扩展库[https://exts.ggplot2.tidyverse.org/gallery/](https://exts.ggplot2.tidyverse.org/gallery/%E3%80%82%E8%BF%99%E4%B8%AA%E7%BD%91%E7%AB%99%E5%88%97%E5%87%BA%E4%BA%86%E8%AE%B8%E5%A4%9A%E7%94%A8%E6%96%B0%E7%9A%84%E5%87%A0%E4%BD%95%E5%9B%BE%E5%BD%A2%E5%92%8C%E6%AF%94%E4%BE%8B%E5%B0%BA%E6%89%A9%E5%B1%95ggplot2%E7%9A%84%E5%8C%85%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E8%AF%95%E5%9B%BE%E7%94%A8ggplot2%E5%81%9A%E4%B8%80%E4%BA%9B%E7%9C%8B%E4%BC%BC%E5%9B%B0%E9%9A%BE%E7%9A%84%E4%BA%8B%E6%83%85%EF%BC%8C%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%BE%88%E5%A5%BD%E7%9A%84%E8%B5%B7%E7%82%B9%E3%80%82)。这\n个网站列出了许多用新的geoms和scales扩展ggplot2的包。如\n果你试图用ggplot2做一些看似困难的事情，这是一个很好的出发点。\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
