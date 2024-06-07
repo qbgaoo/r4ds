@@ -1,10 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   letterpaper,
-]{book}
+]{scrbook}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -116,6 +117,7 @@
 \def\fps@figure{htbp}
 \makeatother
 
+\usepackage{ctex}
 \makeatletter
 \@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
@@ -185,7 +187,11 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={R数据科学 (第二版)},
-  hidelinks,
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
 \title{R数据科学 (第二版)}
@@ -198,6 +204,7 @@
 
 \renewcommand*\contentsname{目 录}
 {
+\hypersetup{linkcolor=}
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
@@ -2779,7 +2786,7 @@ operator'' option is checked.}
 
 \end{figure}%
 
-\section{Magrittr}\label{sec-the-magtittr}
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Magrittr}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 如果您已经使用了一段时间的tidyverse，那么你可能对magrittr包提供的\%\textgreater\%管道很熟悉。\textbf{m}
 \textbf{agrittr}包包含在tidyverse中，所以你可以在加载tidyverse时使用\%\textgreater\%：
@@ -2801,6 +2808,8 @@ operator'' option is checked.}
 2014 年被发明和\textbar\textgreater 于 2021 年在 R 4.1.0
 中被引入之间的这段时间里，我们对管道有了更好的理解。这
 使得\textbar\textgreater 能够舍弃那些不常用且不太重要的特性。
+
+\end{tcolorbox}
 
 \section{分组}\label{ux5206ux7ec4}
 
@@ -4658,7 +4667,7 @@ options to always start your RStudio session with a clean slate.}
 
 或者，如果不使用快捷键，你可以转到``会话''\textgreater{}``重启R''，然后选中并重新运行当前脚本。
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{RStudio server}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{RStudio server}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 如果您使用的是RStudio server，默认情况下R会话不会自动重启。当
 你关闭RStudio
@@ -9159,12 +9168,6 @@ and the shaded region show which parts each operator selects.}
 函数中使用它们！这 些被称为短路运算符，并且总是只返回一个 \texttt{TRUE}
 或 \texttt{FALSE}。它 们对编程很重要，但对数据科学来说并不重要。
 
-As well as \texttt{\&} and \texttt{\textbar{}}, R also has \texttt{\&\&}
-and \texttt{\textbar{}\textbar{}}. Don't use them in dplyr functions!
-These are called short-circuiting operators and only ever return a
-single \texttt{TRUE} or \texttt{FALSE}. They're important for
-programming, not data science.
-
 \subsection{缺失值}\label{sec-na-boolean}
 
 布尔代数中缺失值的规则有点难解释，因为乍一看它们似乎不一致：
@@ -9493,8 +9496,7 @@ subsetting）}\label{ux903bux8f91ux5b50ux96c6logical-subsetting}
 \end{Highlighting}
 \end{Shaded}
 
-There's an optional fourth argument, \texttt{missing} which will be used
-if the input is \texttt{NA}:
+还有一个可选的第四个参数，如果输入是\texttt{NA}，则会使用\texttt{missing}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13809,7 +13811,7 @@ biography}和\href{https://notstatschat.tumblr.com/post/124987394001/stringsasfa
 \FunctionTok{today}\NormalTok{()}
 \CommentTok{\#\textgreater{} [1] "2024{-}06{-}02"}
 \FunctionTok{now}\NormalTok{()}
-\CommentTok{\#\textgreater{} [1] "2024{-}06{-}02 16:30:49 CST"}
+\CommentTok{\#\textgreater{} [1] "2024{-}06{-}02 21:17:16 CST"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -17073,7 +17075,7 @@ Excel 电子表格中的底层数据更为复杂。一 个单元格可以是以�
 这些情况下，你可以将该列的类型设置为 \texttt{"list"}，将该列加载为长度为
 1 的向量列表，其中向量的每个元素的类型都将被猜测。
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 有时数据会以更特殊的方式存储，比如单元格背景的颜色，或者文本是否为粗体。在
 这种情况下，你可能会发现
@@ -17671,7 +17673,7 @@ bplyr是dplyr的一个后端
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 与数据库交互有另外两种常见方式。首
 先，许多企业数据库都非常大，因此你需要某种层次结构来保持所有表的组织有序。在
@@ -17854,7 +17856,7 @@ dplyr的动词和SELECT子句之间有两个重要的区别：
 
 以下部分将更详细地探讨每个子句。
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 请注意，尽管SQL是一个标准，但它非常复杂，没有哪个数据库能够完全遵循它。尽
 管本书关注的主要组件在不同的DBMS之间非常相似，但仍存在许多细微的差异。幸
@@ -17903,7 +17905,7 @@ dplyr的动词和SELECT子句之间有两个重要的区别：
 SQL术语中重命名被称为别名（\textbf{aliasing}），并通过\texttt{AS}关键字来完成。请
 注意，与\texttt{mutate()}不同，旧名称在左侧，新名称在右侧。
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{注记}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 在上面的例子中，请注意``year''和``type''被双引号括起来了。这
 是因为这些是duckdb中的保留字 (\textbf{reserved
@@ -18050,12 +18052,12 @@ SQL 使用 \texttt{NULL} 而不是 \texttt{NA}。\texttt{N} \texttt{ULL}
 \CommentTok{\#\textgreater{} \# Database: DuckDB v0.10.1 [root@Darwin 23.5.0:R 4.3.3/:memory:]}
 \CommentTok{\#\textgreater{}   dest  delay}
 \CommentTok{\#\textgreater{}   \textless{}chr\textgreater{} \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1 IAH    4.24}
-\CommentTok{\#\textgreater{} 2 MDW   12.4 }
-\CommentTok{\#\textgreater{} 3 CLT    7.36}
-\CommentTok{\#\textgreater{} 4 CAK   19.7 }
-\CommentTok{\#\textgreater{} 5 HOU    7.18}
-\CommentTok{\#\textgreater{} 6 PHX    2.10}
+\CommentTok{\#\textgreater{} 1 ATL   11.3 }
+\CommentTok{\#\textgreater{} 2 MCO    5.45}
+\CommentTok{\#\textgreater{} 3 MSY    6.49}
+\CommentTok{\#\textgreater{} 4 XNA    7.47}
+\CommentTok{\#\textgreater{} 5 BNA   11.8 }
+\CommentTok{\#\textgreater{} 6 ALB   14.4 }
 \CommentTok{\#\textgreater{} \# i more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -19141,7 +19143,7 @@ give you the subsetting code needed to access it, in this case
 或
 \texttt{df\ \textbar{}\textgreater{}\ pull(z)\ \textbar{}\textgreater{}\ View()}。
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{基础 R}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{基础 R}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 可以将列表放入数据框的某一列中，但这样做会比较繁琐，因为\texttt{data.frame()}函数将列表视为列的列表:
 
@@ -20975,7 +20977,7 @@ functions}的原始激励推文，以查看更多的函数示例。
   \AttributeTok{a =}\NormalTok{ (a }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(a, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{/} 
 \NormalTok{    (}\FunctionTok{max}\NormalTok{(a, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(a, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)),}
   \AttributeTok{b =}\NormalTok{ (b }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(b, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{/} 
-\NormalTok{    (}\FunctionTok{max}\NormalTok{(b, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(a, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)),}
+\NormalTok{    (}\FunctionTok{max}\NormalTok{(b, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(b, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)),}
   \AttributeTok{c =}\NormalTok{ (c }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(c, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{/} 
 \NormalTok{    (}\FunctionTok{max}\NormalTok{(c, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(c, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)),}
   \AttributeTok{d =}\NormalTok{ (d }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(d, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{/} 
@@ -20984,11 +20986,11 @@ functions}的原始激励推文，以查看更多的函数示例。
 \CommentTok{\#\textgreater{} \# A tibble: 5 x 4}
 \CommentTok{\#\textgreater{}       a     b     c     d}
 \CommentTok{\#\textgreater{}   \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1 0.339  2.59 0.291 0    }
-\CommentTok{\#\textgreater{} 2 0.880  0    0.611 0.557}
-\CommentTok{\#\textgreater{} 3 0      1.37 1     0.752}
-\CommentTok{\#\textgreater{} 4 0.795  1.37 0     1    }
-\CommentTok{\#\textgreater{} 5 1      1.34 0.580 0.394}
+\CommentTok{\#\textgreater{} 1 0.339 1     0.291 0    }
+\CommentTok{\#\textgreater{} 2 0.880 0     0.611 0.557}
+\CommentTok{\#\textgreater{} 3 0     0.530 1     0.752}
+\CommentTok{\#\textgreater{} 4 0.795 0.531 0     1    }
+\CommentTok{\#\textgreater{} 5 1     0.518 0.580 0.394}
 \end{Highlighting}
 \end{Shaded}
 
@@ -21268,7 +21270,7 @@ functions)，这些函数返回一个单一的值，用于\texttt{summarize()}�
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, titlerule=0mm, breakable, colback=white, opacityback=0, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{RStudio}, arc=.35mm, left=2mm, opacitybacktitle=0.6, rightrule=.15mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, breakable, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{RStudio}, toprule=.15mm, leftrule=.75mm, colback=white, coltitle=black, rightrule=.15mm, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, left=2mm]
 
 当你开始编写函数时，有两个RStudio的快捷键非常有用：
 
@@ -23310,10 +23312,10 @@ tibble，其中每列对应一行：
 \CommentTok{\#\textgreater{}   \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
 \CommentTok{\#\textgreater{} 1  1977   142}
 \CommentTok{\#\textgreater{} 2  1987   142}
-\CommentTok{\#\textgreater{} 3  1967   142}
-\CommentTok{\#\textgreater{} 4  2007   142}
-\CommentTok{\#\textgreater{} 5  1952   142}
-\CommentTok{\#\textgreater{} 6  1957   142}
+\CommentTok{\#\textgreater{} 3  2007   142}
+\CommentTok{\#\textgreater{} 4  1952   142}
+\CommentTok{\#\textgreater{} 5  1957   142}
+\CommentTok{\#\textgreater{} 6  1972   142}
 \CommentTok{\#\textgreater{} \# i more rows}
 \end{Highlighting}
 \end{Shaded}

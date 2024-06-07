@@ -1,7 +1,14 @@
 /*-- scss:defaults --*/
 
-$theme: "cosmo" !default;
+// fonts
+$font-family-sans-serif: system-ui, -apple-system, Arial !default;
+$font-size-root: 15px !default;
+$h1-font-size: 1.4rem !default;
+$h2-font-size: 1.2rem !default;
+$h3-font-size: 1.0rem !default;
+$headings-font-weight:      400 !default;
 
+// Base document colors
 $primary: #637238 !default;
 $body-color: #FFFFFF !default;
 $body-bg: #000000 !default;
@@ -13,26 +20,8 @@ $btn-code-copy-color-active: #75AADB;
 $code-bg: gray !default;
 
 $line-height-base: 1.7 !default;
-$line-height-sm:  1.25 !default;
-$line-height-lg:     2 !default;
-
-$min-contrast-ratio:   2.6 !default;
-
-// Options
-
-$enable-rounded: false !default;
-
-
-
-// Fonts
-
-// stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif: YaHei !default;
-$font-size-root: 15px !default;
-$h1-font-size: 1.4rem !default;
-$h2-font-size: 1.2rem !default;
-$h3-font-size: 1.0rem !default;
-$headings-font-weight:      400 !default;
+$line-height-sm:   1.25 !default;
+$line-height-lg:   2 !default;
 
 // Navbar
 

@@ -1,6 +1,6 @@
 # 欢迎语 {.unnumbered}
 
-这是 **"R 数据科学"**第二版。
+这是 **"R数据科学"**第二版的中文版。
 这本书将告诉你如何用R从事数据科学：你将学到如何把数据导入R，并将其变换为最有用的结构，还有数据转换和可视化。
 
 在这本书中你将找到数据科学的一系列实践技能。正
@@ -13,9 +13,9 @@
 果你因为能免费阅读这本书而心存感激，并希望有所回馈，请向[Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate)捐款。
 [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY)（出现在封面的这种鸟）是新西兰特有的一种濒危鹦鹉，目前仅剩248只。
 
-如果你会说其他语言，你可能会对第二版的免费翻译版感兴趣：
+如果你喜欢阅读英文原版，可通过以下链接访问：
 
--   [中文](http://es.r4ds.hadley.nz)
+-   [English](https://r4ds.hadley.nz)
 
 你可以在<https://mine-cetinkaya-rundel.github.io/r4ds-solutions>找到书中习题的参考答案。
 

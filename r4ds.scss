@@ -1,10 +1,12 @@
 /*-- scss:defaults --*/
 
+//fonts
 $font-family-sans-serif: system-ui, -apple-system, Arial !default;
-$font-size-root: 14.5px !default;
+$font-size-root: 15px !default;
 $h1-font-size: 1.4rem !default;
 $h2-font-size: 1.2rem !default;
 $h3-font-size: 1.0rem !default;
+$headings-font-weight:      400 !default;
 
 // Base document colors
 $primary: #637238 !default;

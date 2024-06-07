@@ -14,11 +14,9 @@ book:
   cover-image: cover.jpg
   favicon: cover.jpg
   site-url: https://r4ds.hadley.nz/
-  repo-url: https://github.com/hadley/r4ds/
+  repo-url: https://github.com/qbgaoo/r4ds-chinese/
   repo-branch: main
-  repo-actions: [edit, issue]
-
-  downloads: [pdf]
+  repo-actions: [edit]
 
   chapters:
     - index.qmd
@@ -80,25 +78,12 @@ format:
       dark: [darkly, cosmo.scss]
 
     code-link: true
-    code-fold: true
     code-copy: true
     smooth-scroll: true
 
     author-meta: "Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund"
     include-in-header: "plausible.html"
     callout-appearance: simple
-
-    other-links:
-      - text: R for Data Science (2e)
-        href: https://r4ds.hadley.nz/
-    code-links:
-      - text: GitHub Repo
-        icon: file-code
-        href: https://github.com/hadley/r4ds/
-
-  pdf:
-    documentclass: book
-    papersize: letter
 
 editor: visual
 

@@ -533,7 +533,8 @@ arrange(flights3, desc(speed))
 knitr::include_graphics("screenshots/rstudio-pipe-options.png")
 ```
 
-## Magrittr {#sec-the-magtittr}
+::: callout-note
+## Magrittr
 
 如果您已经使用了一段时间的tidyverse，那么你可能对magrittr包提供的%\>%管道很熟悉。**m**
 **agrittr**包包含在tidyverse中，所以你可以在加载tidyverse时使用%\>%：
@@ -553,6 +554,7 @@ mtcars %>%
 先，因为它是 R 语言的基础部分，所以你总是可以使用它，即使你没有使用 tidyverse。其
 次，\|\>比%\>%简单得多：在%\>%于 2014 年被发明和\|\>于 2021 年在 R 4.1.0 中被引入之间的这段时间里，我们对管道有了更好的理解。这
 使得\|\>能够舍弃那些不常用且不太重要的特性。
+:::
 
 ## 分组
 
