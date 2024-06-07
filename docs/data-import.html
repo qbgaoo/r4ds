@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund">
+<title>R数据科学 (第二版) - 7&nbsp; 数据导入</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./workflow-help.html" rel="next">
+<link href="./workflow-scripts.html" rel="prev">
+<link href="./cover.jpg" rel="icon" type="image/jpeg">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./whole-game.html">全貌概览</a></li><li class="breadcrumb-item"><a href="./data-import.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">数据导入</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R数据科学 (第二版)</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/qbgaoo/r4ds-chinese/" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="切换阅读器模式">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">欢迎语</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">序言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">引言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">全貌概览</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">数据可视化</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">工作流程：基础</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">数据转换</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">工作流程: 代码风格</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整理</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">工作流程: 脚本和项目</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">数据导入</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">工作流程：获取帮助</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">可视化</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./layers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">图层</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">探索性数据分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./communication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">交流</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">转换</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">逻辑向量</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">数值</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">字符串</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">正则表达式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./factors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">因子</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">日期和时间</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">缺失值</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">连接</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">导入</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">电子表格</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./databases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">数据库</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">层次数据</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">网页抓取</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">编程</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">函数</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">迭代</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R基础实用指南</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">交流</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto 格式</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">目 录</h2>
+   
+  <ul>
+<li>
+<a href="#%E5%BC%95%E8%A8%80" id="toc-引言" class="nav-link active" data-scroll-target="#%E5%BC%95%E8%A8%80"><span class="header-section-number">7.1</span> 引言</a>
+  <ul class="collapse">
+<li><a href="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6" id="toc-必要条件" class="nav-link" data-scroll-target="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="header-section-number">7.1.1</span> 必要条件</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E4%BB%8E%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE" id="toc-从文件读取数据" class="nav-link" data-scroll-target="#%E4%BB%8E%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="header-section-number">7.2</span> 从文件读取数据</a>
+  <ul class="collapse">
+<li><a href="#%E5%AE%9E%E7%94%A8%E5%BB%BA%E8%AE%AE" id="toc-实用建议" class="nav-link" data-scroll-target="#%E5%AE%9E%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="header-section-number">7.2.1</span> 实用建议</a></li>
+  <li><a href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0" id="toc-其他参数" class="nav-link" data-scroll-target="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0"><span class="header-section-number">7.2.2</span> 其他参数</a></li>
+  <li><a href="#%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B" id="toc-其他文件类型" class="nav-link" data-scroll-target="#%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="header-section-number">7.2.3</span> 其他文件类型</a></li>
+  <li><a href="#%E7%BB%83%E4%B9%A0" id="toc-练习" class="nav-link" data-scroll-target="#%E7%BB%83%E4%B9%A0"><span class="header-section-number">7.2.4</span> 练习</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-col-types" id="toc-sec-col-types" class="nav-link" data-scroll-target="#sec-col-types"><span class="header-section-number">7.3</span> 控制列类型</a>
+  <ul class="collapse">
+<li><a href="#%E7%8C%9C%E6%B5%8B%E7%B1%BB%E5%9E%8B" id="toc-猜测类型" class="nav-link" data-scroll-target="#%E7%8C%9C%E6%B5%8B%E7%B1%BB%E5%9E%8B"><span class="header-section-number">7.3.1</span> 猜测类型</a></li>
+  <li><a href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E9%97%AE%E9%A2%98" id="toc-缺失值列类型和问题" class="nav-link" data-scroll-target="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E9%97%AE%E9%A2%98"><span class="header-section-number">7.3.2</span> 缺失值、列类型和问题</a></li>
+  <li><a href="#%E5%88%97%E7%B1%BB%E5%9E%8B" id="toc-列类型" class="nav-link" data-scroll-target="#%E5%88%97%E7%B1%BB%E5%9E%8B"><span class="header-section-number">7.3.3</span> 列类型</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-readr-directory" id="toc-sec-readr-directory" class="nav-link" data-scroll-target="#sec-readr-directory"><span class="header-section-number">7.4</span> 从多个文件读取数据</a></li>
+  <li><a href="#sec-writing-to-a-file" id="toc-sec-writing-to-a-file" class="nav-link" data-scroll-target="#sec-writing-to-a-file"><span class="header-section-number">7.5</span> 写入文件</a></li>
+  <li><a href="#%E6%95%B0%E6%8D%AE%E5%BD%95%E5%85%A5" id="toc-数据录入" class="nav-link" data-scroll-target="#%E6%95%B0%E6%8D%AE%E5%BD%95%E5%85%A5"><span class="header-section-number">7.6</span> 数据录入</a></li>
+  <li><a href="#%E5%B0%8F%E7%BB%93" id="toc-小结" class="nav-link" data-scroll-target="#%E5%B0%8F%E7%BB%93"><span class="header-section-number">7.7</span> 小结</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/qbgaoo/r4ds-chinese/edit/main/data-import.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./whole-game.html">全貌概览</a></li><li class="breadcrumb-item"><a href="./data-import.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">数据导入</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-data-import" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">数据导入</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="引言" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="引言">
+<span class="header-section-number">7.1</span> 引言</h2>
+<p>使用R包提供的数据来学习数据科学工具是一个很好的方法，但总有一天你会想将所学应用于自己的数据。在 本章中，你将学习将数据文件读入R的基础知识。</p>
+<p>具体来说，本章将重点关注读取纯文本矩形文件。我 们将从处理列名、类型和缺失数据的实用建议开始。然 后，学习如何一次从多个文件中读取数据，以及如何将R中的数据写入文件。最 后，学习如何在R中手动创建数据框。</p>
+<section id="必要条件" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="必要条件">
+<span class="header-section-number">7.1.1</span> 必要条件</h3>
+<p>在本章中，你将学习如何使用<strong>readr</strong>包在R中加载平面文件，readr包是核心包tidyverse的一部分。</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="从文件读取数据" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="从文件读取数据">
+<span class="header-section-number">7.2</span> 从文件读取数据</h2>
+<p>首先，我们将关注最常见的矩形数据文件类型：CSV（Comma-Separated Values的缩写）。下 面是一个简单的CSV文件，第一行通常被称为标题行，给出了列名，接下来的六行提供了数据，列之间由逗号分隔，也称为定界符。</p>
+<div class="cell">
+<pre><code>Student ID,Full Name,favourite.food,mealPlan,AGE
+1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
+2,Barclay Lynn,French fries,Lunch only,5
+3,Jayendra Lyne,N/A,Breakfast and lunch,7
+4,Leon Rossini,Anchovies,Lunch only,
+5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five
+6,Güvenç Attila,Ice cream,Lunch only,6</code></pre>
+</div>
+<p><a href="#tbl-students-table" class="quarto-xref">表&nbsp;<span>7.1</span></a> 以表格形式呈现了相同的数据。</p>
+<div class="cell">
+<div id="tbl-students-table" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-students-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+表&nbsp;7.1: Data from the students.csv file as a table.
+</figcaption><div aria-describedby="tbl-students-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 27%">
+<col style="width: 6%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">Student ID</th>
+<th style="text-align: left;">Full Name</th>
+<th style="text-align: left;">favourite.food</th>
+<th style="text-align: left;">mealPlan</th>
+<th style="text-align: left;">AGE</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Sunil Huffmann</td>
+<td style="text-align: left;">Strawberry yoghurt</td>
+<td style="text-align: left;">Lunch only</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Barclay Lynn</td>
+<td style="text-align: left;">French fries</td>
+<td style="text-align: left;">Lunch only</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Jayendra Lyne</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Breakfast and lunch</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Leon Rossini</td>
+<td style="text-align: left;">Anchovies</td>
+<td style="text-align: left;">Lunch only</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Chidiegwu Dunkel</td>
+<td style="text-align: left;">Pizza</td>
+<td style="text-align: left;">Breakfast and lunch</td>
+<td style="text-align: left;">five</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Güvenç Attila</td>
+<td style="text-align: left;">Ice cream</td>
+<td style="text-align: left;">Lunch only</td>
+<td style="text-align: left;">6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>我们使用<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>将这个文件读入R。第 一个参数是最重要的：文件路径。可 以将路径视为文件的地址，文件名为<code>students.csv</code>，它位于<code>data</code>文件夹中。</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/students.csv"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 6 Columns: 5</span></span>
+<span><span class="co">#&gt; ── Column specification ─────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Delimiter: ","</span></span>
+<span><span class="co">#&gt; chr (4): Full Name, favourite.food, mealPlan, AGE</span></span>
+<span><span class="co">#&gt; dbl (1): Student ID</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>上面的代码在你的项目中存在名为 <code>data</code> 的文件夹并且其中包含 <code>students.csv</code> 文件时有效。您 可以从<a href="https://pos.it/r4ds-students-csv" class="uri">https://pos.it/r4ds-students-csv</a>下载 <code>students.csv</code> 文件，或者可以直接从该URL读取它，使用如下方式：</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://pos.it/r4ds-students-csv"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>当你运行<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>时，它会输出一条消息，告诉你数据的行数和列数、所使用的分隔符以及列规范（按列中数据类型组织的列名）。它 还会输出关于如何检索完整列规范和如何静默此消息的一些信息。这 条消息是<code>readr</code>包的一个组成部分，我们将在@sec-col-types 中再次讨论它。</p>
+<section id="实用建议" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="实用建议">
+<span class="header-section-number">7.2.1</span> 实用建议</h3>
+<p>一旦你读取了数据，第一步通常是以某种方式转换它，以使其在剩余的分析中更容易处理。让 我们带着这个想法再次查看<code>students</code>数据。</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   `Student ID` `Full Name`      favourite.food     mealPlan            AGE  </span></span>
+<span><span class="co">#&gt;          &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1            1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span><span class="co">#&gt; 2            2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span><span class="co">#&gt; 3            3 Jayendra Lyne    N/A                Breakfast and lunch 7    </span></span>
+<span><span class="co">#&gt; 4            4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>在<code>favourite.food</code>列中有一堆食品项目，然后是字符串<code>N/A</code>，它应该是一个 R 会识别为“不可用”的真正的<code>NA</code>值。这 是我们可以通过<code>na</code>参数来解决的问题。默 认情况下，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>只将此数据集中的空字符串(<code>""</code>) 识别为 <code>NA</code>s，我们希望它也能识别字符串<code>"N/A"</code>。</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/students.csv"</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"N/A"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">students</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   `Student ID` `Full Name`      favourite.food     mealPlan            AGE  </span></span>
+<span><span class="co">#&gt;          &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1            1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span><span class="co">#&gt; 2            2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span><span class="co">#&gt; 3            3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
+<span><span class="co">#&gt; 4            4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>你可能还注意到，<code>Student ID</code>和<code>Full Name</code>列使用了反引号。这 是因为它们包含空格，违反了 R 中变量名的常规规则，它们是非语法（<strong>non-syntactic</strong>）名称。要 引用这些变量，你需要使用反引号<code>`</code>将它们括起来。</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span></span>
+<span>    student_id <span class="op">=</span> <span class="va">`Student ID`</span>,</span>
+<span>    full_name <span class="op">=</span> <span class="va">`Full Name`</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite.food     mealPlan            AGE  </span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>另一种方法是使用&nbsp;<code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code>&nbsp;函数，该函数使用一些启发式方法来一次性将它们全部转换为蛇形命名法（snake case）<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span> <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan           age  </span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>读取数据后的另一个常见任务是考虑变量类型。例 如，<code>meal_plan</code>是一个分类变量，具有一组已知的可能值，在 R 中应该表示为因子：</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>meal_plan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">meal_plan</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan           age  </span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only          4    </span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only          5    </span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>请注意，<code>meal_plan</code>变量中的值保持不变，但变量名下方表示的变量类型已经从字符型（<code>&lt;chr</code>&gt;）变为了因子型（&lt;<code>fct</code>&gt;）。你 将在 <a href="factors.html" class="quarto-xref"><span>章节 16</span></a> 中了解更多关于因子的内容。</p>
+<p>在分析这些数据之前，你可能想要修复<code>age</code>和<code>id</code>列。目 前，<code>age</code>是一个字符型变量，因为其中一个观测值被输入为文本<code>five</code>而不是数字<code>5</code>。我 们将在 <a href="spreadsheets.html" class="quarto-xref"><span>章节 20</span></a> 详细讨论如何修复这个问题。</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="va">students</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    meal_plan <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">meal_plan</span><span class="op">)</span>,</span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">age</span> <span class="op">==</span> <span class="st">"five"</span>, <span class="st">"5"</span>, <span class="va">age</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">students</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>这里有一个新的函数<code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code>，它有三个参数。第 一个参数<code>test</code>应该是一个逻辑向量。当 <code>test</code>为<code>TRUE</code>时，结果将包含第二个参数<code>yes</code>的值；当它为<code>FALSE</code>时，将包含第三个参数<code>no</code>的值。在 这里，我们表示如果<code>age</code>是字符串 <code>"five"</code>，则将其变为 <code>"5"</code>，如果不是，则保持原样。你 将在 <a href="logicals.html" class="quarto-xref"><span>章节 12</span></a> 部分了解更多关于<code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code>和逻辑向量的内容。</p>
+</section><section id="其他参数" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="其他参数">
+<span class="header-section-number">7.2.2</span> 其他参数</h3>
+<p>这里还有一些其他重要的参数我们需要提及。如 果先向你们展示一个有用的技巧，这些参数的演示就会更容易理解：<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>可以读取你创建并格式化为 CSV 文件格式的文本字符串。</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"a,b,c</span></span>
+<span><span class="st">  1,2,3</span></span>
+<span><span class="st">  4,5,6"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;       a     b     c</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2     3</span></span>
+<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>通常，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>使用数据的第一行作为列名，这是一个非常常见的约定。但 是，在文件的顶部包含几行元数据的情况也不少见。你 可以使用<code>skip = n</code>来跳过前 n 行，或者使用<code>comment = "#"</code>来忽略所有以（例如）# 开头的行：</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"The first line of metadata</span></span>
+<span><span class="st">  The second line of metadata</span></span>
+<span><span class="st">  x,y,z</span></span>
+<span><span class="st">  1,2,3"</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span><span class="co">#&gt;       x     y     z</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2     3</span></span>
+<span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"# A comment I want to skip</span></span>
+<span><span class="st">  x,y,z</span></span>
+<span><span class="st">  1,2,3"</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">"#"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span><span class="co">#&gt;       x     y     z</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2     3</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>在其他情况下，数据可能没有列名。你 可以使用<code>col_names = FALSE</code>来告诉&nbsp;<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>不要将第一行作为标题，而是从<code>X1</code>到<code>Xn</code>顺序地给它们标记列名：</p>
+<p>In other cases, the data might not have column names. You can use <code>col_names = FALSE</code> to tell <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> not to treat the first row as headings and instead label them sequentially from <code>X1</code> to <code>Xn</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"1,2,3</span></span>
+<span><span class="st">  4,5,6"</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;      X1    X2    X3</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2     3</span></span>
+<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>另外，你可以向<code>col_names</code>传递一个字符向量，这个字符向量将被用作列名：</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="st">"1,2,3</span></span>
+<span><span class="st">  4,5,6"</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;       x     y     z</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2     3</span></span>
+<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>这些参数是你需要知道的，以便读取你在实践中遇到的大多数 CSV 文件。（ 对于其他情况，你需要仔细检查你的 <code>.csv</code> 文件，并阅读<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>的许多其他参数的文档。）</p>
+</section><section id="其他文件类型" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="其他文件类型">
+<span class="header-section-number">7.2.3</span> 其他文件类型</h3>
+<p>一旦你掌握了<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>，使用<code>readr</code>的其他函数就很简单了；你只需要知道应该使用哪个函数：</p>
+<ul>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2()</a></code> 用于读取分号分隔的文件。这 些文件使用<code>;</code>而不是<code>,</code>来分隔字段，这在使用<code>,</code>作为小数点标记符的国家中很常见；</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code> 用于读取制表符分隔（tab-delimited）的文件；</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim()</a></code> 用于读取具有任何分隔符的文件，如果你没有指定分隔符，它会尝试自动猜测分隔符；</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_fwf.html">read_fwf()</a></code> 用于读取固定宽度的文件。你 可以使用<code><a href="https://readr.tidyverse.org/reference/read_fwf.html">fwf_widths()</a></code>通过宽度指定字段，或者使用<code><a href="https://readr.tidyverse.org/reference/read_fwf.html">fwf_positions()</a></code>通过位置指定字段；</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code> 用于读取固定宽度文件的常见变体，其中列由空白字符分隔；</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_log.html">read_log()</a></code> 用于读取 Apache 风格的日志文件。</p></li>
+</ul></section><section id="练习" class="level3" data-number="7.2.4"><h3 data-number="7.2.4" class="anchored" data-anchor-id="练习">
+<span class="header-section-number">7.2.4</span> 练习</h3>
+<ol type="1">
+<li><p>如果你想要读取一个字段之间使用 “|” 分隔的文件，你会使用什么函数？</p></li>
+<li><p>除了<code>file</code>、<code>skip</code>和<code>comment</code>之外，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>和<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code>还有哪些共同的参数？</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_fwf.html">read_fwf()</a></code>的最重要参数是什么？</p></li>
+<li>
+<p>有时 CSV 文件中的字符串包含逗号。为 了防止它们引起问题，这些字符串需要用引号字符（如 <code>"</code> 或 <code>'</code>）括起来。默 认情况下，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>假设引号字符为 <code>"</code>。为了将以下文本读取到数据框中，你需要为<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>指定哪个参数？</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"x,y\n1,'a,b'"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+<li>
+<p>识别以下内联CSV文件中的每个错误是什么。当 你运行代码时会发生什么？</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n1,2,3\n4,5,6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2\n1,2,3,4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n\"1"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n1,2\na,b"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a;b\n1;3"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+<li>
+<p>通过以下方式练习在数据框中引用非语法名称：</p>
+<ol type="a">
+<li>提取名为<code>1</code>的变量；</li>
+<li>绘制 <code>1</code> 与 <code>2</code>的散点图；</li>
+<li>创建一个名为<code>3</code>的新列，该列是<code>2</code>除以<code>1</code>的结果；</li>
+<li>将列名重命名为 <code>one</code>, <code>two</code>和 <code>three</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">annoying</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  `1` <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  `2` <span class="op">=</span> <span class="va">`1`</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">`1`</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+</ol></section></section><section id="sec-col-types" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="sec-col-types">
+<span class="header-section-number">7.3</span> 控制列类型</h2>
+<p>CSV 文件不包含关于每个变量类型（即它是否是逻辑型、数字型、字符串型等）的任何信息，因此readr 会尝试猜测类型。本 节将描述猜测过程的工作原理，如何解决一些常见的导致猜测失败的问题，以及（如果需要的话）如何自己提供列类型。最 后，我们将提及一些在readr 遭遇严重失败且你需要更深入地了解文件结构时非常有用的通用策略。</p>
+<section id="猜测类型" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="猜测类型">
+<span class="header-section-number">7.3.1</span> 猜测类型</h3>
+<p>readr 使用一种启发式方法来确定列的类型。对 于每一列，它会从第一行到最后一行均匀地抽取 1,000<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> 行的值，并忽略缺失值。 然后，它会通过以下问题进行判断：</p>
+<ul>
+<li>它是否只包含 <code>F</code>、<code>T</code>、<code>FALSE</code> 或 <code>TRUE</code>（忽略大小写）？如果是，则它是逻辑型；</li>
+<li>它是否只包含数字（如<code>1</code>、<code>-4.5</code>、<code>5e6</code>、<code>Inf</code>）？如果是，则它是数字型；</li>
+<li>它是否符合 ISO8601 标准？如果是，则它是日期或日期-时间型。（我们将在@sec-creating-datetimes 更详细地讨论日期-时间型）；</li>
+<li>否则，它一定是字符串型。</li>
+</ul>
+<p>你可以通过以下简单示例看到这个行为：</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"</span></span>
+<span><span class="st">  logical,numeric,date,string</span></span>
+<span><span class="st">  TRUE,1,2021-01-15,abc</span></span>
+<span><span class="st">  false,4.5,2021-02-15,def</span></span>
+<span><span class="st">  T,Inf,2021-02-16,ghi</span></span>
+<span><span class="st">"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<span><span class="co">#&gt;   logical numeric date       string</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt;     &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 TRUE        1   2021-01-15 abc   </span></span>
+<span><span class="co">#&gt; 2 FALSE       4.5 2021-02-15 def   </span></span>
+<span><span class="co">#&gt; 3 TRUE      Inf   2021-02-16 ghi</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>如果你有一个干净的数据集，这种启发式方法很有效，但在现实生活中，你会遇到各种奇怪而美丽的失败。</p>
+</section><section id="缺失值列类型和问题" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="缺失值列类型和问题">
+<span class="header-section-number">7.3.2</span> 缺失值、列类型和问题</h3>
+<p>列检测失败最常见的方式是某列包含了意外值，结果你得到了一个字符型列而不是更具体的类型。这 种情况最常见的原因之一是缺失值，这些缺失值不是使用readr 所期望的<code>NA</code>来记录的。</p>
+<p>以下面这个简单的只有一列的 CSV 文件为例：</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">simple_csv</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">  x</span></span>
+<span><span class="st">  10</span></span>
+<span><span class="st">  .</span></span>
+<span><span class="st">  20</span></span>
+<span><span class="st">  30"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>如果我们在没有任何附加参数的情况下读取它，<code>x</code>将变成一个字符列：</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">simple_csv</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 1</span></span>
+<span><span class="co">#&gt;   x    </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 10   </span></span>
+<span><span class="co">#&gt; 2 .    </span></span>
+<span><span class="co">#&gt; 3 20   </span></span>
+<span><span class="co">#&gt; 4 30</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>在这个很小的例子中，你可以很容易地看到缺失值<code>.</code>。但 是，如果你的文件中有数千行，并且只有少数几个缺失值，并且这些缺失值分散在文件中，那么会发生什么呢？一 种方法是告诉readr <code>x</code> 是一列数字型数据，然后查看它在哪里失败。你 可以使用<code>col_types</code>参数来实现这一点，该参数接受一个命名列表，其中列表的名称与 CSV 文件中的列名相匹配：</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="va">simple_csv</span>, </span>
+<span>  col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_double</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: One or more parsing issues, call `problems()` on your data frame for</span></span>
+<span><span class="co">#&gt; details, e.g.:</span></span>
+<span><span class="co">#&gt;   dat &lt;- vroom(...)</span></span>
+<span><span class="co">#&gt;   problems(dat)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>现在<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>报告存在问题，并告诉我们可以通过<code><a href="https://readr.tidyverse.org/reference/problems.html">problems()</a></code>找到更多信息:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span><span class="co">#&gt;     row   col expected actual file                                           </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                                          </span></span>
+<span><span class="co">#&gt; 1     3     1 a double .      /private/var/folders/2m/th7w53zx2fx6gl3g1jcj4l…</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>这告诉我们，在第 3 行、第 1 列出现了问题， readr 期待一个双精度浮点数，但是得到了一个<code>.</code>。这 表明这个数据集使用<code>.</code>来表示缺失值。因 此，我们设置<code>na = "."</code>，自动猜测成功，得到了我们想要的数字列：</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">simple_csv</span>, na <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 1</span></span>
+<span><span class="co">#&gt;       x</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1    10</span></span>
+<span><span class="co">#&gt; 2    NA</span></span>
+<span><span class="co">#&gt; 3    20</span></span>
+<span><span class="co">#&gt; 4    30</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="列类型" class="level3" data-number="7.3.3"><h3 data-number="7.3.3" class="anchored" data-anchor-id="列类型">
+<span class="header-section-number">7.3.3</span> 列类型</h3>
+<p>readr总共提供了九种列类型供您使用:</p>
+<ul>
+<li>
+<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_logical()</a></code>和<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_double()</a></code>分别用于读取逻辑值和实数。由于readr 通常会自动为你猜测这些类型，因此它们相对不常用（除了上述情况）；</li>
+<li>
+<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer()</a></code> 用于读取整数。在本书中，我们很少区分整数和双精度浮点数，因为它们在功能上是等价的，但明确读取整数有时是有用的，因为它们占用的内存只有双精度浮点数的一半；</li>
+<li>
+<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_character()</a></code> 用于读取字符串。当某列是数字标识符时，明确指定它可以很有用，例如，用于标识对象的长数字序列，但对这些数字应用数学运算没有意义。示例包括电话号码、社会保障号码、信用卡号码等；</li>
+<li>
+<code><a href="https://readr.tidyverse.org/reference/parse_factor.html">col_factor()</a></code>, <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date()</a></code>和<code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime()</a></code> 分别用于创建因子、日期和日期-时间；当我们在@sec-factors 和 <a href="datetimes.html" class="quarto-xref"><span>章节 17</span></a> 学习这些数据类型时，你会了解更多相关信息；</li>
+<li>
+<code><a href="https://readr.tidyverse.org/reference/parse_number.html">col_number()</a></code> 是一个宽容的数字解析器，它将忽略非数字部分，特别适用于货币。在@sec-numbers 你将了解更多相关信息；</li>
+<li>
+<code><a href="https://readr.tidyverse.org/reference/col_skip.html">col_skip()</a></code> 用于跳过某列，使其不包含在结果中；这在处理大型 CSV 文件且只想使用其中的某些列时有用，可以加快数据读取速度。</li>
+</ul>
+<p>此外，也可以通过将<code><a href="https://rdrr.io/r/base/list.html">list()</a></code>切换到<code><a href="https://readr.tidyverse.org/reference/cols.html">cols()</a></code>并指定<code>.default</code>来覆盖默认列。</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">another_csv</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st">x,y,z</span></span>
+<span><span class="st">1,2,3"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="va">another_csv</span>, </span>
+<span>  col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span>.default <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span><span class="co">#&gt;   x     y     z    </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 1     2     3</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another useful helper is <code><a href="https://readr.tidyverse.org/reference/cols.html">cols_only()</a></code> which will read in only the columns you specify:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>  <span class="va">another_csv</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols_only</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span><span class="co">#&gt;   x    </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 1</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="sec-readr-directory" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="sec-readr-directory">
+<span class="header-section-number">7.4</span> 从多个文件读取数据</h2>
+<p>有时，你的数据分散在多个文件中，而不是只包含在一个文件中。例 如，你可能有多个月份的销售数据，每个月的数据都保存在一个单独的文件中：1月的销售数据在<code>01-sales.csv</code>中，2月的在<code>02-sales.csv</code>中，3月的在<code>03-sales.csv</code>中。使 用<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>函数可以一次性读取这些数据，并将它们堆叠在一个数据框中。</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"data/01-sales.csv"</span>, <span class="st">"data/02-sales.csv"</span>, <span class="st">"data/03-sales.csv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">sales_files</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 19 × 6</span></span>
+<span><span class="co">#&gt;   file              month    year brand  item     n</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 data/01-sales.csv January  2019     1  1234     3</span></span>
+<span><span class="co">#&gt; 2 data/01-sales.csv January  2019     1  8721     9</span></span>
+<span><span class="co">#&gt; 3 data/01-sales.csv January  2019     1  1822     2</span></span>
+<span><span class="co">#&gt; 4 data/01-sales.csv January  2019     2  3333     1</span></span>
+<span><span class="co">#&gt; 5 data/01-sales.csv January  2019     2  2156     9</span></span>
+<span><span class="co">#&gt; 6 data/01-sales.csv January  2019     2  3987     6</span></span>
+<span><span class="co">#&gt; # ℹ 13 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>同样，如果在项目的<code>data</code>文件夹中有CSV文件，上述代码就可以工作。你 可以从<a href="https://pos.it/r4ds-01-sales" class="uri">https://pos.it/r4ds-01-sales</a>, <a href="https://pos.it/r4ds-02-sales" class="uri">https://pos.it/r4ds-02-sales</a>和<a href="https://pos.it/r4ds-03-sales" class="uri">https://pos.it/r4ds-03-sales</a>下载这些文件，或者你可以直接读取它们:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://pos.it/r4ds-01-sales"</span>,</span>
+<span>  <span class="st">"https://pos.it/r4ds-02-sales"</span>,</span>
+<span>  <span class="st">"https://pos.it/r4ds-03-sales"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">sales_files</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>id</code>参数会在结果数据框中添加一个名为<code>file</code>的新列，用于标识数据来自哪个文件。这 在读取的文件没有包含可以帮助你追踪观测回到其原始来源的标识列时特别有用。</p>
+<p>如果你有很多文件想要读取，一个个写出它们的名称可能会很麻烦。相 反，你可以使用基础函数<code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>来通过匹配文件名中的模式找到这些文件。你 将在@sec-regular-expressions 部分学习更多关于这些模式的知识。</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data"</span>, pattern <span class="op">=</span> <span class="st">"sales\\.csv$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">sales_files</span></span>
+<span><span class="co">#&gt; [1] "data/01-sales.csv" "data/02-sales.csv" "data/03-sales.csv"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="sec-writing-to-a-file" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="sec-writing-to-a-file">
+<span class="header-section-number">7.5</span> 写入文件</h2>
+<p>readr 还提供了两个有用的函数，用于将数据写回磁盘：<code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv()</a></code>和<code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_tsv()</a></code>。这 些函数最重要的参数是<code>x</code>(要保存的数据框)和<code>file</code>(要保存的位置)。你 还可以指定如何使用<code>na</code>来写入缺失值以及是否希望将其附加到现有文件中。</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.csv"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>现在让我们读入csv文件。请 注意，当你保存到CSV时，刚刚设置的变量类型信息会丢失，因为你重新开始从纯文本文件读取:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students-2.csv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"students-2.csv"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>这使得CSV在缓存中间结果时有些不可靠，每次加载时都需要重新创建列规范。主 要有两种替代方案：</p>
+<ol type="1">
+<li>
+<p><code><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds()</a></code> 是围绕基础函数<code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code>和<code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code>的统一包装器。这 些函数将数据存储在R的自定义二进制格式RDS中。这 意味着当你重新加载对象时，你加载的是与存储时完全相同的R对象。</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.rds"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"students.rds"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+<li>
+<p><code>arrow</code>包允许你读取和写入 parquet 文件，这是一种可以快速跨编程语言共享的二进制文件格式。我 们将在 <a href="arrow.html" class="quarto-xref"><span>章节 22</span></a> 中更深入地探讨<code>arrow</code>。</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/apache/arrow/">arrow</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/write_parquet.html">write_parquet</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.parquet"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/read_parquet.html">read_parquet</a></span><span class="op">(</span><span class="st">"students.parquet"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
+<span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1          1 Sunil Huffmann   Strawberry yoghurt Lunch only              4</span></span>
+<span><span class="co">#&gt; 2          2 Barclay Lynn     French fries       Lunch only              5</span></span>
+<span><span class="co">#&gt; 3          3 Jayendra Lyne    NA                 Breakfast and lunch     7</span></span>
+<span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
+<span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+</ol>
+<p>Parquet往往比RDS快得多，并且可以在R之外使用，但确实需要<code>arrow</code>包。</p>
+</section><section id="数据录入" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="数据录入">
+<span class="header-section-number">7.6</span> 数据录入</h2>
+<p>有时，你需要在R脚本中手动组装一个tibble（数据框），进行一些数据录入。有 两个有用的函数可以帮助你完成这项工作，这两个函数的不同之处在于它们是通过列还是通过行来布局tibble的。<code>t</code> <code>ibble()</code>函数是按列工作的：</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, </span>
+<span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"h"</span>, <span class="st">"m"</span>, <span class="st">"g"</span><span class="op">)</span>,</span>
+<span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.83</span>, <span class="fl">0.60</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;       x y         z</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1 h      0.08</span></span>
+<span><span class="co">#&gt; 2     2 m      0.83</span></span>
+<span><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>按列布局数据可能会难以看到行之间的关系，因此另一种方法是<code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>（<strong>tr</strong>ansposed t<strong>ibble</strong>的缩写），它允许你逐行布局数据。<code>t</code> <code>ribble()</code>是为代码中的数据输入定制的：列标题以<code>~</code>开头，条目之间用逗号分隔。这 使得以易于阅读的形式布局少量数据成为可能：</p>
+<div class="cell">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">z</span>,</span>
+<span>  <span class="fl">1</span>, <span class="st">"h"</span>, <span class="fl">0.08</span>,</span>
+<span>  <span class="fl">2</span>, <span class="st">"m"</span>, <span class="fl">0.83</span>,</span>
+<span>  <span class="fl">5</span>, <span class="st">"g"</span>, <span class="fl">0.60</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;       x y         z</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1 h      0.08</span></span>
+<span><span class="co">#&gt; 2     2 m      0.83</span></span>
+<span><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="小结" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="小结">
+<span class="header-section-number">7.7</span> 小结</h2>
+<p>在本章中，你学习了如何使用<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>加载CSV文件，以及如何使用<code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code>和<code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>进行自己的数据输入。你 了解了CSV文件的工作原理，可能会遇到的一些问题，以及如何解决这些问题。在 本书中，我们将多次涉及数据导入：从Excel和Google表格中导入数据的 <a href="spreadsheets.html" class="quarto-xref"><span>章节 20</span></a> ，<a href="databases.html" class="quarto-xref"><span>章节 21</span></a> 将向你展示如何从数据库中加载数据，<a href="arrow.html" class="quarto-xref"><span>章节 22</span></a> 将介绍如何从Parquet文件中加载数据，<a href="rectangling.html" class="quarto-xref"><span>章节 23</span></a> 将涉及从JSON中导入数据，以及@sec-scraping 将介绍如何从网站上抓取数据。</p>
+<p>本书的这个部分即将结束，但还有一个重要的主题需要讨论：如何获取帮助。因 此，在下一章中，你将学习一些寻求帮助的好地方，如何创建一个可重现的示例（reprex）以最大化获得良好帮助的机会，以及一些关于跟上R世界步伐的一般性建议。</p>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p><a href="http://sfirke.github.io/janitor/">janitor</a>包不是tidyverse的一部分，但它提供了方便的数据清理功能，并且在使用<code>|&gt;</code>的数据管道中工作得很好。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>你可以使用<code>guess_max</code>参数覆盖1000的默认值。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "已复制");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "已复制");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r4ds\.hadley\.nz\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./workflow-scripts.html" class="pagination-link" aria-label="工作流程: 脚本和项目">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">工作流程: 脚本和项目</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./workflow-help.html" class="pagination-link" aria-label="工作流程：获取帮助">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">工作流程：获取帮助</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>R数据科学 (第二版) 由 Hadley Wickham等人编写</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/qbgaoo/r4ds-chinese/edit/main/data-import.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>此书利用 <a href="https://quarto.org/">Quarto</a>制作</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
