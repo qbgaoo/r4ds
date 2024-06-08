@@ -1,0 +1,582 @@
+# 逻辑向量 {#sec-logicals}
+
+```{r}
+#| echo: false
+
+source("_common.R")
+```
+
+## 引言
+
+在本章中，你将学习处理逻辑向量的工具。逻
+辑向量是最简单的向量类型，因为每个元素只能是三个可能值之一：`TRUE`（真）、`FALSE`（假）和`NA`（缺失值）。在
+原始数据中直接找到逻辑向量的情况相对较少，但在几乎每次分析的过程中，你都会创建和操作它们。
+
+我们将首先讨论创建逻辑向量的最常见方法：通过数值比较。然
+后，你将学习如何使用布尔代数来组合不同的逻辑向量，以及一些有用的总结。最
+后，我们将介绍`if_else()`和`case_when()`这两个由逻辑向量驱动的用于进行条件更改的有用函数。
+
+### 必要条件
+
+本章中你将学习的大部分函数都是由基础R提供的，因此我们不需要tidyverse，但我们仍然会加载它，以便我们可以使用`mutate()`、`filter()`等函数来处理数据框。我
+们还将继续从`nycflights13::flights`数据集中提取示例。
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(nycflights13)
+```
+
+然而，随着我们开始介绍更多的工具，并不总是会有一个完美的真实示例。因
+此，我们将开始使用`c()`创建一些虚拟数据:
+
+```{r}
+x <- c(1, 2, 3, 5, 7, 11, 13)
+x * 2
+```
+
+这样做使得解释单个函数变得更容易，但代价是使得它较难应用于你的数据问题。请
+记住，我们对自由浮动的向量所做的任何操作，你都可以通过`mutate()`等函数对数据框中的变量执行相同的操作。
+
+```{r}
+df <- tibble(x)
+df |> 
+  mutate(y = x * 2)
+```
+
+## 比较
+
+创建逻辑向量的一个非常常见的方式是通过使用`<`、`<=`、`>`、`>=`、`!=`和`==`进行数值比较。到
+目前为止，我们主要在`filter()`内部临时创建逻辑变量，它们被计算、使用，然后就被丢弃了。例
+如，下面的`filter()`查找所有大致准时到达的日间航班：
+
+```{r}
+flights |> 
+  filter(dep_time > 600 & dep_time < 2000 & abs(arr_delay) < 20)
+```
+
+知道这是一种快捷方式，并且可以使用`mutate()`明确创建底层的逻辑变量是很有用的：
+
+```{r}
+flights |> 
+  mutate(
+    daytime = dep_time > 600 & dep_time < 2000,
+    approx_ontime = abs(arr_delay) < 20,
+    .keep = "used"
+  )
+```
+
+这在处理更复杂的逻辑时特别有用，因为命名中间步骤既可以让代码更易读，也更容易检查每个步骤是否正确计算。
+
+总的来说，最初的`filter`函数相当于：
+
+```{r}
+#| results: false
+
+flights |> 
+  mutate(
+    daytime = dep_time > 600 & dep_time < 2000,
+    approx_ontime = abs(arr_delay) < 20,
+  ) |> 
+  filter(daytime & approx_ontime)
+```
+
+### 浮点数比较 {#sec-fp-comparison}
+
+对数字慎用==。例
+如，下面这个向量看起来包含数字1和2：
+
+```{r}
+x <- c(1 / 49 * 49, sqrt(2) ^ 2)
+x
+```
+
+但如果你测试它们是否相等，你得到 `FALSE`:
+
+```{r}
+x == c(1, 2)
+```
+
+这是怎么回事呢？计
+算机存储数字时只有固定的小数位数，因此无法精确表示1/49或`sqrt(2)`，随后的计算将略有偏差。我
+们可以通过在`print()`函数中指定`digits`[^logicals-1] 参数来查看精确值：
+
+[^logicals-1]: R 通常会自动为你调用`print`函数（即`x`是`print(x)`的简写），但如果你想要提供其他参数，显式调用`print`函数会很有用。
+
+```{r}
+print(x, digits = 16)
+```
+
+你可以看到为什么R默认会对这些数字进行四舍五入；它们确实非常接近你预期的值。
+
+既然你已经明白了为什么`==`会失败，那你能做什么呢？一
+个选择是使用`dplyr::near()`函数，它会忽略微小的差异：
+
+```{r}
+near(x, c(1, 2))
+```
+
+### 缺失值 {#sec-na-comparison}
+
+缺失值代表未知，因此它们是“具有传染性的”：几乎任何涉及未知值的操作也将是未知的：
+
+```{r}
+NA > 5
+10 == NA
+```
+
+最令人困惑的结果是这一个：
+
+```{r}
+NA == NA
+```
+
+如果我们人为地添加一些额外的上下文，将更容易理解为什么这是正确的：
+
+```{r}
+# We don't know how old Mary is
+age_mary <- NA
+
+# We don't know how old John is
+age_john <- NA
+
+# Are Mary and John the same age?
+age_mary == age_john
+# We don't know!
+```
+
+所以，如果你想要找出所有`dep_time`缺失的航班，以下代码是不起作用的，因为`dep_time == NA`对于每一行都会返回`NA`，而`filter()`函数会自动丢弃缺失值：
+
+```{r}
+flights |> 
+  filter(dep_time == NA)
+```
+
+相反，我们需要一个新工具: `is.na()`.
+
+### `is.na()`
+
+`is.na(x)`适用于任何类型的向量，对于缺失值返回 `TRUE`，对于其他所有值返回 `FALSE`。
+
+```{r}
+is.na(c(TRUE, NA, FALSE))
+is.na(c(1, NA, 3))
+is.na(c("a", NA, "b"))
+```
+
+我们可以使用`is.na()`来找到所有缺失`dep_time`的行：
+
+```{r}
+flights |> 
+  filter(is.na(dep_time))
+```
+
+`is.na()`在`arrange()`函数中也非常有用。`a`
+`rrange()`通常将所有缺失值放在最后，但你可以通过首先根据`is.na()`进行排序来覆盖这个默认行为：
+
+```{r}
+flights |> 
+  filter(month == 1, day == 1) |> 
+  arrange(dep_time)
+
+flights |> 
+  filter(month == 1, day == 1) |> 
+  arrange(desc(is.na(dep_time)), dep_time)
+```
+
+我们将在 @sec-missing-values 更深入地讨论缺失值。
+
+### 练习
+
+1.  `dplyr::near()` 是如何工作的？键入`near`以查看源代码。 `sqrt(2)^2` 与 2接近吗？
+2.  结合使用`mutate()`,`is.na()`,和`count()`来描述`dep_time`、`sched_dep_time`和`dep_delay`中缺失值之间的联系。
+
+## 布尔代数
+
+若你有了多个逻辑向量，可以使用布尔代数将它们组合在一起。在
+R中，`&`是“和”，`|`是“或”，`!` 是“非”，而`xor()`是异或[^logicals-2]。
+例如，`df %>% filter(!is.na(x))`查找所有`x`不缺失的行，而`df %>% filter(x < -10 | x > 0)`查找所有`x`小于-10或大于0的行。
+@fig-bool-ops 展示了完整的布尔操作集以及它们是如何工作的。
+
+[^logicals-2]: 也就是说，如果`x`为真，或`y`为真，但两者不同时为真，那么`xor(x, y)`就为真。这
+    通常是我们在英语中使用“或”的方式。“
+    两者都”通常不是对“你想要冰淇淋还是蛋糕？”
+    这个问题的可接受答案。
+
+```{r}
+#| label: fig-bool-ops
+#| echo: false
+#| out-width: NULL
+#| fig-cap: | 
+#|    The complete set of Boolean operations. `x` is the left-hand
+#|    circle, `y` is the right-hand circle, and the shaded region show 
+#|    which parts each operator selects.
+#| fig-alt: |
+#|    Seven Venn diagrams, each explaining a given logical operator. The
+#|    circles (sets) in each of the Venn diagrams represent x and y. x &
+#|    !y is x but none of y; x & y is the intersection of x and y; !x & y is
+#|    y but none of x; x is all of x none of y; xor(x, y) is everything
+#|    except the intersection of x and y; y is all of y and none of x; and 
+#|    x | y is everything.
+knitr::include_graphics("diagrams/transform.png", dpi = 270)
+```
+
+除了`&`和`|`之外，R 还有`&&`和`||`。不
+要在 dplyr 函数中使用它们！这
+些被称为短路运算符，并且总是只返回一个 `TRUE` 或 `FALSE`。它
+们对编程很重要，但对数据科学来说并不重要。
+
+### 缺失值 {#sec-na-boolean}
+
+布尔代数中缺失值的规则有点难解释，因为乍一看它们似乎不一致：
+
+```{r}
+df <- tibble(x = c(TRUE, FALSE, NA))
+
+df |> 
+  mutate(
+    and = x & NA,
+    or = x | NA
+  )
+```
+
+要理解其中的原因，可以考虑`NA | TRUE`（即`NA`或`TRUE`）。在
+逻辑向量中，缺失值意味着该值可能是`TRUE`或`FALSE`。因
+为至少有一个是`TRUE`，所以`TRUE | TRUE`和`FALSE | TRUE` 都是`TRUE`。`N`
+`A | TRUE`也必须是`TRUE`，因为`NA`可以是`TRUE`或`FALSE`。然
+而，`NA | FALSE`是`NA`，因为我们不知道`NA`是`TRUE`还是`FALSE`。类
+似的推理也适用于`NA & FALSE`。
+
+### 运算顺序
+
+请注意，操作的顺序并不与英语中的顺序相同。以
+下代码用于查找所有在十一月或十二月出发的航班：
+
+```{r}
+#| eval: false
+
+flights |> 
+   filter(month == 11 | month == 12)
+```
+
+你可能会想要像在英语中那样写： "Find all flights that departed in November or December.":
+
+```{r}
+flights |> 
+   filter(month == 11 | 12)
+```
+
+这段代码没有报错，但看起来也没有正常工作。这
+是怎么回事呢？在
+这里，R 首先计算`month == 11`创建一个逻辑向量，我们称之为`nov`。然
+后它计算`nov | 12`。当
+你使用数字与逻辑运算符结合时，除了0以外的所有数字都会被转换为TRUE，因此这等价于`nov | TRUE`，而`TRUE | TRUE`总是`TRUE`，所以每一行都会被选中：
+
+```{r}
+flights |> 
+  mutate(
+    nov = month == 11,
+    final = nov | 12,
+    .keep = "used"
+  )
+```
+
+### `%in%`
+
+避免 `==`s 和 `|`s 顺序错误的一个简单方法是使用`%in%`。`x`
+`%in% y`返回一个与`x`长度相同的逻辑向量，当`x`中的某个值在`y`中时，该逻辑向量的对应位置为`TRUE`。
+
+```{r}
+1:12 %in% c(1, 5, 11)
+letters[1:10] %in% c("a", "e", "i", "o", "u")
+```
+
+因此，要查找11月和12月的所有航班，可以这样写:
+
+```{r}
+#| eval: false
+
+flights |> 
+  filter(month %in% c(11, 12))
+```
+
+请注意，`%in%`对`NA`的处理规则与`==`不同，因为`NA %in% NA`是TRUE。
+
+Note that `%in%` obeys different rules for `NA` to `==`, as `NA %in% NA` is `TRUE`.
+
+```{r}
+c(1, 2, NA) == NA
+c(1, 2, NA) %in% NA
+```
+
+这可以作为一个有用的快捷方式:
+
+```{r}
+flights |> 
+  filter(dep_time %in% c(NA, 0800))
+```
+
+### 练习
+
+1.  找出所有到达延误（`arr_delay`）缺失但起飞延误（`dep_delay`）不缺失的航班。找出所有到达时间（`arr_time`）和计划到达时间（`sched_arr_time`）都不缺失，但到达延误（`arr_delay`）缺失的航班。
+2.  有多少航班的起飞时间（`dep_time`）是缺失的？这些行中还缺失了哪些其他变量？这些行可能代表什么？
+3.  假设缺失的起飞时间（`dep_time`）意味着航班被取消，查看每天取消的航班数量。是否存在某种模式？被取消航班的比例与非】未被取消航班的平均延误之间是否存在联系？
+
+## 小结 {#sec-logical-summaries}
+
+以下部分描述了一些用于总结逻辑向量的有用技术。除
+了专门与逻辑向量一起工作的函数外，你还可以使用与数字向量一起工作的函数。
+
+### 逻辑汇总函数（logical summaries）
+
+有两个主要的逻辑汇总函数：`any()`和`all()`。`a`
+`ny(x)`相当于`|`，如果`x`中有任何`TRUE`值，它就会返回`TRUE`。`a`
+`ll(x)`相当于`&`，只有当`x`的所有值都是`TRUE`时，它才会返回`TRUE`。像
+所有汇总函数一样，如果存在任何缺失值，它们将返回`NA`，并且你可以像往常一样使用`na.rm = TRUE`来让缺失值消失。
+
+例如，我们可以使用`all()`和`any()`来找出是否每个航班的起飞延误都不超过一个小时，或者是否有任何航班的到达延误了五个小时或更多。使
+用`group_by()`可以让我们按天来执行这些操作：
+
+```{r}
+flights |> 
+  group_by(year, month, day) |> 
+  summarize(
+    all_delayed = all(dep_delay <= 60, na.rm = TRUE),
+    any_long_delay = any(arr_delay >= 300, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+然而，在大多数情况下，`any()`和`all()`有点过于粗略，如果能够更详细地了解有多少值是`TRUE`或`FALSE`就好了。这
+就引出了数值摘要（numeric summaries）。
+
+### 逻辑向量的数值汇总 {#sec-numeric-summaries-of-logicals}
+
+当你在数值上下文中使用逻辑向量时，`TRUE` 变成 1，`FALSE` 变成 0。这
+使得`sum()`和`mean()`函数对逻辑向量非常有用，因为`sum(x)`给出 `TRUE` 的数量，而`mean(x)`给出 `TRUE` 的比例（因为`mean()`实际上就是`sum()`除以`length()`）。
+
+例如，我们可以查看起飞延误最多一小时的航班的比例，以及到达延误五小时或更多的航班的数量：
+
+```{r}
+flights |> 
+  group_by(year, month, day) |> 
+  summarize(
+    proportion_delayed = mean(dep_delay <= 60, na.rm = TRUE),
+    count_long_delay = sum(arr_delay >= 300, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+### 逻辑子集（logical subsetting）
+
+逻辑向量在汇总中的最后一个用途是：你可以使用逻辑向量来筛选单个变量到感兴趣的子集。这
+利用了基本的子集操作符`[`（发音为“subset”），你将在 @sec-subset-many 中学到更多关于它的内容。
+
+我们想要查看实际上有延误的航班的平均延误时间。一
+种方法是先筛选航班，然后计算平均延误时间：
+
+```{r}
+flights |> 
+  filter(arr_delay > 0) |> 
+  group_by(year, month, day) |> 
+  summarize(
+    behind = mean(arr_delay),
+    n = n(),
+    .groups = "drop"
+  )
+```
+
+这样做是可以的，但如果我们还想计算提前到达的航班的平均延误时间呢？我
+们需要执行一个单独的筛选步骤，然后考虑如何将两个数据框合并在一起。相
+反，你可以使用`[`来执行内联筛选：`arr_delay[arr_delay > 0]`将仅返回正的到达延误时间。
+
+由此引出：
+
+```{r}
+flights |> 
+  group_by(year, month, day) |> 
+  summarize(
+    behind = mean(arr_delay[arr_delay > 0], na.rm = TRUE),
+    ahead = mean(arr_delay[arr_delay < 0], na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+```
+
+同时也要注意组大小的差异：在第一部分中，`n()`给出的是每天延误航班的数量；在第二部分中，`n()`给出的是总航班数量。
+
+### 练习
+
+1.  `sum(is.na(x))` 会告诉你什么信息？ `mean(is.na(x))`呢？
+2.  当应用于逻辑向量时，`prod()`返回什么？它等于什么逻辑汇总函数？当应用于逻辑向量时`min()`返回什么？它等于什么逻辑汇总函数？阅读文档并进行一些实验。
+
+## 条件转换
+
+逻辑向量最强大的功能之一是用于条件转换，即当满足条件x时执行一个操作，当满足条件y时执行另一个操作。有
+两个重要的工具可以实现这一功能：`if_else()`和`case_when()`。
+
+### `if_else()`
+
+如果你想要在一个条件为`TRUE`时使用一个值，而在条件为`FALSE`时使用另一个值，你可以使用`dplyr::if_else()`。你
+总是会用到`if_else()`的前三个参数。第
+一个参数`condition`，是一个逻辑向量；第二个参数`true`，给出当条件为真时的输出；第三个参数`false`，给出当条件为假时的输出。
+
+让我们从一个简单的例子开始，将一个数值向量标记为“+ve”（正）或“-ve”（负）：
+
+```{r}
+x <- c(-3:3, NA)
+if_else(x > 0, "+ve", "-ve")
+```
+
+还有一个可选的第四个参数，如果输入是`NA`，则会使用`missing`:
+
+```{r}
+if_else(x > 0, "+ve", "-ve", "???")
+```
+
+你还可以使用向量作为`true`和`false`参数。例
+如，这允许我们创建一个`abs()`函数的简化实现：
+
+```{r}
+if_else(x < 0, -x, x)
+```
+
+到目前为止，所有的参数都使用了相同的向量，当然你也可以混合和匹配。例
+如，你可以像这样实现`coalesce()`函数的简单版本：
+
+```{r}
+x1 <- c(NA, 1, 2, NA)
+y1 <- c(3, NA, 4, 6)
+if_else(is.na(x1), y1, x1)
+```
+
+你可能已经注意到我们上面标记示例中的一个小瑕疵：零既不是正数也不是负数。我
+们可以通过添加另一个`if_else()`来解决这个问题：
+
+```{r}
+if_else(x == 0, "0", if_else(x < 0, "-ve", "+ve"), "???")
+```
+
+这已经有点难以阅读了，你可以想象如果有更多的条件，它只会变得更难。相
+反，你可以切换到`dplyr::case_when()`。
+
+### `case_when()`
+
+dplyr的`case_when()`是受SQL的`CASE`语句启发，为不同条件执行不同计算提供了灵活的方法。它
+有一个特殊的语法，不过这个语法看起来与tidyverse中将要使用的任何其他内容都不相似。它
+接受形如`condition ~ output`的组合，`condition`必须是一个逻辑向量，当它为TRUE时，将使用`output`。
+
+这意味着我们可以将之前嵌套的`if_else()`重新创建如下：
+
+```{r}
+x <- c(-3:3, NA)
+case_when(
+  x == 0   ~ "0",
+  x < 0    ~ "-ve", 
+  x > 0    ~ "+ve",
+  is.na(x) ~ "???"
+)
+```
+
+虽然代码更多，但它也更清晰。
+
+为了解释`case_when()`是如何工作的，让我们探索一些更简单的案例。如
+果没有任何情况匹配，则输出为NA：
+
+```{r}
+case_when(
+  x < 0 ~ "-ve",
+  x > 0 ~ "+ve"
+)
+```
+
+如果你想为未匹配到任何条件的情况设置一个“默认”的值，可以使用`.default`：
+
+```{r}
+case_when(
+  x < 0 ~ "-ve",
+  x > 0 ~ "+ve",
+  .default = "???"
+)
+```
+
+注意，如果多个条件匹配，只会使用第一个条件:
+
+```{r}
+case_when(
+  x > 0 ~ "+ve",
+  x > 2 ~ "big"
+)
+```
+
+就像使用`if_else()`一样，你可以在`~`的两边使用变量，并且可以根据需要混合和匹配变量来解决你的问题。例
+如，我们可以使用`case_when()`为到达延误提供一些人们可读的标签：
+
+```{r}
+flights |> 
+  mutate(
+    status = case_when(
+      is.na(arr_delay)      ~ "cancelled",
+      arr_delay < -30       ~ "very early",
+      arr_delay < -15       ~ "early",
+      abs(arr_delay) <= 15  ~ "on time",
+      arr_delay < 60        ~ "late",
+      arr_delay < Inf       ~ "very late",
+    ),
+    .keep = "used"
+  )
+```
+
+在编写这种复杂的`case_when()`语句时要小心；我最初的两次尝试混合使用了`<`和`>`，结果不小心创建了重叠的条件。
+
+### 兼容类型（compatible types）
+
+请注意，`if_else()`和`case_when()`都要求输出具有兼容的类型。如
+果它们不兼容，你会看到类似这样的错误：
+
+```{r}
+#| error: true
+
+if_else(TRUE, "a", 1)
+
+case_when(
+  x < -1 ~ TRUE,  
+  x > 0  ~ now()
+)
+```
+
+总体来说，兼容的类型是相对较少的，因为自动将一个类型的向量转换为另一个类型的向量是常见的错误来源。以
+下是一些最重要的兼容情况：
+
+-   数字和逻辑向量是兼容的，正如我们在\@sec-numeric-summaries-of-logicals 讨论的那样。
+-   字符串和因子（@sec-factors） 是兼容的，因为可以将因子视为一组具有固定值的字符串。
+-   日期和日期-时间，我们将在 @sec-dates-and-times 部分讨论，它们是兼容的，因为你可以将日期视为日期-时间的一个特例。
+-   `NA`, 从技术上讲是逻辑向量，与所有类型都兼容，因为每个向量都有表示缺失值的方式。
+
+我们不要求你记住这些规则，但随着时间的推移，它们应该变得自然而然，因为它们在整个tidyverse中都被一致地应用。
+
+### 练习
+
+1.  如果一个数能被2整除，那么它就是偶数。在
+    R中，你可以通过`x %% 2 == 0`来判断一个数是否为偶数。利
+    用这个事实和`if_else()`函数来确定0到20之间的每个数是偶数还是奇数。
+
+2.  给定一个天数向量，如`x <- c("Monday", "Saturday", "Wednesday")`，使用`if_else()`语句将它们标记为周末或工作日。
+
+3.  使用`if_else()`函数计算一个名为`x`的数值向量的绝对值。
+
+4.  编写一个`case_when()`语句，利用`flights`数据集中的`month`和`day`列来标记一些重要的美国节假日（例如，新年、7月4日、感恩节和圣诞节）。首
+    先创建一个逻辑列，其值为`TRUE`或`FALSE`，然后创建一个字符列，该列要么给出节假日的名称，要么是NA。
+
+## 小结
+
+逻辑向量的定义很简单，因为每个值都必须是`TRUE`、`FALSE`或`NA`。但
+逻辑向量提供了巨大的功能。在
+本章中，你学习了如何使用`>`、`<`、`<=`、`>=`、`==`、`!=`和`is.na()`创建逻辑向量，如何使用`!`、`&`和`|`组合它们，以及如何使用`any()`、`all()`、`sum()`和`mean()`对它们进行汇总。你
+还学习了强大的`if_else()`和`case_when()`函数，这些函数允许你根据逻辑向量的值返回值。
+
+在接下来的章节中，我们将一次又一次地看到逻辑向量。例
+如，在\@sec-strings ，你将学习`str_detect(x, pattern)`，它返回一个逻辑向量，对于x中匹配模式的元素，该向量的值为`TRUE`；在\@sec-dates-and-times ，你将通过比较日期和时间来创建逻辑向量。但
+现在，我们将转向下一个最重要的向量类型：数值向量。

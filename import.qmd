@@ -1,0 +1,41 @@
+# 导入 {#sec-import .unnumbered}
+
+```{r}
+#| echo: false
+
+source("_common.R")
+```
+
+在本书的这一部分，你将学习如何将更广泛的数据导入R，以及如何将其转换为对分析有用的形式。有
+时，这只需要调用适当的数据导入包中的函数即可。但
+在更复杂的情况下，可能需要同时进行数据整理和转换，以得到你更喜欢使用的整齐矩形数据。
+
+```{r}
+#| label: fig-ds-import
+#| echo: false
+#| fig-cap: |
+#|   Data import is the beginning of the data science process; without
+#|   data you can't do data science!
+#| fig-alt: |
+#|   Our data science model with import highlighted in blue.
+#| out.width: NULL
+
+knitr::include_graphics("diagrams/data-science/import.png", dpi = 270)
+```
+
+在本书的这一部分，你将学习如何访问以以下方式存储的数据:
+
+-   在 @sec-import-spreadsheets 学习如何从Excel电子表格和Google表格导入数据。
+
+-   在 @sec-import-databases 学习如何从数据库中获取数据并将其导入R（同时将学习一点如何将数据从R导出到数据库）。
+
+-   在 @sec-arrow 学习Arrow，这是一个用于处理内存外数据的强大工具，特别是当数据以Parquet格式存储时。
+
+-   在 @sec-rectangling 学习如何处理层次化数据，包括由JSON格式存储的数据产生的深度嵌套列表。
+
+-   在 @sec-scraping 学习网页“抓取”，即从网页中提取数据的艺术和科学。
+
+这里有两个重要的tidyverse包我们没有讨论：haven和xml2。如
+果你正在处理SPSS、Stata和SAS文件中的数据，请查看haven包 (<https://haven.tidyverse.org>)。如
+果你正在处理XML数据，请查看xml2包 (<https://haven.tidyverse.org>)。不
+然，你可能需要进行一些研究来确定需要使用哪个包；此时，谷歌会是你的得力助手😃。
