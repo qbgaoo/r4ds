@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整齐</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -609,7 +609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
 <span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>另一种方法是使用&nbsp;<code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code>&nbsp;函数，该函数使用一些启发式方法来一次性将它们全部转换为蛇形命名法（snake case）<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+<p>另一种方法是使用<code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code>函数，该函数使用一些启发式方法来一次性将它们全部转换为蛇形命名法（snake case）<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span> <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
@@ -925,7 +925,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">sales_files</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>id</code>参数会在结果数据框中添加一个名为<code>file</code>的新列，用于标识数据来自哪个文件。这 在读取的文件没有包含可以帮助你追踪观测回到其原始来源的标识列时特别有用。</p>
-<p>如果你有很多文件想要读取，一个个写出它们的名称可能会很麻烦。相 反，你可以使用基础函数<code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>来通过匹配文件名中的模式找到这些文件。你 将在@sec-regular-expressions 部分学习更多关于这些模式的知识。</p>
+<p>如果你有很多文件想要读取，一个个写出它们的名称可能会很麻烦。相 反，你可以使用基础函数<code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>来通过匹配文件名中的模式找到这些文件。你 将在@<a href="regexps.html" class="quarto-xref"><span>章节 15</span></a> 部分学习更多关于这些模式的知识。</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data"</span>, pattern <span class="op">=</span> <span class="st">"sales\\.csv$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">sales_files</span></span>

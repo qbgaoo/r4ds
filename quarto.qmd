@@ -32,8 +32,6 @@ uarto 将 R Markdown 生态系统中许多包（如 rmarkdown、bookdown、disti
 
 你需要使用 Quarto 命令行界面（Quarto CLI），但你不需要显式地安装或加载它，因为当需要时RStudio 会自动完成这两项操作。
 
-You need the Quarto command line interface (Quarto CLI), but you don't need to explicitly install it or load it, as RStudio automatically does both when needed.
-
 ```{r}
 #| label: setup
 #| include: false
@@ -100,7 +98,7 @@ knitr::include_graphics("quarto/diamond-sizes-console-output.png")
 
 要生成一个包含所有文本、代码和结果的完整报告，请点击“Render”或按下 Cmd/Ctrl + Shift + K。你
 也可以通过编程方式使用`quarto::quarto_render("diamond-sizes.qmd")`来完成这一操作。这
-将在查看器面板中显示报告，如图\@fig-diamond-sizes-report 所示，并创建一个HTML文件。
+将在查看器面板中显示报告，如图 @fig-diamond-sizes-report 所示，并创建一个HTML文件。
 
 ```{r}
 #| label: fig-diamond-sizes-report
@@ -121,7 +119,7 @@ knitr::include_graphics("quarto/diamond-sizes-report.png")
 当你渲染（render）文档时，Quarto 将`.qmd`文件发送给 **knitr**（[https://yihui.org/knitr/](https://yihui.org/knitr/%EF%BC%89%EF%BC%8Cknitr)）**，**knitr执行所有的代码块并创建一个新的 markdown（`.md`）文档，这个文档包含了代码及其输出。随
 后，由 knitr 生成的 markdown 文件会被 pandoc（[https://pandoc.org](https://pandoc.xn--org)）处理，pandoc负责创建最终的文件。这
 个过程在 @fig-quarto-flow 中有展示。这
-种两步工作流程的优势在于可以创建非常广泛的输出格式，这将在\@sec-quarto-formats 中学习。
+种两步工作流程的优势在于可以创建非常广泛的输出格式，这将在 @sec-quarto-formats 中学习。
 
 ```{r}
 #| label: fig-quarto-flow

@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整齐</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -671,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; 1    0.139        1    -1.11        1   -0.387        2     1.15        0</span></span>
 <span><span class="co">#&gt; # ℹ 1 more variable: n &lt;int&gt;</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>.names</code>参数在你使用<code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>与<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>一起时特别重要。默 认情况下，<code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>的输出会使用与输入相同的名称。这 意味着在<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>内部的<code>across(</code>&nbsp;会替换现有的列。例如，在这里我们使用<code><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce()</a></code>来将 <code>NA</code> 值替换为 <code>0</code>：</p>
+<p><code>.names</code>参数在你使用<code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>与<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>一起时特别重要。默 认情况下，<code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>的输出会使用与输入相同的名称。这 意味着在<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>内部的<code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code>会替换现有的列。例 如，在这里我们使用<code><a href="https://dplyr.tidyverse.org/reference/coalesce.html">coalesce()</a></code>来将 <code>NA</code> 值替换为 <code>0</code>：</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_miss</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>

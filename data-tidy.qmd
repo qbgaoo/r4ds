@@ -1,4 +1,4 @@
-# 数据整理 {#sec-data-tidy}
+# 数据整齐 {#sec-data-tidy}
 
 ```{r}
 #| echo: false

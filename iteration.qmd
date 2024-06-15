@@ -247,7 +247,8 @@ df_miss |>
 
 `.names`参数在你使用`across()`与`mutate()`一起时特别重要。默
 认情况下，`across()`的输出会使用与输入相同的名称。这
-意味着在`mutate()`内部的`across(` 会替换现有的列。例如，在这里我们使用`coalesce()`来将 `NA` 值替换为 `0`：
+意味着在`mutate()`内部的`across()`会替换现有的列。例
+如，在这里我们使用`coalesce()`来将 `NA` 值替换为 `0`：
 
 ```{r}
 df_miss |> 

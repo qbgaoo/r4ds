@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">数据整齐</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -503,7 +503,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="必要条件" class="level3" data-number="28.1.1"><h3 data-number="28.1.1" class="anchored" data-anchor-id="必要条件">
 <span class="header-section-number">28.1.1</span> 必要条件</h3>
 <p>你需要使用 Quarto 命令行界面（Quarto CLI），但你不需要显式地安装或加载它，因为当需要时RStudio 会自动完成这两项操作。</p>
-<p>You need the Quarto command line interface (Quarto CLI), but you don’t need to explicitly install it or load it, as RStudio automatically does both when needed.</p>
 </section></section><section id="quarto-基础" class="level2" data-number="28.2"><h2 data-number="28.2" class="anchored" data-anchor-id="quarto-基础">
 <span class="header-section-number">28.2</span> Quarto 基础</h2>
 <p>下面是一个Quarto文件，一个扩展名为<code>.qmd</code>的纯文本文件:</p>
@@ -569,7 +568,7 @@ smaller |&gt;
 </div>
 </div>
 </div>
-<p>要生成一个包含所有文本、代码和结果的完整报告，请点击“Render”或按下 Cmd/Ctrl + Shift + K。你 也可以通过编程方式使用<code>quarto::quarto_render("diamond-sizes.qmd")</code>来完成这一操作。这 将在查看器面板中显示报告，如图@fig-diamond-sizes-report 所示，并创建一个HTML文件。</p>
+<p>要生成一个包含所有文本、代码和结果的完整报告，请点击“Render”或按下 Cmd/Ctrl + Shift + K。你 也可以通过编程方式使用<code>quarto::quarto_render("diamond-sizes.qmd")</code>来完成这一操作。这 将在查看器面板中显示报告，如图 <a href="#fig-diamond-sizes-report" class="quarto-xref">图&nbsp;<span>28.3</span></a> 所示，并创建一个HTML文件。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-diamond-sizes-report" class="quarto-figure quarto-figure-center quarto-float anchored" alt="RStudio window with a Quarto document titled &quot;diamond-sizes.qmd&quot; on the left and the Plot pane on the bottom right. The rendered document does not show any of the code, but the code is visible in the source document.">
@@ -582,7 +581,7 @@ smaller |&gt;
 </div>
 </div>
 </div>
-<p>当你渲染（render）文档时，Quarto 将<code>.qmd</code>文件发送给 <strong>knitr</strong>（<a href="https://yihui.org/knitr/%EF%BC%89%EF%BC%8Cknitr">https://yihui.org/knitr/</a>）<strong>，</strong>knitr执行所有的代码块并创建一个新的 markdown（<code>.md</code>）文档，这个文档包含了代码及其输出。随 后，由 knitr 生成的 markdown 文件会被 pandoc（<a href="https://pandoc.xn--org">https://pandoc.org</a>）处理，pandoc负责创建最终的文件。这 个过程在 <a href="#fig-quarto-flow" class="quarto-xref">图&nbsp;<span>28.4</span></a> 中有展示。这 种两步工作流程的优势在于可以创建非常广泛的输出格式，这将在@sec-quarto-formats 中学习。</p>
+<p>当你渲染（render）文档时，Quarto 将<code>.qmd</code>文件发送给 <strong>knitr</strong>（<a href="https://yihui.org/knitr/%EF%BC%89%EF%BC%8Cknitr">https://yihui.org/knitr/</a>）<strong>，</strong>knitr执行所有的代码块并创建一个新的 markdown（<code>.md</code>）文档，这个文档包含了代码及其输出。随 后，由 knitr 生成的 markdown 文件会被 pandoc（<a href="https://pandoc.xn--org">https://pandoc.org</a>）处理，pandoc负责创建最终的文件。这 个过程在 <a href="#fig-quarto-flow" class="quarto-xref">图&nbsp;<span>28.4</span></a> 中有展示。这 种两步工作流程的优势在于可以创建非常广泛的输出格式，这将在 <a href="quarto-formats.html" class="quarto-xref"><span>章节 29</span></a> 中学习。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-quarto-flow" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Workflow diagram starting with a qmd file, then knitr, then md, then pandoc, then PDF, MS Word, or HTML. ">

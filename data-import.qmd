@@ -107,7 +107,7 @@ students |>
   )
 ```
 
-另一种方法是使用 `janitor::clean_names()` 函数，该函数使用一些启发式方法来一次性将它们全部转换为蛇形命名法（snake case）[^data-import-1]。
+另一种方法是使用`janitor::clean_names()`函数，该函数使用一些启发式方法来一次性将它们全部转换为蛇形命名法（snake case）[^data-import-1]。
 
 [^data-import-1]: [janitor](http://sfirke.github.io/janitor/)包不是tidyverse的一部分，但它提供了方便的数据清理功能，并且在使用`|>`的数据管道中工作得很好。
 
@@ -433,7 +433,7 @@ read_csv(sales_files, id = "file")
 
 如果你有很多文件想要读取，一个个写出它们的名称可能会很麻烦。相
 反，你可以使用基础函数`list.files()`来通过匹配文件名中的模式找到这些文件。你
-将在\@sec-regular-expressions 部分学习更多关于这些模式的知识。
+将在\@@sec-regular-expressions 部分学习更多关于这些模式的知识。
 
 ```{r}
 sales_files <- list.files("data", pattern = "sales\\.csv$", full.names = TRUE)
