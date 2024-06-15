@@ -24,4 +24,4 @@
 
 ## 致谢 {.unnumbered}
 
-本书由 <https://www.netlify.com> 托管，感谢他们对开源软件和社区的支持。
+本书由 <https://github.com> 托管，感谢他们对开源软件和社区的支持。
