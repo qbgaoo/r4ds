@@ -8,12 +8,12 @@ book:
 
   page-footer:
     left: |
-      R数据科学 (第二版) 由 Hadley Wickham等人编写
+      此书英文版由 Hadley Wickham 等人编写
     right: |
-      此书利用 <a href="https://quarto.org/">Quarto</a>制作
+      这是中文版, 由 Qing-Bin Gao 翻译
   cover-image: cover.jpg
   favicon: cover.jpg
-  site-url: https://r4ds.hadley.nz/
+  site-url: https://qbgaoo.github.io/r4ds/
   repo-url: https://github.com/qbgaoo/r4ds-chinese/
   repo-branch: main
   repo-actions: [edit]
