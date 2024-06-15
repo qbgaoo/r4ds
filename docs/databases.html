@@ -960,7 +960,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>当从数据库中处理数据时，你可能需要很多连接操作。这 是因为数据库表通常以高度规范化的形式存储，其中每个“事实”都存储在单个位置，为了保持完整的数据集以供分析，你需要遍历由主键和外键连接的复杂表网络。如 果你遇到这种情况，Tobias Schieferdecker、Kirill Müller 和 Darko Bergant 开发的 <a href="https://cynkra.github.io/dm/">dm</a> 包将是一个救星。它 可以使用 DBA 通常提供的约束自动确定表之间的连接，可视化这些连接以便你可以看到发生了什么，并生成你需要的连接来将一个表连接到另一个表。</p>
 </section><section id="其他函数" class="level3" data-number="21.5.9"><h3 data-number="21.5.9" class="anchored" data-anchor-id="其他函数">
 <span class="header-section-number">21.5.9</span> 其他函数</h3>
-<p>dbplyr 还翻译了其他函数，如<code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>、<code>slice_*()</code>、和<code><a href="https://generics.r-lib.org/reference/setops.html">intersect()</a></code> 以及越来越多的 tidyr 函数，如<code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>和<code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>。查 看当前可用的完整集合的最简单方法是访问 dbplyr 网站：<a href="https://dbplyr.tidyverse.org/reference/%E3%80%82">https://dbplyr.tidyverse.org/reference/</a> 。</p>
+<p>dbplyr 还翻译了其他函数，如<code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>、<code>slice_*()</code>、和<code><a href="https://rdrr.io/pkg/generics/man/setops.html">intersect()</a></code> 以及越来越多的 tidyr 函数，如<code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>和<code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>。查 看当前可用的完整集合的最简单方法是访问 dbplyr 网站：<a href="https://dbplyr.tidyverse.org/reference/%E3%80%82">https://dbplyr.tidyverse.org/reference/</a> 。</p>
 </section><section id="练习" class="level3" data-number="21.5.10"><h3 data-number="21.5.10" class="anchored" data-anchor-id="练习">
 <span class="header-section-number">21.5.10</span> 练习</h3>
 <ol type="1">
@@ -1331,7 +1331,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/r4ds\.hadley\.nz\/");
+      var filterRegex = new RegExp("https:\/\/qbgaoo\.github\.io\/r4ds\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -1672,13 +1672,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>R数据科学 (第二版) 由 Hadley Wickham等人编写</p>
+<p>此书英文版由 Hadley Wickham 等人编写</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/qbgaoo/r4ds-chinese/edit/main/databases.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>此书利用 <a href="https://quarto.org/">Quarto</a>制作</p>
+<p>这是中文版, 由 Qing-Bin Gao 翻译</p>
 </div>
   </div>
 </footer>

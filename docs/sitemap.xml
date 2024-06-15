@@ -1,159 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://r4ds.hadley.nz/index.html</loc>
-    <lastmod>2024-06-08T02:23:03.038Z</lastmod>
+    <loc>https://qbgaoo.github.io/r4ds/index.html</loc>
+    <lastmod>2024-06-15T10:12:25.679Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/preface-2e.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/preface-2e.html</loc>
     <lastmod>2024-06-08T02:23:02.786Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/intro.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/intro.html</loc>
     <lastmod>2024-06-08T02:23:02.781Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/whole-game.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/whole-game.html</loc>
     <lastmod>2024-06-08T02:23:02.855Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/data-visualize.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/data-visualize.html</loc>
     <lastmod>2024-06-08T02:23:02.654Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/workflow-basics.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/workflow-basics.html</loc>
     <lastmod>2024-06-08T02:23:02.856Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/data-transform.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/data-transform.html</loc>
     <lastmod>2024-06-08T02:23:03.014Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/workflow-style.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/workflow-style.html</loc>
     <lastmod>2024-06-13T13:28:15.727Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/data-tidy.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/data-tidy.html</loc>
     <lastmod>2024-06-13T02:37:42.868Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/workflow-scripts.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/workflow-scripts.html</loc>
     <lastmod>2024-06-08T02:23:02.856Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/data-import.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/data-import.html</loc>
     <lastmod>2024-06-11T14:48:43.299Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/workflow-help.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/workflow-help.html</loc>
     <lastmod>2024-06-08T02:23:02.856Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/visualize.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/visualize.html</loc>
     <lastmod>2024-06-08T02:23:02.855Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/layers.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/layers.html</loc>
     <lastmod>2024-06-08T02:23:02.784Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/EDA.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/EDA.html</loc>
     <lastmod>2024-06-08T02:23:02.646Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/communication.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/communication.html</loc>
     <lastmod>2024-06-08T02:23:02.651Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/transform.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/transform.html</loc>
     <lastmod>2024-06-08T02:23:02.855Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/logicals.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/logicals.html</loc>
     <lastmod>2024-06-08T02:23:03.040Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/numbers.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/numbers.html</loc>
     <lastmod>2024-06-08T02:23:03.040Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/strings.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/strings.html</loc>
     <lastmod>2024-06-08T02:23:02.854Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/regexps.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/regexps.html</loc>
     <lastmod>2024-06-08T02:23:02.817Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/factors.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/factors.html</loc>
     <lastmod>2024-06-08T02:23:02.723Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/datetimes.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/datetimes.html</loc>
     <lastmod>2024-06-08T02:23:02.660Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/missing-values.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/missing-values.html</loc>
     <lastmod>2024-06-08T02:23:02.784Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/joins.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/joins.html</loc>
     <lastmod>2024-06-08T02:23:02.783Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/import.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/import.html</loc>
     <lastmod>2024-06-08T02:23:02.750Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/spreadsheets.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/spreadsheets.html</loc>
     <lastmod>2024-06-08T02:23:02.854Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/databases.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/databases.html</loc>
     <lastmod>2024-06-08T02:23:02.660Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/arrow.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/arrow.html</loc>
     <lastmod>2024-06-08T02:23:02.648Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/rectangling.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/rectangling.html</loc>
     <lastmod>2024-06-08T02:23:02.817Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/webscraping.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/webscraping.html</loc>
     <lastmod>2024-06-08T02:23:02.855Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/program.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/program.html</loc>
     <lastmod>2024-06-08T02:23:02.786Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/functions.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/functions.html</loc>
     <lastmod>2024-06-13T02:36:06.380Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/iteration.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/iteration.html</loc>
     <lastmod>2024-06-14T11:43:15.375Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/base-R.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/base-R.html</loc>
     <lastmod>2024-06-13T13:28:15.743Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/communicate.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/communicate.html</loc>
     <lastmod>2024-06-08T02:23:02.649Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/quarto.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/quarto.html</loc>
     <lastmod>2024-06-14T12:57:38.324Z</lastmod>
   </url>
   <url>
-    <loc>https://r4ds.hadley.nz/quarto-formats.html</loc>
+    <loc>https://qbgaoo.github.io/r4ds/quarto-formats.html</loc>
     <lastmod>2024-06-08T02:23:02.786Z</lastmod>
-  </url>
-  <url>
-    <loc>https://qbgaoo.github.io/r4ds/index.html</loc>
-    <lastmod>2024-06-15T10:12:25.679Z</lastmod>
   </url>
 </urlset>

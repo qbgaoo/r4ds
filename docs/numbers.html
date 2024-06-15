@@ -478,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>我们将首先为你提供几个工具，以便在你有字符串时生成数字，然后更详细地介绍<code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>函数。然 后，我们将深入探讨与<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>搭配使用的各种数值转换，包括可以应用于其他类型向量的更一般的转换，但通常与数值向量一起使用。最 后，我们将介绍与<code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>搭配使用的汇总函数，并向你展示它们也可以与<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>一起使用。</p>
 <section id="必要条件" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="必要条件">
 <span class="header-section-number">13.1.1</span> 必要条件</h3>
-<p>本章主要使用来自基础R的函数，这些函数无需加载任何包即可使用。但 我们仍然需要tidyverse，因为我们将在tidyverse的函数（如<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>和<code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>）内部使用这些基础R函数。和 上一章一样，我们将使用<code>nycflights13</code>数据集的真实示例，以及使用<code><a href="https://rdrr.io/r/base/c.html">c()</a></code>和<code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>创建的玩具示例。</p>
+<p>本章主要使用来自基础R的函数，这些函数无需加载任何包即可使用。但 我们仍然需要tidyverse，因为我们将在tidyverse的函数（如<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>和<code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>）内部使用这些基础R函数。和 上一章一样，我们将使用<code>nycflights13</code>数据集的真实示例，以及使用<code><a href="https://rdrr.io/r/base/c.html">c()</a></code>和<code><a href="https://rdrr.io/pkg/tibble/man/tribble.html">tribble()</a></code>创建的玩具示例。</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -674,7 +674,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">13.4.2</span> 最小值和最大值</h3>
 <p>算术函数对变量对进行操作。两 个紧密相关的函数是<code><a href="https://rdrr.io/r/base/Extremes.html">pmin()</a></code>和<code><a href="https://rdrr.io/r/base/Extremes.html">pmax()</a></code>，当给定两个或更多变量时，它们将返回每行中的最小或最大值：</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>,</span>
 <span>  <span class="fl">1</span>,  <span class="fl">3</span>,</span>
 <span>  <span class="fl">5</span>,  <span class="fl">2</span>,</span>
@@ -885,7 +885,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>如果<code><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank()</a></code>不符合你的需求，请查看它的变体函数<code><a href="https://dplyr.tidyverse.org/reference/row_number.html">dplyr::row_number()</a></code>、<code><a href="https://dplyr.tidyverse.org/reference/row_number.html">dplyr::dense_rank()</a></code>、<code><a href="https://dplyr.tidyverse.org/reference/percent_rank.html">dplyr::percent_rank()</a></code>和<code><a href="https://dplyr.tidyverse.org/reference/percent_rank.html">dplyr::cume_dist()</a></code>。查 看文档以获取详细信息。</p>
 <div class="cell">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    row_number <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
@@ -906,7 +906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>你可以通过选择适当的<code>ties.method</code>参数来使用 R 的基础函数<code><a href="https://rdrr.io/r/base/rank.html">rank()</a></code>来达到许多相同的结果；你也可能希望通过设置<code>na.last = "keep"</code>将 <code>NA</code>s 值保留为 <code>NA</code>。</p>
 <p><code><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number()</a></code>在 dplyr 的函数内部使用时也可以不带任何参数。在 这种情况下它会给出“当前”行的编号。当 与<code>%%</code>或<code>%/%</code>结合使用时，它可以成为将数据划分为大小相似的组的有用工具：</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -956,7 +956,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">13.5.3</span> 连续标识符</h3>
 <p>有时，每当某个事件发生时你都希望开始一个新组。例 如在查看网站数据时，你通常会希望将事件划分为不同会话（sessions），即当距离上次活动超过 <code>x</code> 分钟时你会开始一个新会话。比 如，想象你有某人访问网站的时间记录：</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">15</span>, <span class="fl">17</span>, <span class="fl">19</span>, <span class="fl">20</span>, <span class="fl">27</span>, <span class="fl">28</span>, <span class="fl">30</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -997,7 +997,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>创建分组变量的另一种方法是<code><a href="https://dplyr.tidyverse.org/reference/consecutive_id.html">consecutive_id()</a></code>，它会在其参数之一发生变化时开始一个新组。例 如，受到<a href="https://stackoverflow.com/questions/27482712">this stackoverflow question</a>的启发，假设你有一个包含许多重复值的数据框：</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
 <span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">9</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">199</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1447,7 +1447,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/r4ds\.hadley\.nz\/");
+      var filterRegex = new RegExp("https:\/\/qbgaoo\.github\.io\/r4ds\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -1788,13 +1788,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>R数据科学 (第二版) 由 Hadley Wickham等人编写</p>
+<p>此书英文版由 Hadley Wickham 等人编写</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/qbgaoo/r4ds-chinese/edit/main/numbers.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>此书利用 <a href="https://quarto.org/">Quarto</a>制作</p>
+<p>这是中文版, 由 Qing-Bin Gao 翻译</p>
 </div>
   </div>
 </footer>
