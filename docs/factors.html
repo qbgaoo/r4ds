@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.553">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund">
+
 <title>R数据科学 (第二版) - 16&nbsp; 因子</title>
 <style>
 code{white-space: pre-wrap;}
@@ -54,6 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -74,7 +78,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -100,13 +105,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "提交",
     "search-label": "搜索"
   }
-}</script><style>html{ scroll-behavior: smooth; }</style>
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
 <script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
+
+
 </head>
+
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -117,9 +128,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R数据科学 (第二版)</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -140,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">欢迎语</span></a>
@@ -166,8 +181,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">数据可视化</span></span></a>
@@ -216,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./visualize.html" class="sidebar-item-text sidebar-link">
@@ -225,8 +240,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./layers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">图层</span></span></a>
@@ -245,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./transform.html" class="sidebar-item-text sidebar-link">
@@ -254,8 +269,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logicals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">逻辑向量</span></span></a>
@@ -304,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./import.html" class="sidebar-item-text sidebar-link">
@@ -313,8 +328,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">电子表格</span></span></a>
@@ -345,7 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./program.html" class="sidebar-item-text sidebar-link">
@@ -354,8 +369,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">函数</span></span></a>
@@ -374,7 +389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./communicate.html" class="sidebar-item-text sidebar-link">
@@ -383,8 +398,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
@@ -397,46 +412,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">目 录</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目 录</h2>
    
   <ul>
-<li>
-<a href="#%E5%BC%95%E8%A8%80" id="toc-引言" class="nav-link active" data-scroll-target="#%E5%BC%95%E8%A8%80"><span class="header-section-number">16.1</span> 引言</a>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言"><span class="header-section-number">16.1</span> 引言</a>
   <ul class="collapse">
-<li><a href="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6" id="toc-必要条件" class="nav-link" data-scroll-target="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="header-section-number">16.1.1</span> 必要条件</a></li>
-  </ul>
-</li>
-  <li><a href="#%E5%9B%A0%E5%AD%90%E5%9F%BA%E7%A1%80" id="toc-因子基础" class="nav-link" data-scroll-target="#%E5%9B%A0%E5%AD%90%E5%9F%BA%E7%A1%80"><span class="header-section-number">16.2</span> 因子基础</a></li>
-  <li>
-<a href="#%E4%B8%80%E8%88%AC%E7%A4%BE%E4%BC%9A%E8%B0%83%E6%9F%A5" id="toc-一般社会调查" class="nav-link" data-scroll-target="#%E4%B8%80%E8%88%AC%E7%A4%BE%E4%BC%9A%E8%B0%83%E6%9F%A5"><span class="header-section-number">16.3</span> 一般社会调查</a>
+  <li><a href="#必要条件" id="toc-必要条件" class="nav-link" data-scroll-target="#必要条件"><span class="header-section-number">16.1.1</span> 必要条件</a></li>
+  </ul></li>
+  <li><a href="#因子基础" id="toc-因子基础" class="nav-link" data-scroll-target="#因子基础"><span class="header-section-number">16.2</span> 因子基础</a></li>
+  <li><a href="#一般社会调查" id="toc-一般社会调查" class="nav-link" data-scroll-target="#一般社会调查"><span class="header-section-number">16.3</span> 一般社会调查</a>
   <ul class="collapse">
-<li><a href="#%E7%BB%83%E4%B9%A0" id="toc-练习" class="nav-link" data-scroll-target="#%E7%BB%83%E4%B9%A0"><span class="header-section-number">16.3.1</span> 练习</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#sec-modifying-factor-order" id="toc-sec-modifying-factor-order" class="nav-link" data-scroll-target="#sec-modifying-factor-order"><span class="header-section-number">16.4</span> 修改因子顺序</a>
+  <li><a href="#练习" id="toc-练习" class="nav-link" data-scroll-target="#练习"><span class="header-section-number">16.3.1</span> 练习</a></li>
+  </ul></li>
+  <li><a href="#sec-modifying-factor-order" id="toc-sec-modifying-factor-order" class="nav-link" data-scroll-target="#sec-modifying-factor-order"><span class="header-section-number">16.4</span> 修改因子顺序</a>
   <ul class="collapse">
-<li><a href="#%E7%BB%83%E4%B9%A0-1" id="toc-练习-1" class="nav-link" data-scroll-target="#%E7%BB%83%E4%B9%A0-1"><span class="header-section-number">16.4.1</span> 练习</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#%E4%BF%AE%E6%94%B9%E5%9B%A0%E5%AD%90%E6%B0%B4%E5%B9%B3" id="toc-修改因子水平" class="nav-link" data-scroll-target="#%E4%BF%AE%E6%94%B9%E5%9B%A0%E5%AD%90%E6%B0%B4%E5%B9%B3"><span class="header-section-number">16.5</span> 修改因子水平</a>
+  <li><a href="#练习-1" id="toc-练习-1" class="nav-link" data-scroll-target="#练习-1"><span class="header-section-number">16.4.1</span> 练习</a></li>
+  </ul></li>
+  <li><a href="#修改因子水平" id="toc-修改因子水平" class="nav-link" data-scroll-target="#修改因子水平"><span class="header-section-number">16.5</span> 修改因子水平</a>
   <ul class="collapse">
-<li><a href="#%E7%BB%83%E4%B9%A0-2" id="toc-练习-2" class="nav-link" data-scroll-target="#%E7%BB%83%E4%B9%A0-2"><span class="header-section-number">16.5.1</span> 练习</a></li>
-  </ul>
-</li>
+  <li><a href="#练习-2" id="toc-练习-2" class="nav-link" data-scroll-target="#练习-2"><span class="header-section-number">16.5.1</span> 练习</a></li>
+  </ul></li>
   <li><a href="#sec-ordered-factors" id="toc-sec-ordered-factors" class="nav-link" data-scroll-target="#sec-ordered-factors"><span class="header-section-number">16.6</span> 有序因子</a></li>
-  <li><a href="#%E5%B0%8F%E7%BB%93" id="toc-小结" class="nav-link" data-scroll-target="#%E5%B0%8F%E7%BB%93"><span class="header-section-number">16.7</span> 小结</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/qbgaoo/r4ds-chinese/edit/main/factors.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li></ul></div></nav>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">16.7</span> 小结</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/qbgaoo/r4ds-chinese/edit/main/factors.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">转换</a></li><li class="breadcrumb-item"><a href="./factors.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">因子</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./transform.html">转换</a></li><li class="breadcrumb-item"><a href="./factors.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">因子</span></a></li></ol></nav>
+<div class="quarto-title">
 <h1 class="title"><span id="sec-factors" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">因子</span></span></h1>
 </div>
 
@@ -451,232 +464,239 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="引言" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="引言">
-<span class="header-section-number">16.1</span> 引言</h2>
+</header>
+
+
+<section id="引言" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="引言"><span class="header-section-number">16.1</span> 引言</h2>
 <p>因子用于分类变量，这些变量具有一组固定且已知的可能取值。当 你希望以非字母顺序显示字符向量时，它们也很有用。</p>
-<p>我们将从解释为什么数据分析需要因子 (factor)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 以及如何使用<code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>函数创建它们开始。 接着，我们将向您介绍<code>gss_cat</code>数据集，它包含一系列可供实验的分类变量。 之后，你将使用此数据集练习修改因子的顺序和值，最后我们将讨论有序因子。</p>
-<section id="必要条件" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="必要条件">
-<span class="header-section-number">16.1.1</span> 必要条件</h3>
+<p>我们将从解释为什么数据分析需要因子 (factor)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 以及如何使用<code>factor()</code>函数创建它们开始。 接着，我们将向您介绍<code>gss_cat</code>数据集，它包含一系列可供实验的分类变量。 之后，你将使用此数据集练习修改因子的顺序和值，最后我们将讨论有序因子。</p>
+<section id="必要条件" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="必要条件"><span class="header-section-number">16.1.1</span> 必要条件</h3>
 <p>基础 R 提供了一些用于创建和操作因子的基本工具。我 们将使用 <code>forcats</code> 包来补充这些工具，<code>forcats</code> 是 tidyverse 的一部分，它提供了处理分类变量 (它是 factors 的字母重新排列!) 的工具，并提供了多种与因子一起工作的辅助函数。</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="因子基础" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="因子基础">
-<span class="header-section-number">16.2</span> 因子基础</h2>
+</section>
+</section>
+<section id="因子基础" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="因子基础"><span class="header-section-number">16.2</span> 因子基础</h2>
 <p>假设你有一个记录月份的变量:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dec"</span>, <span class="st">"Apr"</span>, <span class="st">"Jan"</span>, <span class="st">"Mar"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Dec"</span>, <span class="st">"Apr"</span>, <span class="st">"Jan"</span>, <span class="st">"Mar"</span>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>使用字符串记录这个变量有两个问题:</p>
 <ol type="1">
-<li>
-<p>只有十二个可能的月份，而且没有什么能阻止你出现打字错误：</p>
+<li><p>只有十二个可能的月份，而且没有什么能阻止你出现打字错误：</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dec"</span>, <span class="st">"Apr"</span>, <span class="st">"Jam"</span>, <span class="st">"Mar"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</li>
-<li>
-<p>它并没有以有用的方式进行排序：</p>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Dec"</span>, <span class="st">"Apr"</span>, <span class="st">"Jam"</span>, <span class="st">"Mar"</span>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>它并没有以有用的方式进行排序：</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Apr" "Dec" "Jan" "Mar"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</li>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(x1)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Apr" "Dec" "Jan" "Mar"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
 </ol>
 <p>你可以使用因子（factor）来解决这两个问题。要 创建一个因子，首先需要创建一个有效水平 (<strong>levels</strong>) 的列表：</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">month_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, </span>
-<span>  <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span></span>
-<span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>month_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>现在你可以创建一个因子:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x1</span>, levels <span class="op">=</span> <span class="va">month_levels</span><span class="op">)</span></span>
-<span><span class="va">y1</span></span>
-<span><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
-<span><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] Jan Mar Apr Dec</span></span>
-<span><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(x1, <span class="at">levels =</span> month_levels)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y1</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(y1)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Jan Mar Apr Dec</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>任何不在水平列表中的值都将被静默地转换为NA（缺失值）：</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x2</span>, levels <span class="op">=</span> <span class="va">month_levels</span><span class="op">)</span></span>
-<span><span class="va">y2</span></span>
-<span><span class="co">#&gt; [1] Dec  Apr  &lt;NA&gt; Mar </span></span>
-<span><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(x2, <span class="at">levels =</span> month_levels)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y2</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Dec  Apr  &lt;NA&gt; Mar </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>这似乎有点风险，因此你可能想用<code><a href="https://forcats.tidyverse.org/reference/fct.html">forcats::fct()</a></code>来代替：</p>
+<p>这似乎有点风险，因此你可能想用<code>forcats::fct()</code>来代替：</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct.html">fct</a></span><span class="op">(</span><span class="va">x2</span>, levels <span class="op">=</span> <span class="va">month_levels</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `fct()`:</span></span>
-<span><span class="co">#&gt; ! All values of `x` must appear in `levels` or `na`</span></span>
-<span><span class="co">#&gt; ℹ Missing level: "Jam"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">fct</span>(x2, <span class="at">levels =</span> month_levels)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in `fct()`:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! All values of `x` must appear in `levels` or `na`</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Missing level: "Jam"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>如果省略了水平，则将按照字母顺序从数据中获取:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
-<span><span class="co">#&gt; Levels: Apr Dec Jan Mar</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(x1)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Apr Dec Jan Mar</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>按字母顺序排序稍有风险，因为并非每台计算机都会以相同的方式对字符串进行排序。因 此，<code><a href="https://forcats.tidyverse.org/reference/fct.html">forcats::fct()</a></code>是按照首次出现的顺序进行排序的：</p>
+<p>按字母顺序排序稍有风险，因为并非每台计算机都会以相同的方式对字符串进行排序。因 此，<code>forcats::fct()</code>是按照首次出现的顺序进行排序的：</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct.html">fct</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
-<span><span class="co">#&gt; Levels: Dec Apr Jan Mar</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fct</span>(x1)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Dec Apr Jan Mar</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Dec Apr Jan Mar</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>如果你需要直接访问有效的水平集合，可以使用<code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code>函数来做到这一点：</p>
+<p>如果你需要直接访问有效的水平集合，可以使用<code>levels()</code>函数来做到这一点：</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">y2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(y2)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>你也可以在使用<code>readr</code>包读取数据时，通过<code><a href="https://readr.tidyverse.org/reference/parse_factor.html">col_factor()</a></code>来创建一个因子：</p>
+<p>你也可以在使用<code>readr</code>包读取数据时，通过<code>col_factor()</code>来创建一个因子：</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">csv</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
-<span><span class="st">month,value</span></span>
-<span><span class="st">Jan,12</span></span>
-<span><span class="st">Feb,56</span></span>
-<span><span class="st">Mar,12"</span></span>
-<span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">csv</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span>month <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_factor.html">col_factor</a></span><span class="op">(</span><span class="va">month_levels</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">month</span></span>
-<span><span class="co">#&gt; [1] Jan Feb Mar</span></span>
-<span><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>csv <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">month,value</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">Jan,12</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">Feb,56</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">Mar,12"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv, <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">month =</span> <span class="fu">col_factor</span>(month_levels)))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>month</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Jan Feb Mar</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="一般社会调查" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="一般社会调查">
-<span class="header-section-number">16.3</span> 一般社会调查</h2>
-<p>在本章的剩余部分我们将使用<code><a href="https://forcats.tidyverse.org/reference/gss_cat.html">forcats::gss_cat</a></code>，它是来自一般社会调查 (<a href="https://gss.norc.org">General Social Survey</a>) 的样本数据。该 调查是由芝加哥大学独立研究机构NORC主导，在美国进行的一项长期调查。这 项调查包含数千个问题，因此在<code>gss_cat</code>中Hadley选择了一些问题来说明你在处理因子时会遇到的一些常见挑战。</p>
+</section>
+<section id="一般社会调查" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="一般社会调查"><span class="header-section-number">16.3</span> 一般社会调查</h2>
+<p>在本章的剩余部分我们将使用<code>forcats::gss_cat</code>，它是来自一般社会调查 (<a href="https://gss.norc.org">General Social Survey</a>) 的样本数据。该 调查是由芝加哥大学独立研究机构NORC主导，在美国进行的一项长期调查。这 项调查包含数千个问题，因此在<code>gss_cat</code>中Hadley选择了一些问题来说明你在处理因子时会遇到的一些常见挑战。</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span></span>
-<span><span class="co">#&gt; # A tibble: 21,483 × 9</span></span>
-<span><span class="co">#&gt;    year marital         age race  rincome        partyid           </span></span>
-<span><span class="co">#&gt;   &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;             </span></span>
-<span><span class="co">#&gt; 1  2000 Never married    26 White $8000 to 9999  Ind,near rep      </span></span>
-<span><span class="co">#&gt; 2  2000 Divorced         48 White $8000 to 9999  Not str republican</span></span>
-<span><span class="co">#&gt; 3  2000 Widowed          67 White Not applicable Independent       </span></span>
-<span><span class="co">#&gt; 4  2000 Never married    39 White Not applicable Ind,near rep      </span></span>
-<span><span class="co">#&gt; 5  2000 Divorced         25 White Not applicable Not str democrat  </span></span>
-<span><span class="co">#&gt; 6  2000 Married          25 White $20000 - 24999 Strong democrat   </span></span>
-<span><span class="co">#&gt; # ℹ 21,477 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: relig &lt;fct&gt;, denom &lt;fct&gt;, tvhours &lt;int&gt;</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>gss_cat</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 21,483 × 9</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    year marital         age race  rincome        partyid           </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;             </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  2000 Never married    26 White $8000 to 9999  Ind,near rep      </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2000 Divorced         48 White $8000 to 9999  Not str republican</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  2000 Widowed          67 White Not applicable Independent       </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  2000 Never married    39 White Not applicable Ind,near rep      </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  2000 Divorced         25 White Not applicable Not str democrat  </span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  2000 Married          25 White $20000 - 24999 Strong democrat   </span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 21,477 more rows</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 3 more variables: relig &lt;fct&gt;, denom &lt;fct&gt;, tvhours &lt;int&gt;</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>(记住，由于该数据集是由包提供的，因此可以使用<code><a href="https://forcats.tidyverse.org/reference/gss_cat.html">?gss_cat</a></code>获取有关变量的更多信息)</p>
-<p>当因子 (factors) 存储在tibble中时，你不能那么容易地看到它们的水平（levels）。查 看它们的一种方法是使用<code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>函数。</p>
+<p>(记住，由于该数据集是由包提供的，因此可以使用<code>?gss_cat</code>获取有关变量的更多信息)</p>
+<p>当因子 (factors) 存储在tibble中时，你不能那么容易地看到它们的水平（levels）。查 看它们的一种方法是使用<code>count()</code>函数。</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">race</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
-<span><span class="co">#&gt;   race      n</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Other  1959</span></span>
-<span><span class="co">#&gt; 2 Black  3129</span></span>
-<span><span class="co">#&gt; 3 White 16395</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(race)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   race      n</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt; &lt;int&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Other  1959</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Black  3129</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 White 16395</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>在处理因子时，两种最常见的操作是改变水平的顺序和改变水平的值。这 些操作将在下面的部分中描述。</p>
-<section id="练习" class="level3" data-number="16.3.1"><h3 data-number="16.3.1" class="anchored" data-anchor-id="练习">
-<span class="header-section-number">16.3.1</span> 练习</h3>
+<section id="练习" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="练习"><span class="header-section-number">16.3.1</span> 练习</h3>
 <ol type="1">
 <li><p>探索<code>rincome</code> (申报收入) 的分布。默 认的条形图为什么难以理解？如 何改进该图？</p></li>
 <li><p>这个调查中哪个<code>relig</code>最常见？哪 个<code>partyid</code>最常见？</p></li>
 <li><p><code>denom</code>（教派）适用于哪个宗教？你 如何用表格来查找？你 如何用可视化来查找？</p></li>
-</ol></section></section><section id="sec-modifying-factor-order" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="sec-modifying-factor-order">
-<span class="header-section-number">16.4</span> 修改因子顺序</h2>
+</ol>
+</section>
+</section>
+<section id="sec-modifying-factor-order" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="sec-modifying-factor-order"><span class="header-section-number">16.4</span> 修改因子顺序</h2>
 <p>在可视化中改变因子水平的顺序通常很有用。例 如，假设你想要探索不同宗教每天平均看电视的小时数：</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">relig_summary</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">relig</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
-<span>    tvhours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">tvhours</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">relig_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tvhours</span>, y <span class="op">=</span> <span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>relig_summary <span class="ot">&lt;-</span> gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(relig) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">tvhours =</span> <span class="fu">mean</span>(tvhours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(relig_summary, <span class="fu">aes</span>(<span class="at">x =</span> tvhours, <span class="at">y =</span> relig)) <span class="sc">+</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" alt="A scatterplot of with tvhours on the x-axis and religion on the y-axis. The y-axis is ordered seemingly aribtrarily making it hard to get any sense of overall pattern." width="576"></p>
+<figure class="figure">
+<p><img src="factors_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" alt="A scatterplot of with tvhours on the x-axis and religion on the y-axis. The y-axis is ordered seemingly aribtrarily making it hard to get any sense of overall pattern." width="576"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>这个图很难阅读，因为没有整体的模式。我 们可以使用<code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code>函数来重新排序<code>relig</code>的水平以改进它。<code>f</code> <code>ct_reorder()</code>接受三个参数：</p>
+<p>这个图很难阅读，因为没有整体的模式。我 们可以使用<code>fct_reorder()</code>函数来重新排序<code>relig</code>的水平以改进它。<code>f</code> <code>ct_reorder()</code>接受三个参数：</p>
 <ul>
-<li>
-<code>.f</code>, 要修改水平的因子；</li>
-<li>
-<code>.x</code>, 一个用于对水平重新排序的数字向量；</li>
+<li><code>.f</code>, 要修改水平的因子；</li>
+<li><code>.x</code>, 一个用于对水平重新排序的数字向量；</li>
 <li>可选参数，<code>.fun</code>是一个函数，在<code>.f</code>的每个值对应多个<code>.x</code>值时使用。默认值是<code>median</code>。</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">relig_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tvhours</span>, y <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">relig</span>, <span class="va">tvhours</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(relig_summary, <span class="fu">aes</span>(<span class="at">x =</span> tvhours, <span class="at">y =</span> <span class="fu">fct_reorder</span>(relig, tvhours))) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" alt="The same scatterplot as above, but now the religion is displayed in increasing order of tvhours. &quot;Other eastern&quot; has the fewest tvhours under 2, and &quot;Don't know&quot; has the highest (over 5)." width="576"></p>
+<figure class="figure">
+<p><img src="factors_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" alt="The same scatterplot as above, but now the religion is displayed in increasing order of tvhours. &quot;Other eastern&quot; has the fewest tvhours under 2, and &quot;Don't know&quot; has the highest (over 5)." width="576"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>宗教重新排序后，可以更容易看出“不知道”类别的人看电视更多，而印度教和其他东方宗教的人则看得更少。</p>
-<p>当你开始进行更复杂的转换时，我们建议你将它们从<code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>中移出，并放入一个单独的<code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>步骤中。例 如，你可以将上面的图形重写为：</p>
+<p>当你开始进行更复杂的转换时，我们建议你将它们从<code>aes()</code>中移出，并放入一个单独的<code>mutate()</code>步骤中。例 如，你可以将上面的图形重写为：</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">relig_summary</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">relig</span>, <span class="va">tvhours</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tvhours</span>, y <span class="op">=</span> <span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>relig_summary <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">relig =</span> <span class="fu">fct_reorder</span>(relig, tvhours)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tvhours, <span class="at">y =</span> relig)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>如果我们创建一个类似的图形来查看申报的收入水平如何随着平均年龄而变化，该怎么做呢？</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rincome_summary</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">rincome</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
-<span>    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rincome_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">rincome</span>, <span class="va">age</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rincome_summary <span class="ot">&lt;-</span> gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rincome) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rincome_summary, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="fu">fct_reorder</span>(rincome, age))) <span class="sc">+</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" alt="A scatterplot with age on the x-axis and income on the y-axis. Income has been reordered in order of average age which doesn't make much sense. One section of the y-axis goes from $6000-6999, then <$1000, then $8000-9999." width="576"></p>
+<figure class="figure">
+<p><img src="factors_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" alt="A scatterplot with age on the x-axis and income on the y-axis. Income has been reordered in order of average age which doesn't make much sense. One section of the y-axis goes from $6000-6999, then <$1000, then $8000-9999." width="576"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>在这里，随意重新排序水平不是一个好主意！因 为<code>rincome</code>已经有了一个基于原则的顺序，我们不应该随意打乱它。<code>f</code> <code>ct_reorder()</code>用于那些水平是任意排序的因子。</p>
-<p>但是，将“Not applicable”与其他特殊水平一起放在前面是有意义的。这 时可以使用<code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code>，这个函数接收一个因子<code>.f</code>，然后是你想移动到行前面的任意数量的水平。</p>
+<p>但是，将“Not applicable”与其他特殊水平一起放在前面是有意义的。这 时可以使用<code>fct_relevel()</code>，这个函数接收一个因子<code>.f</code>，然后是你想移动到行前面的任意数量的水平。</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rincome_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">rincome</span>, <span class="st">"Not applicable"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rincome_summary, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> <span class="fu">fct_relevel</span>(rincome, <span class="st">"Not applicable"</span>))) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" alt="The same scatterplot but now &quot;Not Applicable&quot; is displayed at the bottom of the y-axis. Generally there is a positive association between income and age, and the income band with the highethst average age is &quot;Not applicable&quot;." width="576"></p>
+<figure class="figure">
+<p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" alt="The same scatterplot but now &quot;Not Applicable&quot; is displayed at the bottom of the y-axis. Generally there is a positive association between income and age, and the income band with the highethst average age is &quot;Not applicable&quot;." width="576"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>你觉得为什么“不适用”的平均年龄这么高？</p>
 <p>另一种重新排序在你为图形上的线条着色时很有用。<code>f</code> <code>ct_reorder2(.f, .x, .y)</code>通过与<code>.x</code>值中最大的值相关联的<code>.y</code>值来重新排序因子<code>.f</code>。这 使得图形更容易阅读，因为图形最右边的线条颜色将与图例对齐。</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">by_age</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">marital</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    prop <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">by_age</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">prop</span>, color <span class="op">=</span> <span class="va">marital</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">by_age</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">prop</span>, color <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2</a></span><span class="op">(</span><span class="va">marital</span>, <span class="va">age</span>, <span class="va">prop</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"marital"</span><span class="op">)</span> </span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>by_age <span class="ot">&lt;-</span> gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age, marital) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_age, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> prop, <span class="at">color =</span> marital)) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(by_age, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> prop, <span class="at">color =</span> <span class="fu">fct_reorder2</span>(marital, age, prop))) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"marital"</span>) </span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -687,164 +707,178 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>最后，对于条形图，你可以使用<code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code>来按频数递减的顺序排列水平：这是最简单的重新排序类型，因为它不需要任何额外的变量。如 果你希望按频数递增的顺序排列它们（这样在条形图中最大的值位于右侧而不是左侧），可以将它与<code><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev()</a></code>结合使用。</p>
+<p>最后，对于条形图，你可以使用<code>fct_infreq()</code>来按频数递减的顺序排列水平：这是最简单的重新排序类型，因为它不需要任何额外的变量。如 果你希望按频数递增的顺序排列它们（这样在条形图中最大的值位于右侧而不是左侧），可以将它与<code>fct_rev()</code>结合使用。</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>marital <span class="op">=</span> <span class="va">marital</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">marital</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">marital =</span> marital <span class="sc">|&gt;</span> <span class="fu">fct_infreq</span>() <span class="sc">|&gt;</span> <span class="fu">fct_rev</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> marital)) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="factors_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" alt="A bar char of marital status ordered from least to most common: no answer (~0), separated (~1,000), widowed (~2,000), divorced (~3,000), never married (~5,000), married (~10,000)." width="576"></p>
+<figure class="figure">
+<p><img src="factors_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" alt="A bar char of marital status ordered from least to most common: no answer (~0), separated (~1,000), widowed (~2,000), divorced (~3,000), never married (~5,000), married (~10,000)." width="576"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="练习-1" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="练习-1">
-<span class="header-section-number">16.4.1</span> 练习</h3>
+<section id="练习-1" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="练习-1"><span class="header-section-number">16.4.1</span> 练习</h3>
 <ol type="1">
 <li><p><code>tvhours</code>中有一些可疑的大数。均 数是一个好的汇总吗？</p></li>
 <li><p>对于<code>gss_cat</code>中的每个因子，确定其水平的顺序是任意的还是遵循原则的。</p></li>
 <li><p>为什么将“Not applicable”移至水平的前端会使其在图的底部显示？</p></li>
-</ol></section></section><section id="修改因子水平" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="修改因子水平">
-<span class="header-section-number">16.5</span> 修改因子水平</h2>
-<p>比改变水平顺序更有影响力的是修改它们的值。这 允许你明确标签以便适合发表，合并水平以便更好显示。最 通用且强大的工具是<code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>，它允许你重编码或改变每个水平的值。例 如，从<code>gss_cat</code>数据框中取出<code>partyid</code>变量：</p>
+</ol>
+</section>
+</section>
+<section id="修改因子水平" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="修改因子水平"><span class="header-section-number">16.5</span> 修改因子水平</h2>
+<p>比改变水平顺序更有影响力的是修改它们的值。这 允许你明确标签以便适合发表，合并水平以便更好显示。最 通用且强大的工具是<code>fct_recode()</code>，它允许你重编码或改变每个水平的值。例 如，从<code>gss_cat</code>数据框中取出<code>partyid</code>变量：</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 10 × 2</span></span>
-<span><span class="co">#&gt;   partyid                n</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;              &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 No answer            154</span></span>
-<span><span class="co">#&gt; 2 Don't know             1</span></span>
-<span><span class="co">#&gt; 3 Other party          393</span></span>
-<span><span class="co">#&gt; 4 Strong republican   2314</span></span>
-<span><span class="co">#&gt; 5 Not str republican  3032</span></span>
-<span><span class="co">#&gt; 6 Ind,near rep        1791</span></span>
-<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span> <span class="fu">count</span>(partyid)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   partyid                n</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;              &lt;int&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 No answer            154</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Don't know             1</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Other party          393</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Strong republican   2314</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Not str republican  3032</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Ind,near rep        1791</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>这些水平的标签简洁且不一致。让 我们调整一下使它们更长，并且使用平行结构。和 tidyverse中大多数重命名和重新编码函数一样，新值在左侧，旧值在右侧：</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    partyid <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span><span class="va">partyid</span>,</span>
-<span>      <span class="st">"Republican, strong"</span>    <span class="op">=</span> <span class="st">"Strong republican"</span>,</span>
-<span>      <span class="st">"Republican, weak"</span>      <span class="op">=</span> <span class="st">"Not str republican"</span>,</span>
-<span>      <span class="st">"Independent, near rep"</span> <span class="op">=</span> <span class="st">"Ind,near rep"</span>,</span>
-<span>      <span class="st">"Independent, near dem"</span> <span class="op">=</span> <span class="st">"Ind,near dem"</span>,</span>
-<span>      <span class="st">"Democrat, weak"</span>        <span class="op">=</span> <span class="st">"Not str democrat"</span>,</span>
-<span>      <span class="st">"Democrat, strong"</span>      <span class="op">=</span> <span class="st">"Strong democrat"</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 10 × 2</span></span>
-<span><span class="co">#&gt;   partyid                   n</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;                 &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 No answer               154</span></span>
-<span><span class="co">#&gt; 2 Don't know                1</span></span>
-<span><span class="co">#&gt; 3 Other party             393</span></span>
-<span><span class="co">#&gt; 4 Republican, strong     2314</span></span>
-<span><span class="co">#&gt; 5 Republican, weak       3032</span></span>
-<span><span class="co">#&gt; 6 Independent, near rep  1791</span></span>
-<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, strong"</span>    <span class="ot">=</span> <span class="st">"Strong republican"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, weak"</span>      <span class="ot">=</span> <span class="st">"Not str republican"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near rep"</span> <span class="ot">=</span> <span class="st">"Ind,near rep"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near dem"</span> <span class="ot">=</span> <span class="st">"Ind,near dem"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, weak"</span>        <span class="ot">=</span> <span class="st">"Not str democrat"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, strong"</span>      <span class="ot">=</span> <span class="st">"Strong democrat"</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   partyid                   n</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;                 &lt;int&gt;</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 No answer               154</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Don't know                1</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Other party             393</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Republican, strong     2314</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Republican, weak       3032</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Independent, near rep  1791</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>会保留没有明确提及的水平不变，并且如果你不小心引用了不存在的水平，它会警告你。</p>
+<p><code>fct_recode()</code>会保留没有明确提及的水平不变，并且如果你不小心引用了不存在的水平，它会警告你。</p>
 <p>要合并水平，你可以将多个旧水平分配给同一个新水平：</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    partyid <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span><span class="va">partyid</span>,</span>
-<span>      <span class="st">"Republican, strong"</span>    <span class="op">=</span> <span class="st">"Strong republican"</span>,</span>
-<span>      <span class="st">"Republican, weak"</span>      <span class="op">=</span> <span class="st">"Not str republican"</span>,</span>
-<span>      <span class="st">"Independent, near rep"</span> <span class="op">=</span> <span class="st">"Ind,near rep"</span>,</span>
-<span>      <span class="st">"Independent, near dem"</span> <span class="op">=</span> <span class="st">"Ind,near dem"</span>,</span>
-<span>      <span class="st">"Democrat, weak"</span>        <span class="op">=</span> <span class="st">"Not str democrat"</span>,</span>
-<span>      <span class="st">"Democrat, strong"</span>      <span class="op">=</span> <span class="st">"Strong democrat"</span>,</span>
-<span>      <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"No answer"</span>,</span>
-<span>      <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"Don't know"</span>,</span>
-<span>      <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"Other party"</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">partyid =</span> <span class="fu">fct_recode</span>(partyid,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, strong"</span>    <span class="ot">=</span> <span class="st">"Strong republican"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Republican, weak"</span>      <span class="ot">=</span> <span class="st">"Not str republican"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near rep"</span> <span class="ot">=</span> <span class="st">"Ind,near rep"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Independent, near dem"</span> <span class="ot">=</span> <span class="st">"Ind,near dem"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, weak"</span>        <span class="ot">=</span> <span class="st">"Not str democrat"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Democrat, strong"</span>      <span class="ot">=</span> <span class="st">"Strong democrat"</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"No answer"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"Don't know"</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Other"</span>                 <span class="ot">=</span> <span class="st">"Other party"</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>请谨慎使用这种方法：如果你将真正不同的类别组合在一起，最终可能会得到误导性的结果。</p>
-<p>如果你想要合并很多水平，<code><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse()</a></code>是<code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>的一个有用的变体。对 于每个新变量，你可以提供一个旧水平的向量：</p>
+<p>如果你想要合并很多水平，<code>fct_collapse()</code>是<code>fct_recode()</code>的一个有用的变体。对 于每个新变量，你可以提供一个旧水平的向量：</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    partyid <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse</a></span><span class="op">(</span><span class="va">partyid</span>,</span>
-<span>      <span class="st">"other"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Other party"</span><span class="op">)</span>,</span>
-<span>      <span class="st">"rep"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Strong republican"</span>, <span class="st">"Not str republican"</span><span class="op">)</span>,</span>
-<span>      <span class="st">"ind"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ind,near rep"</span>, <span class="st">"Independent"</span>, <span class="st">"Ind,near dem"</span><span class="op">)</span>,</span>
-<span>      <span class="st">"dem"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Not str democrat"</span>, <span class="st">"Strong democrat"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
-<span><span class="co">#&gt;   partyid     n</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 other     548</span></span>
-<span><span class="co">#&gt; 2 rep      5346</span></span>
-<span><span class="co">#&gt; 3 ind      8409</span></span>
-<span><span class="co">#&gt; 4 dem      7180</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">partyid =</span> <span class="fu">fct_collapse</span>(partyid,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"other"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Other party"</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"rep"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Strong republican"</span>, <span class="st">"Not str republican"</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ind"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ind,near rep"</span>, <span class="st">"Independent"</span>, <span class="st">"Ind,near dem"</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"dem"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Not str democrat"</span>, <span class="st">"Strong democrat"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(partyid)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   partyid     n</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 other     548</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 rep      5346</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 ind      8409</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 dem      7180</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>有时你只是想将小的组合并在一起，以使绘图或表格更简洁。这 就是<code>fct_lump_*()</code>函数家族的任务。<code>f</code> <code>ct_lump_lowfreq()</code>是一个简单的起点，它逐步将最小的组类别合并为“Other”，并始终保持“Other”为最小的类别。</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_lowfreq</a></span><span class="op">(</span><span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">relig</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
-<span><span class="co">#&gt;   relig          n</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Protestant 10846</span></span>
-<span><span class="co">#&gt; 2 Other      10637</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_lump_lowfreq</span>(relig)) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(relig)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   relig          n</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Protestant 10846</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Other      10637</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>在这种情况下，它不是很有用：这项调查中的大多数美国人是新教徒，但我们可能想看到更多细节！相 反，我们可以使用<code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_n()</a></code>来指定我们正好想要10个组：</p>
+<p>在这种情况下，它不是很有用：这项调查中的大多数美国人是新教徒，但我们可能想看到更多细节！相 反，我们可以使用<code>fct_lump_n()</code>来指定我们正好想要10个组：</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gss_cat</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_n</a></span><span class="op">(</span><span class="va">relig</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">relig</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 10 × 2</span></span>
-<span><span class="co">#&gt;   relig          n</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Protestant 10846</span></span>
-<span><span class="co">#&gt; 2 Catholic    5124</span></span>
-<span><span class="co">#&gt; 3 None        3523</span></span>
-<span><span class="co">#&gt; 4 Christian    689</span></span>
-<span><span class="co">#&gt; 5 Other        458</span></span>
-<span><span class="co">#&gt; 6 Jewish       388</span></span>
-<span><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_lump_n</span>(relig, <span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(relig, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   relig          n</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Protestant 10846</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Catholic    5124</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 None        3523</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Christian    689</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Other        458</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Jewish       388</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>阅读文档了解<code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_min()</a></code>和<code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_prop()</a></code>，它们在其他情况下很有用。</p>
-<section id="练习-2" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="练习-2">
-<span class="header-section-number">16.5.1</span> 练习</h3>
+<p>阅读文档了解<code>fct_lump_min()</code>和<code>fct_lump_prop()</code>，它们在其他情况下很有用。</p>
+<section id="练习-2" class="level3" data-number="16.5.1">
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="练习-2"><span class="header-section-number">16.5.1</span> 练习</h3>
 <ol type="1">
 <li><p>人们将自己视为民主党人、共和党人和无党派人士的比例是如何随时间变化的？</p></li>
 <li><p>你如何将<code>rincome</code>合并成一小类？</p></li>
-<li><p>请注意上面的<code>fct_lump</code>示例中有9个组 (不包括其他) ，为什么不是10个？( 提示：键入<code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">?fct_lump</a></code>，并找到参数<code>other_level</code>的默认值为”Other”)</p></li>
-</ol></section></section><section id="sec-ordered-factors" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="sec-ordered-factors">
-<span class="header-section-number">16.6</span> 有序因子</h2>
-<p>在我们继续之前，有一种特殊的因子需要简要地提一下：有序因子。有 序因子使用<code><a href="https://rdrr.io/r/base/factor.html">ordered()</a></code>创建，表示水平之间存在严格的顺序和相等的距离：第一个水平“小于”第二个水平的程度与第二个水平“小于”第三个水平的程度相同，以此类推。在 输出时可以通过因子水平之间使用的<code>&lt;</code>来识别它们：</p>
+<li><p>请注意上面的<code>fct_lump</code>示例中有9个组 (不包括其他) ，为什么不是10个？( 提示：键入<code>?fct_lump</code>，并找到参数<code>other_level</code>的默认值为”Other”)</p></li>
+</ol>
+</section>
+</section>
+<section id="sec-ordered-factors" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="sec-ordered-factors"><span class="header-section-number">16.6</span> 有序因子</h2>
+<p>在我们继续之前，有一种特殊的因子需要简要地提一下：有序因子。有 序因子使用<code>ordered()</code>创建，表示水平之间存在严格的顺序和相等的距离：第一个水平“小于”第二个水平的程度与第二个水平“小于”第三个水平的程度相同，以此类推。在 输出时可以通过因子水平之间使用的<code>&lt;</code>来识别它们：</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">ordered</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] a b c</span></span>
-<span><span class="co">#&gt; Levels: a &lt; b &lt; c</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordered</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] a b c</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: a &lt; b &lt; c</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>在实践中，<code><a href="https://rdrr.io/r/base/factor.html">ordered()</a></code>因子与常规因子的行为非常相似。你 只有在以下两种情况下可能会注意到不同的行为：</p>
+<p>在实践中，<code>ordered()</code>因子与常规因子的行为非常相似。你 只有在以下两种情况下可能会注意到不同的行为：</p>
 <ul>
 <li>如果你在<code>ggplot2</code>中将有序因子映射到颜色或填充上，它将默认使用<code>scale_color_viridis()</code>/<code>scale_fill_viridis()</code>，这是一种暗含排名的颜色比例尺。</li>
 <li>如果你在线性模型中使用有序函数，它将使用“多边形对比”。这些对比有些用处，但除非你拥有统计学博士学位，否则你可能不会听说过它们，即使你有，你也可能不会常规地解释它们。如果你想了解更多，我们推荐阅读 Lisa DeBruine 写的<code>vignette("contrasts", package = "faux")</code>。</li>
 </ul>
 <p>鉴于这些差异有争议，我们一般不推荐使用有序因子。</p>
-</section><section id="小结" class="level2" data-number="16.7"><h2 data-number="16.7" class="anchored" data-anchor-id="小结">
-<span class="header-section-number">16.7</span> 小结</h2>
+</section>
+<section id="小结" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="小结"><span class="header-section-number">16.7</span> 小结</h2>
 <p>本章向你介绍了用于处理因子的实用包forcats，并介绍了最常用的函数。f orcats还包含了许多其他辅助函数，在这里我们没有足够的篇幅讨论它们；因此，每当你面临以前从未遇到的因子分析挑战时，我强烈建议你浏览<a href="https://forcats.tidyverse.org/reference/index.html">reference index</a>，看看是否有现成的函数可以帮助你解决问题。</p>
 <p>如果你在阅读本章后想了解更多关于因子的内容，我们建议您阅读Amelia McNamara和Nicholas Horton的论文《<a href="https://peerj.com/preprints/3163/">Wrangling categorical data in R</a>》。这 篇论文概述了<a href="https://simplystatistics.org/posts/2015-07-24-stringsasfactors-an-unauthorized-biography/">stringsAsFactors: An unauthorized biography</a>和<a href="https://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh">stringsAsFactors = &lt;sigh&gt;</a>中讨论的一些历史，并将本书中概述的分类数据的整齐方法与R基础方法进行了比较。这 篇论文的早期版本有助于推动forcats包的开发和范围确定；感谢Amelia和Nick！</p>
 <p>在下一章中，我们将转变话题，开始学习R中的日期和时间。日 期和时间看起来很简单，但你很快就会看到，随着对它们了解得越多，它们似乎变得越复杂！</p>
 
 
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
 <ol>
 <li id="fn1"><p>它们对建模也很重要。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1396,7 +1430,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="./regexps.html" class="pagination-link" aria-label="正则表达式">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">正则表达式</span></span>
       </a>          
@@ -1408,7 +1444,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
 <p>此书英文版由 Hadley Wickham 等人编写</p>
 </div>   
@@ -1420,6 +1457,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
+
+
 
 
 <script src="site_libs/quarto-html/zenscroll-min.js"></script>

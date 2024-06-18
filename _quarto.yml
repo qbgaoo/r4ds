@@ -74,8 +74,8 @@ book:
 format:
   html:
     theme:
-      light: [cosmo, r4ds.scss]
-      dark: [darkly, cosmo.scss]
+      light: [flatly, r4ds.scss]
+      dark: [darkly, dark.scss]
 
     code-link: true
     code-copy: true

@@ -483,15 +483,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="打开数据集" class="level2" data-number="22.3"><h2 data-number="22.3" class="anchored" data-anchor-id="打开数据集">
 <span class="header-section-number">22.3</span> 打开数据集</h2>
-<p>首先来查看一下数据。由 于该文件有 9GB，足够大，因此我们可能不想将整个文件加载到内存中。一 个很好的经验法则是，你通常希望至少有数据大小两倍的内存，而许多笔记本电脑的内存容量上限为16GB。这 意味着我们要避免使用 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>，而是使用 <code><a href="https://rdrr.io/pkg/arrow/man/open_dataset.html">arrow::open_dataset()</a></code>：</p>
+<p>首先来查看一下数据。由 于该文件有 9GB，足够大，因此我们可能不想将整个文件加载到内存中。一 个很好的经验法则是，你通常希望至少有数据大小两倍的内存，而许多笔记本电脑的内存容量上限为16GB。这 意味着我们要避免使用 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>，而是使用 <code><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html">arrow::open_dataset()</a></code>：</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/arrow/man/open_dataset.html">open_dataset</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html">open_dataset</a></span><span class="op">(</span></span>
 <span>  sources <span class="op">=</span> <span class="st">"data/seattle-library-checkouts.csv"</span>, </span>
-<span>  col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arrow/man/Schema.html">schema</a></span><span class="op">(</span>ISBN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/arrow/man/data-type.html">string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/Schema.html">schema</a></span><span class="op">(</span>ISBN <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html">string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"csv"</span></span>
 <span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>运行这段代码时发生了什么？<code>o</code> <code>pen_dataset()</code> 会扫描几千行数据以确定数据集的结构。<code>I</code> <code>SBN</code> 列在前 80,000 行中包含空值，因此我们必须指定列类型以帮助 arrow 确定数据结构。一 旦 <code><a href="https://rdrr.io/pkg/arrow/man/open_dataset.html">open_dataset()</a></code> 扫描了数据，它就会记录所发现的内容并停止；只有当你特别请求时，它才会进一步读取其他行。如 果我们输出<code>seattle_csv</code>，所看到的正是这些元数据。</p>
+<p>运行这段代码时发生了什么？<code>o</code> <code>pen_dataset()</code> 会扫描几千行数据以确定数据集的结构。<code>I</code> <code>SBN</code> 列在前 80,000 行中包含空值，因此我们必须指定列类型以帮助 arrow 确定数据结构。一 旦 <code><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html">open_dataset()</a></code> 扫描了数据，它就会记录所发现的内容并停止；只有当你特别请求时，它才会进一步读取其他行。如 果我们输出<code>seattle_csv</code>，所看到的正是这些元数据。</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_csv</span></span>
 <span><span class="co">#&gt; FileSystemDataset with 1 csv file</span></span>
@@ -562,14 +562,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="重写西雅图图书馆数据" class="level3" data-number="22.4.3"><h3 data-number="22.4.3" class="anchored" data-anchor-id="重写西雅图图书馆数据">
 <span class="header-section-number">22.4.3</span> 重写西雅图图书馆数据</h3>
 <p>让我们将这些想法应用于西雅图图书馆数据，以了解它们在实际操作中的表现。我 们将按 <code>CheckoutYear</code> 进行分区，因为某些分析可能只想查看最近的数据，并且按年份分区可以产生 18 个大小合理的块。</p>
-<p>为了重写数据，我们使用 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> 定义分区，然后使用 <code><a href="https://rdrr.io/pkg/arrow/man/write_dataset.html">arrow::write_dataset()</a></code> 将分区保存到目录中。<code>w</code> <code>rite_dataset()</code> 有两个重要参数：一个是用于创建文件的目录，一个是将使用的文件格式。</p>
+<p>为了重写数据，我们使用 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code> 定义分区，然后使用 <code><a href="https://arrow.apache.org/docs/r/reference/write_dataset.html">arrow::write_dataset()</a></code> 将分区保存到目录中。<code>w</code> <code>rite_dataset()</code> 有两个重要参数：一个是用于创建文件的目录，一个是将使用的文件格式。</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pq_path</span> <span class="op">&lt;-</span> <span class="st">"data/seattle-library-checkouts"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_csv</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">CheckoutYear</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/arrow/man/write_dataset.html">write_dataset</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pq_path</span>, format <span class="op">=</span> <span class="st">"parquet"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/write_dataset.html">write_dataset</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">pq_path</span>, format <span class="op">=</span> <span class="st">"parquet"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>这大约需要一分钟来运行；正如我们稍后将看到的，这是一项初始投资，通过使未来的操作变得更快而得到回报。</p>
 <p>让我们来看看刚刚生成了什么：</p>
@@ -587,9 +587,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>我们原本 9GB 的 CSV 文件已经被重写为 18 个 parquet 文件。这 些文件名采用了 <a href="https://hive.apache.org">Apache Hive</a>项目使用的“自描述”约定。H ive 风格的分区使用“key=value”约定来命名文件夹，所以正如你猜测的那样，名为 <code>CheckoutYear=2005</code> 的目录包含了所有 <code>CheckoutYear</code> 为 2005 的数据。每 个文件的大小在 100MB 到 300MB 之间，总大小现在大约是 4GB，略多于原始 CSV 文件大小的一半。这 是我们所期望的，因为 parquet 是一种更加高效的格式。</p>
 </section></section><section id="使用-dplyr-与-arrow" class="level2" data-number="22.5"><h2 data-number="22.5" class="anchored" data-anchor-id="使用-dplyr-与-arrow">
 <span class="header-section-number">22.5</span> 使用 dplyr 与 arrow</h2>
-<p>现在我们已经创建了这些 parquet 文件，接下来我们需要再次读取它们。我 们再次使用 <code><a href="https://rdrr.io/pkg/arrow/man/open_dataset.html">open_dataset()</a></code>，但这次我们给它提供一个目录：</p>
+<p>现在我们已经创建了这些 parquet 文件，接下来我们需要再次读取它们。我 们再次使用 <code><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html">open_dataset()</a></code>，但这次我们给它提供一个目录：</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_pq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/arrow/man/open_dataset.html">open_dataset</a></span><span class="op">(</span><span class="va">pq_path</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_pq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html">open_dataset</a></span><span class="op">(</span><span class="va">pq_path</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>现在我们可以编写我们的 dplyr 管道了。例 如，我们可以计算过去五年内每个月借出的书籍总数：</p>
 <div class="cell">
@@ -619,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # ℹ 3 variables: CheckoutYear &lt;int&gt;, CheckoutMonth &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   TotalCheckouts &lt;int&gt;</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>与 dbplyr 一样，arrow 只理解某些 R 表达式，因此你可能无法编写与通常完全一样的代码。但 是，所支持的操作和函数列表相当广泛且不断扩展；您可以在<code><a href="https://rdrr.io/pkg/arrow/man/acero.html">?acero</a></code>中找到当前支持的函数的完整列表。</p>
+<p>与 dbplyr 一样，arrow 只理解某些 R 表达式，因此你可能无法编写与通常完全一样的代码。但 是，所支持的操作和函数列表相当广泛且不断扩展；您可以在<code><a href="https://arrow.apache.org/docs/r/reference/acero.html">?acero</a></code>中找到当前支持的函数的完整列表。</p>
 <section id="sec-parquet-fast" class="level3" data-number="22.5.1"><h3 data-number="22.5.1" class="anchored" data-anchor-id="sec-parquet-fast">
 <span class="header-section-number">22.5.1</span> 性能</h3>
 <p>让我们快速看一下从 CSV 切换到 parquet 对性能的影响。首 先，让我们计算一下当数据作为单个大型 CSV 存储时，计算 2021 年每个月借出的书籍数量所需的时间：</p>
@@ -654,11 +654,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>这种性能上的巨大差异说明为什么将大型 CSV 转换为 parquet 是值得的！</p>
 </section><section id="使用duckdb与arrow" class="level3" data-number="22.5.2"><h3 data-number="22.5.2" class="anchored" data-anchor-id="使用duckdb与arrow">
 <span class="header-section-number">22.5.2</span> 使用duckdb与arrow</h3>
-<p>parquet 和 arrow 的最后一个优势是，通过调用<code><a href="https://rdrr.io/pkg/arrow/man/to_duckdb.html">arrow::to_duckdb()</a></code>可以非常轻松地将arrow 数据集转换为 DuckDB 数据库（ 参见 <a href="databases.html" class="quarto-xref"><span>章节 21</span></a> ）。</p>
-<p>There’s one last advantage of parquet and arrow — it’s very easy to turn an arrow dataset into a DuckDB database (<a href="databases.html" class="quarto-xref"><span>章节 21</span></a>) by calling <code><a href="https://rdrr.io/pkg/arrow/man/to_duckdb.html">arrow::to_duckdb()</a></code>:</p>
+<p>parquet 和 arrow 的最后一个优势是，通过调用<code><a href="https://arrow.apache.org/docs/r/reference/to_duckdb.html">arrow::to_duckdb()</a></code>可以非常轻松地将arrow 数据集转换为 DuckDB 数据库（ 参见 <a href="databases.html" class="quarto-xref"><span>章节 21</span></a> ）。</p>
+<p>There’s one last advantage of parquet and arrow — it’s very easy to turn an arrow dataset into a DuckDB database (<a href="databases.html" class="quarto-xref"><span>章节 21</span></a>) by calling <code><a href="https://arrow.apache.org/docs/r/reference/to_duckdb.html">arrow::to_duckdb()</a></code>:</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seattle_pq</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/arrow/man/to_duckdb.html">to_duckdb</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/to_duckdb.html">to_duckdb</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">CheckoutYear</span> <span class="op">&gt;=</span> <span class="fl">2018</span>, <span class="va">MaterialType</span> <span class="op">==</span> <span class="st">"BOOK"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">CheckoutYear</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>TotalCheckouts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Checkouts</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -670,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # A tibble: 0 × 2</span></span>
 <span><span class="co">#&gt; # ℹ 2 variables: CheckoutYear &lt;int&gt;, TotalCheckouts &lt;dbl&gt;</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code><a href="https://rdrr.io/pkg/arrow/man/to_duckdb.html">to_duckdb()</a></code>的巧妙之处在于，这种转换不涉及任何内存复制，并体现了 arrow 生态系统的目标：实现从一个计算环境到另一个计算环境的无缝过渡。</p>
+<p><code><a href="https://arrow.apache.org/docs/r/reference/to_duckdb.html">to_duckdb()</a></code>的巧妙之处在于，这种转换不涉及任何内存复制，并体现了 arrow 生态系统的目标：实现从一个计算环境到另一个计算环境的无缝过渡。</p>
 </section><section id="练习" class="level3" data-number="22.5.3"><h3 data-number="22.5.3" class="anchored" data-anchor-id="练习">
 <span class="header-section-number">22.5.3</span> 练习</h3>
 <ol type="1">
