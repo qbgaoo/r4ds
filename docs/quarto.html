@@ -734,8 +734,8 @@ superscript^2^ subscript~2~
 </div>
 </div>
 </li>
-<li><p>代码块产生的图形将具有有用的名称，使得在其他地方使用它们更加方便。更 多信息请参见@sec-figures 。</p></li>
-<li><p>你可以设置缓存代码块的网络，以避免在每次运行时重新执行耗时的计算。更 多信息请参见@sec-caching 。</p></li>
+<li><p>代码块产生的图形将具有有用的名称，使得在其他地方使用它们更加方便。更 多信息请参见 <a href="#sec-figures" class="quarto-xref"><span>小节 28.6</span></a>。</p></li>
+<li><p>你可以设置缓存代码块的网络，以避免在每次运行时重新执行耗时的计算。更 多信息请参见 <a href="#sec-caching" class="quarto-xref"><span>小节 28.8</span></a>。</p></li>
 </ol>
 <p>您的代码块标签应该简短但富有启发性，并且不应该包含空格。我 们建议使用连字符（<code>-</code>）来分隔单词（而不是下划线<code>_</code>），并避免在代码块标签中使用其他特殊字符。</p>
 <p>你通常可以随意标记你的代码块，但有一个代码块名称具有特殊行为：<code>setup</code>。当 你在笔记本模式下时，名为<code>setup</code>的代码块将自动运行一次，并且在运行任何其他代码之前。</p>
@@ -1099,45 +1099,45 @@ superscript^2^ subscript~2~
 </div>
 <p>设置后，这将把代码块的输出保存到磁盘上一个特别命名的文件中。在 后续的运行中，knitr 会检查代码是否发生了改变，如果没有改变，它将重用缓存的结果。</p>
 <p>使用缓存系统时需要谨慎，因为默认情况下它仅基于代码本身而不是其依赖项。例 如，这里的 <code>processed_data</code> 代码块依赖于 <code>raw-data</code> 代码块：</p>
-<pre><code>``` {{r}}
-#| label: raw-data
-#| cache: true
-
-rawdata &lt;- readr::read_csv("a_very_large_file.csv")
-```</code></pre>
-<pre><code>``` {{r}}
-#| label: processed_data
-#| cache: true
-
-processed_data &lt;- rawdata |&gt; 
-  filter(!is.na(import_var)) |&gt; 
-  mutate(new_variable = complicated_transformation(x, y, z))
-```</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a> <span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: raw-data</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="in">rawdata &lt;- readr::read_csv("a_very_large_file.csv")</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: processed_data</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="in">processed_data &lt;- rawdata |&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(!is.na(import_var)) |&gt; </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(new_variable = complicated_transformation(x, y, z))</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>缓存 <code>processed_data</code> 代码块意味着，如果 dplyr 管道发生了改变，它将会重新运行，但如果 <code>read_csv()</code> 调用发生了改变，它则不会重新运行。你 可以通过 <code>dependson</code> chunk 选项来避免这个问题：</p>
-<pre><code>``` {{r}}
-#| label: processed-data
-#| cache: true
-#| dependson: "raw-data"
-
-processed_data &lt;- rawdata |&gt; 
-  filter(!is.na(import_var)) |&gt; 
-  mutate(new_variable = complicated_transformation(x, y, z))
-```</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: processed-data</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="in">#| dependson: "raw-data"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="in">processed_data &lt;- rawdata |&gt; </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(!is.na(import_var)) |&gt; </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(new_variable = complicated_transformation(x, y, z))</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>dependson</code>应该包含一个字符向量，包含缓存代码块所依赖的每个代码块的名称。每 当 knitr 检测到其中一个依赖项发生变化时，它就会更新缓存代码块的结果。</p>
 <p>请注意，如果<code>a_very_large_file.csv</code>文件发生变化，代码块将不会更新，因为 knitr 缓存只跟踪<code>.qmd</code>文件内的变化。如 果你也想跟踪该文件的更改，你可以使用<code>cache.extra</code>选项。这 是一个任意的 R 表达式，当其发生变化时会使缓存失效。一 个很好的函数是<code><a href="https://rdrr.io/r/base/file.info.html">file.mtime()</a></code>：它返回文件最后一次修改的时间。然 后你可以这样写：</p>
-<pre><code>``` {{r}}
-#| label: raw-data
-#| cache: true
-#| cache.extra: !expr file.mtime("a_very_large_file.csv")
-
-rawdata &lt;- readr::read_csv("a_very_large_file.csv")
-```</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: raw-data</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache: true</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="in">#| cache.extra: !expr file.mtime("a_very_large_file.csv")</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="in">rawdata &lt;- readr::read_csv("a_very_large_file.csv")</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>我们遵循了 <a href="https://twitter.com/drob/status/738786604731490304">David Robinson</a> 的建议来命名这些代码块：每个代码块都以它所创建的主要对象命名。这 使得理解<code>dependson</code>规范变得更加容易。</p>
 <p>随着你的缓存策略逐渐变得更加复杂，定期使用<code><a href="https://rdrr.io/pkg/knitr/man/clean_cache.html">knitr::clean_cache()</a></code>清除所有缓存是一个明智的选择。</p>
 <section id="练习-6" class="level3" data-number="28.8.1"><h3 data-number="28.8.1" class="anchored" data-anchor-id="练习-6">
 <span class="header-section-number">28.8.1</span> 练习</h3>
 <ol type="1">
-<li>建立一个代码块的网络，其中 d 依赖于 c 和 b，而 b 和 c 都依赖于 a。让每个代码块都输出<code><a href="https://lubridate.tidyverse.org/reference/now.html">lubridate::now()</a></code>，设置<code>cache: true</code>，然后验证你对缓存的理解。</li>
+<li>建立一个代码块的网络，其中 d 依赖于 c 和 b，而 b 和 c 都依赖于 a。让每个代码块都输出<code><a href="https://rdrr.io/pkg/lubridate/man/now.html">lubridate::now()</a></code>，设置<code>cache: true</code>，然后验证你对缓存的理解。</li>
 </ol></section></section><section id="故障排除" class="level2" data-number="28.9"><h2 data-number="28.9" class="anchored" data-anchor-id="故障排除">
 <span class="header-section-number">28.9</span> 故障排除</h2>
 <p>Quarto 文档的故障排除可能会很有挑战性，因为你不再处于交互式的 R 环境中，需要学习一些新的技巧。此 外，错误可能是由于 Quarto 文档本身的问题，或者是由于 Quarto 文档中的 R 代码引起的。</p>

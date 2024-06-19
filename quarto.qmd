@@ -293,10 +293,10 @@ cat(readr::read_file("quarto/markdown.qmd"))
     ```
 
 2.  代码块产生的图形将具有有用的名称，使得在其他地方使用它们更加方便。更
-    多信息请参见\@sec-figures 。
+    多信息请参见 @sec-figures。
 
 3.  你可以设置缓存代码块的网络，以避免在每次运行时重新执行耗时的计算。更
-    多信息请参见\@sec-caching 。
+    多信息请参见 @sec-caching。
 
 您的代码块标签应该简短但富有启发性，并且不应该包含空格。我
 们建议使用连字符（`-`）来分隔单词（而不是下划线`_`），并避免在代码块标签中使用其他特殊字符。
@@ -600,7 +600,7 @@ execute:
 如，这里的 `processed_data` 代码块依赖于 `raw-data` 代码块：
 
 ````         
-``` {{r}}
+ ```{{r}}
 #| label: raw-data
 #| cache: true
 
@@ -608,8 +608,7 @@ rawdata <- readr::read_csv("a_very_large_file.csv")
 ```
 ````
 
-````         
-``` {{r}}
+```{{r}}
 #| label: processed_data
 #| cache: true
 
@@ -617,13 +616,11 @@ processed_data <- rawdata |>
   filter(!is.na(import_var)) |> 
   mutate(new_variable = complicated_transformation(x, y, z))
 ```
-````
 
 缓存 `processed_data` 代码块意味着，如果 dplyr 管道发生了改变，它将会重新运行，但如果 `read_csv()` 调用发生了改变，它则不会重新运行。你
 可以通过 `dependson` chunk 选项来避免这个问题：
 
-````         
-``` {{r}}
+```{{r}}
 #| label: processed-data
 #| cache: true
 #| dependson: "raw-data"
@@ -632,7 +629,6 @@ processed_data <- rawdata |>
   filter(!is.na(import_var)) |> 
   mutate(new_variable = complicated_transformation(x, y, z))
 ```
-````
 
 `dependson`应该包含一个字符向量，包含缓存代码块所依赖的每个代码块的名称。每
 当 knitr 检测到其中一个依赖项发生变化时，它就会更新缓存代码块的结果。
@@ -643,15 +639,13 @@ processed_data <- rawdata |>
 个很好的函数是`file.mtime()`：它返回文件最后一次修改的时间。然
 后你可以这样写：
 
-````         
-``` {{r}}
+```{{r}}
 #| label: raw-data
 #| cache: true
 #| cache.extra: !expr file.mtime("a_very_large_file.csv")
 
 rawdata <- readr::read_csv("a_very_large_file.csv")
 ```
-````
 
 我们遵循了 [David Robinson](https://twitter.com/drob/status/738786604731490304) 的建议来命名这些代码块：每个代码块都以它所创建的主要对象命名。这
 使得理解`dependson`规范变得更加容易。
