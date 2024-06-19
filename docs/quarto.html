@@ -449,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li>
-<a href="#%E8%A1%A8%E6%A0%BC" id="toc-表格" class="nav-link" data-scroll-target="#%E8%A1%A8%E6%A0%BC"><span class="header-section-number">28.7</span> 表格</a>
+<a href="#%E8%A1%A8" id="toc-表" class="nav-link" data-scroll-target="#%E8%A1%A8"><span class="header-section-number">28.7</span> 表</a>
   <ul class="collapse">
 <li><a href="#%E7%BB%83%E4%B9%A0-5" id="toc-练习-5" class="nav-link" data-scroll-target="#%E7%BB%83%E4%B9%A0-5"><span class="header-section-number">28.7.1</span> 练习</a></li>
   </ul>
@@ -945,9 +945,9 @@ superscript^2^ subscript~2~
 <li><p><code>out-width: "20%"</code></p></li>
 </ol>
 </li>
-</ol></section></section><section id="表格" class="level2" data-number="28.7"><h2 data-number="28.7" class="anchored" data-anchor-id="表格">
-<span class="header-section-number">28.7</span> 表格</h2>
-<p>与图形类似，你可以在 Quarto 文档中包含两种类型的表格。它 们可以是你在 Quarto 文档中直接创建的 Markdown 表格（使用<em>Insert Table</em>菜单），也可以是代码块执行结果生成的表格。在 本节中，我们将重点关注后者，即通过计算生成的表格。</p>
+</ol></section></section><section id="表" class="level2" data-number="28.7"><h2 data-number="28.7" class="anchored" data-anchor-id="表">
+<span class="header-section-number">28.7</span> 表</h2>
+<p>与图形类似，你可以在 Quarto 文档中包含两种类型的表。它 们可以是你在 Quarto 文档中直接创建的 Markdown 表（使用<em>Insert Table</em>菜单），也可以是代码块执行结果生成的表。在 本节中，我们将重点关注后者，即通过计算生成的表。</p>
 <p>默认情况下，Quarto 会以你在控制台中看到的方式显示数据框和矩阵：</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span></span>
@@ -958,7 +958,7 @@ superscript^2^ subscript~2~
 <span><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
 <span><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>如果你希望数据以其他的格式显示，你可以使用<code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>函数。下 面的代码生成了@tbl-kable 。</p>
+<p>如果你希望数据以其他的格式显示，你可以使用<code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>函数。下 面的代码生成了 <a href="#tbl-kable" class="quarto-xref">表&nbsp;<span>28.1</span></a>。</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>, <span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-kable" class="cell quarto-float anchored">
@@ -1078,7 +1078,7 @@ superscript^2^ subscript~2~
 <span class="header-section-number">28.7.1</span> 练习</h3>
 <ol type="1">
 <li>在可视化编辑器中打开 <code>diamond-sizes.qmd</code> 文件，插入一个代码块，并使用<code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable()</a></code>添加一个表格，显示 <code>diamonds</code> 数据框的前 5 行。</li>
-<li>使用&nbsp;<code><a href="https://gt.rstudio.com/reference/gt.html">gt::gt()</a></code>&nbsp;来显示相同的表格。</li>
+<li>使用<code><a href="https://gt.rstudio.com/reference/gt.html">gt::gt()</a></code>来显示相同的表格。</li>
 <li>为代码块添加一个以 <code>tbl-</code> 为前缀的标签，并使用 chunk 选项 <code>tbl-cap</code> 为表格添加标题。然后，编辑代码块上方的文本，使用<em>Insert &gt; Cross Reference</em>为表格添加交叉引用。</li>
 </ol></section></section><section id="sec-caching" class="level2" data-number="28.8"><h2 data-number="28.8" class="anchored" data-anchor-id="sec-caching">
 <span class="header-section-number">28.8</span> 缓存</h2>
@@ -1137,7 +1137,7 @@ superscript^2^ subscript~2~
 <section id="练习-6" class="level3" data-number="28.8.1"><h3 data-number="28.8.1" class="anchored" data-anchor-id="练习-6">
 <span class="header-section-number">28.8.1</span> 练习</h3>
 <ol type="1">
-<li>建立一个代码块的网络，其中 d 依赖于 c 和 b，而 b 和 c 都依赖于 a。让每个代码块都输出<code><a href="https://rdrr.io/pkg/lubridate/man/now.html">lubridate::now()</a></code>，设置<code>cache: true</code>，然后验证你对缓存的理解。</li>
+<li>建立一个代码块的网络，其中 d 依赖于 c 和 b，而 b 和 c 都依赖于 a。让每个代码块都输出<code><a href="https://lubridate.tidyverse.org/reference/now.html">lubridate::now()</a></code>，设置<code>cache: true</code>，然后验证你对缓存的理解。</li>
 </ol></section></section><section id="故障排除" class="level2" data-number="28.9"><h2 data-number="28.9" class="anchored" data-anchor-id="故障排除">
 <span class="header-section-number">28.9</span> 故障排除</h2>
 <p>Quarto 文档的故障排除可能会很有挑战性，因为你不再处于交互式的 R 环境中，需要学习一些新的技巧。此 外，错误可能是由于 Quarto 文档本身的问题，或者是由于 Quarto 文档中的 R 代码引起的。</p>
