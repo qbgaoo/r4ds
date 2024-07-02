@@ -265,12 +265,9 @@ flights |>
 ```
 
 默认情况下，mutate()会在数据集的右侧添加新列，但这使得我们很难看到数据集里发生了什么。可
-以使用.before参数来将变量添加到左侧：
+以使用.before参数来将变量添加到左侧[^data-transform-2]：
 
-By default, mutate() adds new columns on the right hand side of your dataset, which makes it difficult to see what's happening here.
-We can use the .before argument to instead add the variables to the left hand side[^data-transform-2]:
-
-[^data-transform-2]: Remember that in RStudio, the easiest way to see a dataset with many columns is `View()`.
+[^data-transform-2]: 在RStudio中，查看包含多列的数据集最简单的方法是View()。
 
 ```{r}
 flights |> 

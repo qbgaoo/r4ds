@@ -473,7 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>“简单的图表比任何其他工具都能给数据分析师带来更多的信息.”</p>
 <p>— John Tukey</p>
 </blockquote>
-<p>R虽然有几个制图系统, 但ggplot2是最优雅、功能最多的一个系统。 ggplot2实现了描述和构建图形的连贯系统，即<strong>图形的语法</strong>。基 于ggplot2，通过学习一个系统并将其应用于许多地方，你可以做更多的事情而且速度更快。</p>
+<p>R虽然有几个制图系统，但ggplot2是最优雅、功能最多的一个系统， ggplot2实现了描述和构建图形的连贯系统，即图形的语法。基 于ggplot2，通过学习一个系统并将其应用于许多地方，你可以做更多的事情而且速度更快。</p>
 <p>本章将告诉你如何利用<strong>ggplot2</strong>可视化数据。我 们将首先创建一个简单的散点图，并用它引入ggplot2的基本构建模块，美学映射和几何对象。然 后将引导你可视化单个变量的分布以及可视化两个或多个变量之间的关系。最 后，保存所做的图和一些故障排除提示。</p>
 <section id="必要条件" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="必要条件">
 <span class="header-section-number">1.1.1</span> 必要条件</h3>
@@ -813,7 +813,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>您将在@sec-factors 中学到更多关于因子和处理因子的函数（如上面用到的<code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code>）。</p>
+<p>您将在 <a href="factors.html" class="quarto-xref"><span>章节 16</span></a> 中学到更多关于因子和处理因子的函数（如上面用到的<code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code>）。</p>
 </section><section id="数值变量" class="level3" data-number="1.4.2"><h3 data-number="1.4.2" class="anchored" data-anchor-id="数值变量">
 <span class="header-section-number">1.4.2</span> 数值变量</h3>
 <p>如果一个变量可以在一个大的数值范围内取值，并且对这些数值进行加、减或取平均数是有意义的，那么这个变量就是数值型（或定量型）的。数 值型变量可以是连续的，也可以是离散的。</p>
@@ -1000,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>在@sec-layers 中，你将学习许多其他用于可视化变量分布以及它们之间关系的几何对象（geoms）。</p>
+<p>在 <a href="layers.html" class="quarto-xref"><span>章节 9</span></a> 中，你将学习许多其他用于可视化变量分布以及它们之间关系的几何对象（geoms）。</p>
 </section><section id="练习-2" class="level3" data-number="1.5.5"><h3 data-number="1.5.5" class="anchored" data-anchor-id="练习-2">
 <span class="header-section-number">1.5.5</span> 练习</h3>
 <ol type="1">
@@ -1042,7 +1042,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>这会将图保存到工作目录, 您会在@sec-workflow-scripts-projects 中更多地了解这个概念。</p>
 <p>如果你没有指定<code>width</code>和<code>height</code>，则将从当前绘图设备的尺寸中获取它们。为 了代码的可重复性，你应该指定它们。可 以在文档中了解更多关于<code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>的信息。</p>
-<p>然而，一般来说，我们推荐你使用Quarto来组合你的最终报告，Quarto是一个可重复的创作系统，它允许你将代码和文本穿插在一起，并自动将你的图包含在报告中。你 将在@sec-quarto 中了解更多关于Quarto的信息。</p>
+<p>然而，一般来说，我们推荐你使用Quarto来组合你的最终报告，Quarto是一个可重复的创作系统，它允许你将代码和文本穿插在一起，并自动将你的图包含在报告中。你 将在 <a href="quarto.html" class="quarto-xref"><span>章节 28</span></a> 中了解更多关于Quarto的信息。</p>
 <section id="练习-3" class="level3" data-number="1.6.1"><h3 data-number="1.6.1" class="anchored" data-anchor-id="练习-3">
 <span class="header-section-number">1.6.1</span> 练习</h3>
 <ol type="1">
@@ -1071,7 +1071,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="小结" class="level2" data-number="1.8"><h2 data-number="1.8" class="anchored" data-anchor-id="小结">
 <span class="header-section-number">1.8</span> 小结</h2>
 <p>在本章中，你学习了使用ggplot2进行数据可视化的基础知识。我 们首先介绍了ggplot2的基本原理：可视化是一种将你的数据中的变量映射到诸如位置、颜色、大小和形状等美学属性的过程。然 后，你学习了如何逐层增加复杂性并改进你的图表的呈现方式。你 还学习了如何利用额外的美学映射和/或通过将图表分割成多个小图（faceting）来可视化单个变量的分布以及两个或多个变量之间的关系。</p>
-<p>在本书中，我们将反复使用可视化，并在需要时介绍新的技术；同时在@sec-layers 到@sec-communication 中更深入地探讨使用ggplot2创建可视化。</p>
+<p>在本书中，我们将反复使用可视化，并在需要时介绍新的技术；同时在 <a href="layers.html" class="quarto-xref"><span>章节 9</span></a> 到 <a href="communication.html" class="quarto-xref"><span>章节 11</span></a> 中更深入地探讨使用ggplot2创建可视化。</p>
 <p>掌握了可视化的基础后，我们将在下一章中稍微转换一下方向，给你一些实用的工作流程建议。我 们在本书的这一部分穿插了工作流程建议和数据科学工具，因为这将帮助你在编写越来越多的R代码时保持组织有序。</p>
 
 

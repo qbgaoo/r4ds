@@ -12,8 +12,7 @@ source("_common.R")
 >
 > --- John Tukey
 
-R虽然有几个制图系统, 但ggplot2是最优雅、功能最多的一个系统。
-ggplot2实现了描述和构建图形的连贯系统，即**图形的语法**。基
+R虽然有几个制图系统，但ggplot2是最优雅、功能最多的一个系统， ggplot2实现了描述和构建图形的连贯系统，即图形的语法。基
 于ggplot2，通过学习一个系统并将其应用于许多地方，你可以做更多的事情而且速度更快。
 
 本章将告诉你如何利用**ggplot2**可视化数据。我
@@ -523,7 +522,7 @@ ggplot(penguins, aes(x = fct_infreq(species))) +
   geom_bar()
 ```
 
-您将在\@sec-factors 中学到更多关于因子和处理因子的函数（如上面用到的`fct_infreq()`）。
+您将在 @sec-factors 中学到更多关于因子和处理因子的函数（如上面用到的`fct_infreq()`）。
 
 ### 数值变量
 
@@ -778,7 +777,7 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   facet_wrap(~island)
 ```
 
-在\@sec-layers 中，你将学习许多其他用于可视化变量分布以及它们之间关系的几何对象（geoms）。
+在 @sec-layers 中，你将学习许多其他用于可视化变量分布以及它们之间关系的几何对象（geoms）。
 
 ### 练习
 
@@ -857,7 +856,7 @@ file.remove("penguin-plot.png")
 以在文档中了解更多关于`ggsave()`的信息。
 
 然而，一般来说，我们推荐你使用Quarto来组合你的最终报告，Quarto是一个可重复的创作系统，它允许你将代码和文本穿插在一起，并自动将你的图包含在报告中。你
-将在\@sec-quarto 中了解更多关于Quarto的信息。
+将在 @sec-quarto 中了解更多关于Quarto的信息。
 
 ### 练习
 
@@ -917,7 +916,7 @@ ggplot(data = mpg)
 后，你学习了如何逐层增加复杂性并改进你的图表的呈现方式。你
 还学习了如何利用额外的美学映射和/或通过将图表分割成多个小图（faceting）来可视化单个变量的分布以及两个或多个变量之间的关系。
 
-在本书中，我们将反复使用可视化，并在需要时介绍新的技术；同时在\@sec-layers 到\@sec-communication 中更深入地探讨使用ggplot2创建可视化。
+在本书中，我们将反复使用可视化，并在需要时介绍新的技术；同时在 @sec-layers 到 @sec-communication 中更深入地探讨使用ggplot2创建可视化。
 
 掌握了可视化的基础后，我们将在下一章中稍微转换一下方向，给你一些实用的工作流程建议。我
 们在本书的这一部分穿插了工作流程建议和数据科学工具，因为这将帮助你在编写越来越多的R代码时保持组织有序。

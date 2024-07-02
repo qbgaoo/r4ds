@@ -765,7 +765,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">123.456</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 123</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>你可以使用第二个参数<code>digits</code>来控制四舍五入的精度。<code>r</code> <code>ound(x, digits)</code>会将<code>x</code>四舍五入到最近的 <code>10^-n</code>，所以<code>digits = 2</code>会将<code>x</code>四舍五入到最近的 0.01。这 个定义很有用，因为它意味着<code>round(x, -3)</code>会将<code>x</code>四舍五入到最近的千位，而它确实是这样做的：</p>
+<p>你可以使用第二个参数<code>digits</code>来控制四舍五入的精度。<code>round(x, digits)</code>会将<code>x</code>四舍五入到最近的 <code>10^-n</code>，所以<code>digits = 2</code>会将<code>x</code>四舍五入到最近的 0.01。这 个定义很有用，因为它意味着<code>round(x, -3)</code>会将<code>x</code>四舍五入到最近的千位，而它确实是这样做的：</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">123.456</span>, <span class="fl">2</span><span class="op">)</span>  <span class="co"># two digits</span></span>
 <span><span class="co">#&gt; [1] 123.46</span></span>
@@ -782,7 +782,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [1] 2 2</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>使用的是所谓的“向偶数舍入”或“银行家舍入”方法：如果一个数字正好在两个整数之间，那么它会被舍入到偶数整数。这 是一个很好的策略，因为它使得舍入是无偏的：一半的 0.5 被向上舍入，而另一半被向下舍入。</p>
-<p><code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>与<code><a href="https://rdrr.io/r/base/Round.html">floor()</a></code>和<code><a href="https://rdrr.io/r/base/Round.html">ceiling()</a></code>相对应。<code>f</code> <code>loor()</code>总是向下舍入，而<code><a href="https://rdrr.io/r/base/Round.html">ceiling()</a></code>总是向上舍入。</p>
+<p><code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>与<code><a href="https://rdrr.io/r/base/Round.html">floor()</a></code>和<code><a href="https://rdrr.io/r/base/Round.html">ceiling()</a></code>相对应。<code><a href="https://rdrr.io/r/base/Round.html">floor()</a></code>总是向下舍入，而<code><a href="https://rdrr.io/r/base/Round.html">ceiling()</a></code>总是向上舍入。</p>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">123.456</span></span>
 <span></span>
