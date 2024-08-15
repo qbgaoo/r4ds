@@ -10,11 +10,11 @@ book:
     left: |
       此书英文版由 Hadley Wickham 等人编写
     right: |
-      这是中文版, 由 Qing-Bin Gao 翻译
+      这是中文版, 由 Frank Gao 翻译
   cover-image: cover.jpg
   favicon: cover.jpg
   site-url: https://qbgaoo.github.io/r4ds/
-  repo-url: https://github.com/qbgaoo/r4ds-chinese/
+  repo-url: https://github.com/qbgaoo/r4ds/
   repo-branch: main
   repo-actions: [edit]
 
