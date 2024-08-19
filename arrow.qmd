@@ -123,9 +123,6 @@ seattle_csv |>
 为了让这些数据更易于处理，我们将切换到 parquet 文件格式，并将其拆分成多个文件。接
 下来的部分将首先向你介绍 parquet 和分区，然后将我们学到的知识应用于西雅图图书馆数据。
 
-To make this data easier to work with, let's switch to the parquet file format and split it up into multiple files.
-The following sections will first introduce you to parquet and partitioning, and then apply what we learned to the Seattle library data.
-
 ### parquet 的优势
 
 和 CSV 一样，parquet 用于矩形数据，但它不是任何文件编辑器都可以读取的文本格式，而是一个专门为大数据需求设计的自定义二进制格式。这
