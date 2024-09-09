@@ -191,9 +191,6 @@ read_csv(
 在其他情况下，数据可能没有列名。你
 可以使用`col_names = FALSE`来告诉 `read_csv()`不要将第一行作为标题，而是从`X1`到`Xn`顺序地给它们标记列名：
 
-In other cases, the data might not have column names.
-You can use `col_names = FALSE` to tell `read_csv()` not to treat the first row as headings and instead label them sequentially from `X1` to `Xn`:
-
 ```{r}
 #| message: false
 
@@ -375,7 +372,7 @@ readr总共提供了九种列类型供您使用:
 -   `col_logical()`和`col_double()`分别用于读取逻辑值和实数。由于readr 通常会自动为你猜测这些类型，因此它们相对不常用（除了上述情况）；
 -   `col_integer()` 用于读取整数。在本书中，我们很少区分整数和双精度浮点数，因为它们在功能上是等价的，但明确读取整数有时是有用的，因为它们占用的内存只有双精度浮点数的一半；
 -   `col_character()` 用于读取字符串。当某列是数字标识符时，明确指定它可以很有用，例如，用于标识对象的长数字序列，但对这些数字应用数学运算没有意义。示例包括电话号码、社会保障号码、信用卡号码等；
--   `col_factor()`, `col_date()`和`col_datetime()` 分别用于创建因子、日期和日期-时间；当我们在\@sec-factors 和 @sec-dates-and-times 学习这些数据类型时，你会了解更多相关信息；
+-   `col_factor()`, `col_date()`和`col_datetime()` 分别用于创建因子、日期和日期-时间；当我们 @sec-factors 和 @sec-dates-and-times 学习这些数据类型时，你会了解更多相关信息；
 -   `col_number()` 是一个宽容的数字解析器，它将忽略非数字部分，特别适用于货币。在\@sec-numbers 你将了解更多相关信息；
 -   `col_skip()` 用于跳过某列，使其不包含在结果中；这在处理大型 CSV 文件且只想使用其中的某些列时有用，可以加快数据读取速度。
 
