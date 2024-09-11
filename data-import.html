@@ -725,7 +725,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     2     3</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>在其他情况下，数据可能没有列名。你 可以使用<code>col_names = FALSE</code>来告诉&nbsp;<code>read_csv()</code>不要将第一行作为标题，而是从<code>X1</code>到<code>Xn</code>顺序地给它们标记列名：</p>
-<p>In other cases, the data might not have column names. You can use <code>col_names = FALSE</code> to tell <code>read_csv()</code> not to treat the first row as headings and instead label them sequentially from <code>X1</code> to <code>Xn</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1,2,3</span></span>
@@ -889,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>col_logical()</code>和<code>col_double()</code>分别用于读取逻辑值和实数。由于readr 通常会自动为你猜测这些类型，因此它们相对不常用（除了上述情况）；</li>
 <li><code>col_integer()</code> 用于读取整数。在本书中，我们很少区分整数和双精度浮点数，因为它们在功能上是等价的，但明确读取整数有时是有用的，因为它们占用的内存只有双精度浮点数的一半；</li>
 <li><code>col_character()</code> 用于读取字符串。当某列是数字标识符时，明确指定它可以很有用，例如，用于标识对象的长数字序列，但对这些数字应用数学运算没有意义。示例包括电话号码、社会保障号码、信用卡号码等；</li>
-<li><code>col_factor()</code>, <code>col_date()</code>和<code>col_datetime()</code> 分别用于创建因子、日期和日期-时间；当我们在@sec-factors 和 <a href="datetimes.html" class="quarto-xref"><span>章节 17</span></a> 学习这些数据类型时，你会了解更多相关信息；</li>
+<li><code>col_factor()</code>, <code>col_date()</code>和<code>col_datetime()</code> 分别用于创建因子、日期和日期-时间；当我们 <a href="factors.html" class="quarto-xref"><span>章节 16</span></a> 和 <a href="datetimes.html" class="quarto-xref"><span>章节 17</span></a> 学习这些数据类型时，你会了解更多相关信息；</li>
 <li><code>col_number()</code> 是一个宽容的数字解析器，它将忽略非数字部分，特别适用于货币。在@sec-numbers 你将了解更多相关信息；</li>
 <li><code>col_skip()</code> 用于跳过某列，使其不包含在结果中；这在处理大型 CSV 文件且只想使用其中的某些列时有用，可以加快数据读取速度。</li>
 </ul>
